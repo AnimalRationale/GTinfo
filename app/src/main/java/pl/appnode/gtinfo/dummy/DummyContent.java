@@ -25,9 +25,9 @@ public class DummyContent {
 
     static {
         // Add 3 sample items.
-        addItem(new DummyItem("1", "Item 1"));
-        addItem(new DummyItem("2", "Item 2"));
-        addItem(new DummyItem("3", "Item 3"));
+        addItem(new DummyItem("37.152.48.105:2302", "DMR PVE"));
+        addItem(new DummyItem("149.202.110.186:2302", "Road to Exile"));
+        addItem(new DummyItem("5.39.72.122:2302", "ATD"));
     }
 
     private static void addItem(DummyItem item) {
