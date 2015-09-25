@@ -1,10 +1,14 @@
 package pl.appnode.gtinfo;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.webkit.WebView;
 import android.widget.TextView;
 
@@ -52,12 +56,22 @@ public class GameServerItemDetailFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_gameserveritem_detail, container, false);
 
-        // Show the dummy content as text in a TextView.
         if (mItem != null) {
             WebView gameServerWebView = (WebView) rootView.findViewById(R.id.gameServerInfoWebview);
             String url = "http://cache.www.gametracker.com/components/html0/?host="
                     + mItem.id
-                    + "&bgColor=373E28&fontColor=D2E1B5&titleBgColor=2E3225&titleColor=FFFFFF&borderColor=3E4433&linkColor=889C63&borderLinkColor=828E6B&showMap=1&currentPlayersHeight=150&showCurrPlayers=1&showTopPlayers=0&showBlogs=0&width=240" + "";
+                    + "&bgColor=373E28&fontColor=D2E1B5"
+                    + "&titleBgColor=2E3225"
+                    + "&titleColor=FFFFFF"
+                    + "&borderColor=3E4433"
+                    + "&linkColor=889C63"
+                    + "&borderLinkColor=828E6B"
+                    + "&showMap=1"
+                    + "&currentPlayersHeight=150"
+                    + "&showCurrPlayers=1"
+                    + "&showTopPlayers=0"
+                    + "&showBlogs=0"
+                    + "&width=240";
             gameServerWebView.loadUrl(url);
         }
         return rootView;

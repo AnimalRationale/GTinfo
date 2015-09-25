@@ -1,8 +1,10 @@
 package pl.appnode.gtinfo;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
 
 
 /**
@@ -21,7 +23,7 @@ import android.support.v4.app.FragmentActivity;
  * {@link GameServerItemListFragment.Callbacks} interface
  * to listen for item selections.
  */
-public class GameServerItemListActivity extends FragmentActivity
+public class GameServerItemListActivity extends AppCompatActivity
         implements GameServerItemListFragment.Callbacks {
 
     /**
@@ -34,7 +36,11 @@ public class GameServerItemListActivity extends FragmentActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gameserveritem_list);
-
+        ActionBar actionBar = getActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayShowHomeEnabled(true);
+            actionBar.setIcon(R.mipmap.ic_launcher);
+        }
         if (findViewById(R.id.gameserveritem_detail_container) != null) {
             // The detail container view will be present only in the
             // large-screen layouts (res/values-large and
