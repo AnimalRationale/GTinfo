@@ -4,13 +4,13 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.webkit.WebView;
-import android.widget.TextView;
 
 import pl.appnode.gtinfo.dummy.DummyContent;
 
@@ -21,6 +21,9 @@ import pl.appnode.gtinfo.dummy.DummyContent;
  * on handsets.
  */
 public class GameServerItemDetailFragment extends Fragment {
+
+    public static final String TAG = "GameServerDetail";
+
     /**
      * The fragment argument representing the item ID that this fragment
      * represents.
@@ -55,6 +58,14 @@ public class GameServerItemDetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_gameserveritem_detail, container, false);
+
+        WindowManager wm = (WindowManager) getActivity().getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+        DisplayMetrics metrics = new DisplayMetrics();
+        display.getMetrics(metrics);
+        int width = metrics.widthPixels;
+        int height = metrics.heightPixels;
+        Log.d(TAG, "Metrics: width=" + width + " height=" + height);
 
         if (mItem != null) {
             WebView gameServerWebView = (WebView) rootView.findViewById(R.id.gameServerInfoWebview);
