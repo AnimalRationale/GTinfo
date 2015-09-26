@@ -66,12 +66,18 @@ public class GameServerItemDetailFragment extends Fragment {
         int width = metrics.widthPixels;
         int height = metrics.heightPixels;
         Log.d(TAG, "Metrics: width=" + width + " height=" + height);
+        Double scale = new Double(width)/new Double(240);
+        scale = scale * 100d;
+
 
         if (mItem != null) {
             WebView gameServerWebView = (WebView) rootView.findViewById(R.id.gameServerInfoWebview);
+            gameServerWebView.setPadding(0, 0, 0, 0);
+            gameServerWebView.setInitialScale(scale.intValue());
             String url = "http://cache.www.gametracker.com/components/html0/?host="
                     + mItem.id
-                    + "&bgColor=373E28&fontColor=D2E1B5"
+                    + "&bgColor=373E28"
+                    + "&fontColor=D2E1B5"
                     + "&titleBgColor=2E3225"
                     + "&titleColor=FFFFFF"
                     + "&borderColor=3E4433"

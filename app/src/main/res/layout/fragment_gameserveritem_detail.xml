@@ -1,6 +1,6 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:padding="16dp"
+    android:padding="0dp"
     android:textIsSelectable="true"
     tools:context="pl.appnode.GTinfo.GameServerItemDetailFragment"
     android:layout_width="fill_parent"
@@ -9,11 +9,12 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:orientation="vertical"
-        android:padding="14dp"
+        android:padding="0dp"
         android:weightSum="1">
         <WebView  xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/gameServerInfoWebview"
-            android:layout_width="fill_parent"
+            android:gravity ="top"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             />
     </LinearLayout>
