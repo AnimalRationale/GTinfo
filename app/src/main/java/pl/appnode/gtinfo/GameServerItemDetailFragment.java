@@ -14,6 +14,9 @@ import android.webkit.WebView;
 
 import pl.appnode.gtinfo.dummy.DummyContent;
 
+import static pl.appnode.gtinfo.Constants.GT_HTML_INFO_COMPONENT_BASE_URL;
+import static pl.appnode.gtinfo.Constants.GT_HTML_INFO_COMPONENT_WIDTH;
+
 /**
  * A fragment representing a single GameServerItem detail screen.
  * This fragment is either contained in a {@link GameServerItemListActivity}
@@ -62,7 +65,7 @@ public class GameServerItemDetailFragment extends Fragment {
         if (mItem != null) {
             WebView gameServerWebView = (WebView) rootView.findViewById(R.id.gameServerInfoWebview);
             gameServerWebView.setInitialScale(getWebviewScale());
-            String url = "http://cache.www.gametracker.com/components/html0/?host="
+            String url = GT_HTML_INFO_COMPONENT_BASE_URL 
                     + mItem.id
                     + "&bgColor=373E28"
                     + "&fontColor=D2E1B5"
@@ -76,7 +79,7 @@ public class GameServerItemDetailFragment extends Fragment {
                     + "&showCurrPlayers=1"
                     + "&showTopPlayers=0"
                     + "&showBlogs=0"
-                    + "&width=240";
+                    + "&width=" + GT_HTML_INFO_COMPONENT_WIDTH;
             gameServerWebView.loadUrl(url);
         }
         return rootView;
@@ -90,7 +93,7 @@ public class GameServerItemDetailFragment extends Fragment {
         int width = metrics.widthPixels;
         int height = metrics.heightPixels;
         Log.d(TAG, "Metrics: width=" + width + " height=" + height);
-        Double scale = new Double(width)/new Double(240);
+        Double scale = new Double(width)/new Double(GT_HTML_INFO_COMPONENT_WIDTH);
         scale = scale * 100d;
         return scale.intValue();
     }
