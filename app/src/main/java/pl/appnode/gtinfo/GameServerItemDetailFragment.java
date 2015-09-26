@@ -14,6 +14,7 @@ import android.webkit.WebView;
 
 import pl.appnode.gtinfo.dummy.DummyContent;
 
+import static pl.appnode.gtinfo.Constants.GT_HTML_COLORS;
 import static pl.appnode.gtinfo.Constants.GT_HTML_INFO_COMPONENT_BASE_URL;
 import static pl.appnode.gtinfo.Constants.GT_HTML_INFO_COMPONENT_WIDTH;
 
@@ -62,20 +63,22 @@ public class GameServerItemDetailFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_gameserveritem_detail, container, false);
 
+        String keyPrefix = "light-";
+
         if (mItem != null) {
             WebView gameServerWebView = (WebView) rootView.findViewById(R.id.gameServerInfoWebview);
             gameServerWebView.setInitialScale(getWebviewScale());
             String url = GT_HTML_INFO_COMPONENT_BASE_URL
                     + mItem.id
-                    + "&bgColor=373E28"
-                    + "&fontColor=D2E1B5"
-                    + "&titleBgColor=2E3225"
-                    + "&titleColor=FFFFFF"
-                    + "&borderColor=3E4433"
-                    + "&linkColor=889C63"
-                    + "&borderLinkColor=828E6B"
-                    + "&showMap=1"
-                    + "&currentPlayersHeight=150"
+                    + "&bgColor=" + GT_HTML_COLORS.get(keyPrefix + "bgColor")
+                    + "&fontColor=" + GT_HTML_COLORS.get(keyPrefix + "fontColor")
+                    + "&titleBgColor=" + GT_HTML_COLORS.get(keyPrefix + "titleBgColor")
+                    + "&titleColor=" + GT_HTML_COLORS.get(keyPrefix + "titleColor")
+                    + "&borderColor=" + GT_HTML_COLORS.get(keyPrefix + "borderColor")
+                    + "&linkColor=" + GT_HTML_COLORS.get(keyPrefix + "linkColor")
+                    + "&borderLinkColor=" + GT_HTML_COLORS.get(keyPrefix + "borderLinkColor")
+                    + "&showMap=0"
+                    + "&currentPlayersHeight=200"
                     + "&showCurrPlayers=1"
                     + "&showTopPlayers=0"
                     + "&showBlogs=0"
