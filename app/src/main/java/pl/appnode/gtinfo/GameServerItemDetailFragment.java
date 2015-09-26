@@ -59,21 +59,9 @@ public class GameServerItemDetailFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_gameserveritem_detail, container, false);
 
-        WindowManager wm = (WindowManager) getActivity().getSystemService(Context.WINDOW_SERVICE);
-        Display display = wm.getDefaultDisplay();
-        DisplayMetrics metrics = new DisplayMetrics();
-        display.getMetrics(metrics);
-        int width = metrics.widthPixels;
-        int height = metrics.heightPixels;
-        Log.d(TAG, "Metrics: width=" + width + " height=" + height);
-        Double scale = new Double(width)/new Double(240);
-        scale = scale * 100d;
-
-
         if (mItem != null) {
             WebView gameServerWebView = (WebView) rootView.findViewById(R.id.gameServerInfoWebview);
-            gameServerWebView.setPadding(0, 0, 0, 0);
-            gameServerWebView.setInitialScale(scale.intValue());
+            gameServerWebView.setInitialScale(getWebviewScale());
             String url = "http://cache.www.gametracker.com/components/html0/?host="
                     + mItem.id
                     + "&bgColor=373E28"
@@ -92,5 +80,18 @@ public class GameServerItemDetailFragment extends Fragment {
             gameServerWebView.loadUrl(url);
         }
         return rootView;
+    }
+
+    private int getWebviewScale() {
+        WindowManager wm = (WindowManager) getActivity().getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+        DisplayMetrics metrics = new DisplayMetrics();
+        display.getMetrics(metrics);
+        int width = metrics.widthPixels;
+        int height = metrics.heightPixels;
+        Log.d(TAG, "Metrics: width=" + width + " height=" + height);
+        Double scale = new Double(width)/new Double(240);
+        scale = scale * 100d;
+        return scale.intValue();
     }
 }
