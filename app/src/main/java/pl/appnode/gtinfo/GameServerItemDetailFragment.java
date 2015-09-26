@@ -65,7 +65,7 @@ public class GameServerItemDetailFragment extends Fragment {
         if (mItem != null) {
             WebView gameServerWebView = (WebView) rootView.findViewById(R.id.gameServerInfoWebview);
             gameServerWebView.setInitialScale(getWebviewScale());
-            String url = GT_HTML_INFO_COMPONENT_BASE_URL 
+            String url = GT_HTML_INFO_COMPONENT_BASE_URL
                     + mItem.id
                     + "&bgColor=373E28"
                     + "&fontColor=D2E1B5"
