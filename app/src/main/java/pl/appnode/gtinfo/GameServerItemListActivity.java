@@ -73,8 +73,8 @@ public class GameServerItemListActivity extends AppCompatActivity
             AboutDialog.showDialog(GameServerItemListActivity.this);
         }
         if (id == R.id.action_settings) {
-//            Intent settingsIntent = new Intent(this, PreferencesActivity.class);
-//            this.startActivity(settingsIntent);
+            Intent settingsIntent = new Intent(this, PreferencesActivity.class);
+            this.startActivity(settingsIntent);
         }
         return super.onOptionsItemSelected(item);
     }
