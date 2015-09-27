@@ -63,7 +63,7 @@ public class GameServerItemDetailFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_gameserveritem_detail, container, false);
 
-        String keyPrefix = "light-";
+        String keyPrefix = "dark-";
 
         if (mItem != null) {
             WebView gameServerWebView = (WebView) rootView.findViewById(R.id.gameServerInfoWebview);

@@ -26,7 +26,7 @@ public final class Constants {
             // dark theme colors
             put("dark-bgColor", "000000");
             put("dark-fontColor", "FFFFEE");
-            put("dark-titleBgColor", "111111");
+            put("dark-titleBgColor", "000000");
             put("dark-titleColor", "FF6600");
             put("dark-borderColor", "000000");
             put("dark-linkColor", "889C63");
