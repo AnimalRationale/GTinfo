@@ -7,4 +7,8 @@
     <string name="dialog_about_ok">OK</string>
     <string name="dialog_about_version_name_error">.</string>
     <string name="dialog_about_version_code_error">.</string>
+
+    <string name="menu_action_settings">Settings</string>
+    <string name="menu_action_about">About</string>
+
 </resources>
