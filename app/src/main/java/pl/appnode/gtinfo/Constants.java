@@ -43,6 +43,5 @@ public final class Constants {
         }
     };
 
-
     public static final int GT_HTML_INFO_COMPONENT_WIDTH = 240;
 }

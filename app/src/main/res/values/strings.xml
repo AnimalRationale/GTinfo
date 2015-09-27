@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">GTinfo</string>
-    <string name="title_gameserveritem_detail">GameServerItem Detail</string>
+    <string name="title_gameserveritem_detail">Server details</string>
+
+    <string name="dialog_about_title"></string>
+    <string name="dialog_about_version">Version: \u0020</string>
+    <string name="dialog_about_ok">OK</string>
+    <string name="dialog_about_version_name_error">.</string>
+    <string name="dialog_about_version_code_error">.</string>
 </resources>
