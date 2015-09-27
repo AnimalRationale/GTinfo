@@ -17,6 +17,7 @@ import pl.appnode.gtinfo.dummy.DummyContent;
 import static pl.appnode.gtinfo.Constants.GT_HTML_COLORS;
 import static pl.appnode.gtinfo.Constants.GT_HTML_INFO_COMPONENT_BASE_URL;
 import static pl.appnode.gtinfo.Constants.GT_HTML_INFO_COMPONENT_WIDTH;
+import static pl.appnode.gtinfo.PreferencesSetupHelper.isDarkTheme;
 
 /**
  * A fragment representing a single GameServerItem detail screen.
@@ -63,7 +64,10 @@ public class GameServerItemDetailFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_gameserveritem_detail, container, false);
 
-        String keyPrefix = "dark-";
+        String keyPrefix;
+        if (isDarkTheme(getActivity())) {
+            keyPrefix = "dark-";
+        } else keyPrefix = "light-";
 
         if (mItem != null) {
             WebView gameServerWebView = (WebView) rootView.findViewById(R.id.gameServerInfoWebview);

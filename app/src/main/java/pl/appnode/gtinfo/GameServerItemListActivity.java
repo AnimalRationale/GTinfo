@@ -8,6 +8,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import static pl.appnode.gtinfo.PreferencesSetupHelper.isDarkTheme;
+import static pl.appnode.gtinfo.PreferencesSetupHelper.themeSetup;
+
 
 /**
  * An activity representing a list of GameIServersItems. This activity
@@ -33,10 +36,13 @@ public class GameServerItemListActivity extends AppCompatActivity
      * device.
      */
     private boolean mTwoPane;
+    private static boolean sThemeChangeFlag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        themeSetup(this);
+        sThemeChangeFlag = isDarkTheme(this);
         setContentView(R.layout.activity_gameserveritem_list);
         ActionBar actionBar = getActionBar();
         if (actionBar != null) {
@@ -103,6 +109,16 @@ public class GameServerItemListActivity extends AppCompatActivity
             Intent detailIntent = new Intent(this, GameServerItemDetailActivity.class);
             detailIntent.putExtra(GameServerItemDetailFragment.ARG_ITEM_ID, id);
             startActivity(detailIntent);
+        }
+    }
+
+    private void checkThemeChange() {
+        if (sThemeChangeFlag != isDarkTheme(this)) {
+            finish();
+            Intent intent = new Intent(this, GameServerItemListActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
         }
     }
 }
