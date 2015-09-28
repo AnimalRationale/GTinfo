@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
 
+import static pl.appnode.gtinfo.PreferencesSetupHelper.themeSetup;
+
 /**
  * An activity representing a single GameServerItem detail screen. This
  * activity is only used on handset devices. On tablet-size devices,
@@ -20,6 +22,7 @@ public class GameServerItemDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        themeSetup(this);
         setContentView(R.layout.activity_gameserveritem_detail);
 
         // Show the Up button in the action bar.
