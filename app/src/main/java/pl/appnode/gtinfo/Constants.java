@@ -8,6 +8,8 @@ import java.util.Map;
 public final class Constants {
     private Constants() {} /** Private constructor of final class to prevent instantiating. */
 
+    public static final String SERVERS_PREFS_FILE = "ServersPrefsFile";
+
     public static final String GT_HTML_INFO_COMPONENT_BASE_URL = "http://cache.www.gametracker.com/components/html0/?host=";
 
 

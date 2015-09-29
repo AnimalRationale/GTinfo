@@ -1,6 +1,7 @@
 package pl.appnode.gtinfo;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 
 import static pl.appnode.gtinfo.PreferencesSetupHelper.themeSetup;
+import static pl.appnode.gtinfo.Constants.SERVERS_PREFS_FILE;
 
 public class AddGameServerActivity extends Activity implements View.OnClickListener {
 
@@ -39,6 +41,15 @@ public class AddGameServerActivity extends Activity implements View.OnClickListe
 
     private void pressedCancel() {
         finish();
+    }
+
+    public static void saveAddedServer(String address, String name) {
+        SharedPreferences serversPrefs = AppContextHelper.getContext()
+                .getSharedPreferences(SERVERS_PREFS_FILE, MODE_PRIVATE);
+        SharedPreferences.Editor editor = serversPrefs.edit();
+        editor.putString(address, name);
+        editor.apply();
+        Log.d(TAG, "Saved server: " + address + " with name: " + name);
     }
 
     @Override
