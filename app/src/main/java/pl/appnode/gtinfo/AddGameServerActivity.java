@@ -9,6 +9,11 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static pl.appnode.gtinfo.PreferencesSetupHelper.themeSetup;
 import static pl.appnode.gtinfo.Constants.SERVERS_PREFS_FILE;
@@ -16,6 +21,8 @@ import static pl.appnode.gtinfo.Constants.SERVERS_PREFS_FILE;
 public class AddGameServerActivity extends Activity implements View.OnClickListener {
 
     private static final String TAG = "AddServer";
+    private EditText mEditServerAddress;
+    private EditText mEditServerName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,17 +40,40 @@ public class AddGameServerActivity extends Activity implements View.OnClickListe
         buttonOk.setOnClickListener(this);
         Button buttonCancel = (Button) findViewById(R.id.cancelAddServer);
         buttonCancel.setOnClickListener(this);
+        mEditServerAddress = (EditText) findViewById(R.id.serverAddress);
+        mEditServerName = (EditText) findViewById(R.id.serverNameText);
     }
 
     private void pressedOk() {
-        finish();
+        if (mEditServerAddress.getText().toString() != "") {
+            if (validateServerAddress(mEditServerAddress.getText().toString())) {
+                Log.d(TAG, "Saving: " + mEditServerAddress.getText().toString() + " " + mEditServerName.getText().toString());
+                // saveAddedServer(mEditServerAddress.getText().toString(), mEditServerName.getText().toString());
+                finish();
+            } else {
+                Toast.makeText(this, "Invalid server address",
+                        Toast.LENGTH_SHORT).show();
+            }
+        }
+
     }
 
     private void pressedCancel() {
         finish();
     }
 
-    public static void saveAddedServer(String address, String name) {
+    private boolean validateServerAddress(String address) {
+        Pattern pattern = Pattern.compile("^\\s*(.*?):(\\d+)\\s*$");
+        Matcher matcher = pattern.matcher(address);
+        if (matcher.matches()) {
+            Log.d(TAG, "Validated address: " + matcher.group(1) + " port: " + Integer.parseInt(matcher.group(2)));
+            return true;
+        }
+        Log.d(TAG, "Wrong address.");
+        return false;
+    }
+
+    private static void saveAddedServer(String address, String name) {
         SharedPreferences serversPrefs = AppContextHelper.getContext()
                 .getSharedPreferences(SERVERS_PREFS_FILE, MODE_PRIVATE);
         SharedPreferences.Editor editor = serversPrefs.edit();
