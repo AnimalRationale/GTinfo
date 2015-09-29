@@ -8,17 +8,19 @@ import android.view.WindowManager;
 
 import static pl.appnode.gtinfo.PreferencesSetupHelper.themeSetup;
 
-public class ServerDataActivity extends Activity {
+public class AddGameServerActivity extends Activity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         themeSetup(this); // Setting theme
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_dialog_server_data);
+        setContentView(R.layout.activity_dialog_add_server);
         getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         WindowManager.LayoutParams layoutParams = getWindow().getAttributes();
-        layoutParams.dimAmount = 0.8f;
+        layoutParams.dimAmount = 0.4f;
         getWindow().setAttributes(layoutParams);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+        this.setFinishOnTouchOutside(false);
     }
 }

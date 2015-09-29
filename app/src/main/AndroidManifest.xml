@@ -27,9 +27,9 @@
                 android:value=".GameServerItemListActivity" />
         </activity>
         <activity
-            android:name=".ServerDataActivity"
+            android:name=".AddGameServerActivity"
             android:excludeFromRecents="true"
-            android:label="@string/server_data_title"
+            android:label="@string/server_add_title"
             android:windowSoftInputMode="stateHidden"
             android:theme="@android:style/android:Theme.Holo.Light.Dialog" >
         </activity>

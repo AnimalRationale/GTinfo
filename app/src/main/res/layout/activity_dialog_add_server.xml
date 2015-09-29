@@ -9,14 +9,14 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:gravity="center"
-        android:text="@string/server_data_address_title"
+        android:text="@string/server_add_address_title"
         android:textAppearance="?android:attr/textAppearanceSmall" />
     <EditText
         android:id="@+id/serverAddress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:inputType="phone|textNoSuggestions|textVisiblePassword"
+        android:inputType="textNoSuggestions|textVisiblePassword"
         android:maxLength="20"
         android:digits="0123456789.:"
         android:hint="56.128.0.15:2302"
@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
         android:gravity="center"
-        android:text="@string/server_data_name_title"
+        android:text="@string/server_add_name_title"
         android:textAppearance="?android:attr/textAppearanceSmall" />
     <EditText
         android:id="@+id/serverNameText"
@@ -36,6 +36,30 @@
         android:inputType="text|textNoSuggestions"
         android:layout_height="wrap_content"
         android:maxLength="40"
-        android:hint="@string/server_data_name_hint" >
+        android:hint="@string/server_add_name_hint" >
     </EditText>
+    <FrameLayout
+        android:layout_marginTop="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal" >
+        <Button
+            android:id="@+id/cancelAddServer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/server_add_cancel"
+            android:layout_gravity="left|top"
+            style="?android:attr/borderlessButtonStyle"
+            android:textSize="18sp" />
+        <Button
+            android:id="@+id/okAddServer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_toRightOf="@+id/cancelTimerSettings"
+            android:text="@string/server_add_ok"
+            android:layout_gravity="right|top"
+            style="?android:attr/borderlessButtonStyle"
+            android:textSize="18sp" />
+    </FrameLayout>
 </LinearLayout>

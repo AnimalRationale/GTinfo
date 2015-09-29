@@ -1,14 +1,21 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".MainActivity">
+    tools:context=".GameServerItemListActivity">
     <item
         android:id="@+id/action_about"
         android:title="@string/menu_action_about"
         android:orderInCategory="100"
-        android:showAsAction="never" />
+        app:showAsAction="never" />
     <item
         android:id="@+id/action_settings"
         android:title="@string/menu_action_settings"
         android:orderInCategory="90"
-        android:showAsAction="never" />
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_add_server"
+        android:title="@string/menu_action_add_server"
+        android:icon="@drawable/ic_add_circle_outline_white_24dp"
+        android:orderInCategory="80"
+        app:showAsAction="always" />
 </menu>

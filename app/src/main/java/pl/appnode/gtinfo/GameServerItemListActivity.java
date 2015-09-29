@@ -3,8 +3,8 @@ package pl.appnode.gtinfo;
 import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -35,6 +35,8 @@ public class GameServerItemListActivity extends AppCompatActivity
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
      * device.
      */
+
+    private static final String TAG = "GameServerListAct";
     private boolean mTwoPane;
     private static boolean sThemeChangeFlag;
 
@@ -80,6 +82,10 @@ public class GameServerItemListActivity extends AppCompatActivity
         }
         if (id == R.id.action_settings) {
             Intent settingsIntent = new Intent(this, PreferencesActivity.class);
+            this.startActivity(settingsIntent);
+        }
+        if (id == R.id.action_add_server) {
+            Intent settingsIntent = new Intent(this, AddGameServerActivity.class);
             this.startActivity(settingsIntent);
         }
         return super.onOptionsItemSelected(item);
