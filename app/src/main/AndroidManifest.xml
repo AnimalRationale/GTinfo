@@ -32,6 +32,9 @@
             android:label="@string/server_add_title"
             android:windowSoftInputMode="stateHidden"
             android:theme="@android:style/android:Theme.Holo.Light.Dialog" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="pl.appnode.gtinfo.GameServerItemListActivity" />
         </activity>
         <activity
             android:name=".PreferencesActivity"
