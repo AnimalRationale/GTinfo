@@ -46,10 +46,12 @@ public class AddGameServerActivity extends Activity implements View.OnClickListe
     }
 
     private void pressedOk() {
-        if (mEditServerAddress.getText().toString() != "") {
-            if (validateServerAddress(mEditServerAddress.getText().toString())) {
-                Log.d(TAG, "Saving: " + mEditServerAddress.getText().toString() + " " + mEditServerName.getText().toString());
-                // saveAddedServer(mEditServerAddress.getText().toString(), mEditServerName.getText().toString());
+        String address = mEditServerAddress.getText().toString();
+        String name = mEditServerName.getText().toString();
+        if (!address.equals("")) {
+            if (validateServerAddress(address)) {
+                Log.d(TAG, "Saving: " + address + " " + name);
+                // saveAddedServer(address, name);
                 finish();
             } else {
                 Toast.makeText(this, "Invalid server address",
@@ -64,8 +66,6 @@ public class AddGameServerActivity extends Activity implements View.OnClickListe
     }
 
     private boolean validateServerAddress(String address) {
-
-        // Pattern pattern = Pattern.compile("^\\s*(.*?):(\\d+)\\s*$");
         Pattern validationPattern = Pattern.compile(IP_ADDRESS_PORT_PATTERN);
         Matcher matcher = validationPattern.matcher(address);
         if (matcher.matches()) {
