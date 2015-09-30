@@ -4,12 +4,18 @@ import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import pl.appnode.gtinfo.dummy.DummyContent;
 
@@ -27,7 +33,7 @@ import static pl.appnode.gtinfo.Constants.SERVERS_PREFS_FILE;
 public class GameServerItemListFragment extends ListFragment {
 
     protected static List<GameServerItem> sServersList = new ArrayList<>();
-
+    protected static GameServersAdapter mServersAdapter;
     /**
      * The serialization (saved instance state) Bundle key representing the
      * activated item position. Only used on tablets.
@@ -77,6 +83,22 @@ public class GameServerItemListFragment extends ListFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initServerList();
+    }
+
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.activity_gameserveritem_list, container, false);
+        RecyclerView recyclerServersList = (RecyclerView) rootView.findViewById(R.id.serversList);
+        recyclerServersList.setItemAnimator(null);
+        LinearLayoutManager llm = new LinearLayoutManager(getActivity());
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerServersList.setLayoutManager(llm);
+        mServersAdapter = new GameServersAdapter(getActivity());
+        recyclerServersList.setAdapter(mServersAdapter);
+        return rootView;
     }
 
     @Override
@@ -94,11 +116,11 @@ public class GameServerItemListFragment extends ListFragment {
     public void onResume() {
         super.onResume();
         // TODO: replace with a real list adapter.
-        setListAdapter(new ArrayAdapter<DummyContent.DummyItem>(
-                getActivity(),
-                android.R.layout.simple_list_item_activated_1,
-                android.R.id.text1,
-                DummyContent.ITEMS));
+//        setListAdapter(new ArrayAdapter<DummyContent.DummyItem>(
+//                getActivity(),
+//                android.R.layout.simple_list_item_activated_1,
+//                android.R.id.text1,
+//                DummyContent.ITEMS));
     }
 
     @Override
@@ -157,7 +179,18 @@ public class GameServerItemListFragment extends ListFragment {
         } else {
             getListView().setItemChecked(position, true);
         }
-
         mActivatedPosition = position;
+    }
+
+    private void initServerList() {
+        SharedPreferences gameServersPrefs = AppContextHelper.getContext()
+                .getSharedPreferences(SERVERS_PREFS_FILE, 0);
+        Map<String, ?> keys = gameServersPrefs.getAll();
+        for (Map.Entry<String, ?> entry : keys.entrySet()) {
+            GameServerItem gameServer = new GameServerItem();
+            gameServer.mId = entry.getKey();
+            gameServer.mName = entry.getValue().toString();
+            sServersList.add(gameServer);
+        }
     }
 }
