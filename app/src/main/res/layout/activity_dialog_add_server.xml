@@ -17,9 +17,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:inputType="textNoSuggestions|textVisiblePassword"
-        android:maxLength="20"
+        android:maxLength="21"
         android:digits="0123456789.:"
-        android:hint="56.128.0.15:2302"
+        android:hint="000.000.000.000:00000"
         android:textAppearance="?android:attr/textAppearanceLarge">
     </EditText>
     <TextView
@@ -36,7 +36,7 @@
         android:inputType="text|textNoSuggestions"
         android:layout_height="wrap_content"
         android:maxLength="40"
-        android:hint="@string/server_add_name_hint" >
+        android:hint="" >
     </EditText>
     <FrameLayout
         android:layout_marginTop="16dp"

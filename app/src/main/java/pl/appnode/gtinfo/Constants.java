@@ -17,7 +17,7 @@ public final class Constants {
             + "([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\."
             + "([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\."
             + "([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\:"
-            + "(\\d{1,4})$";
+            + "(\\d{1,5})$";
 
     /** Base URL for GT HTML component with game server information */
     public static final String GT_HTML_INFO_COMPONENT_BASE_URL
