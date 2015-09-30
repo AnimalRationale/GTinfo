@@ -8,6 +8,9 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import pl.appnode.gtinfo.dummy.DummyContent;
 
 import static pl.appnode.gtinfo.Constants.SERVERS_PREFS_FILE;
@@ -22,6 +25,8 @@ import static pl.appnode.gtinfo.Constants.SERVERS_PREFS_FILE;
  * interface.
  */
 public class GameServerItemListFragment extends ListFragment {
+
+    protected static List<GameServerItem> sServersList = new ArrayList<>();
 
     /**
      * The serialization (saved instance state) Bundle key representing the
@@ -72,13 +77,6 @@ public class GameServerItemListFragment extends ListFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        // TODO: replace with a real list adapter.
-        setListAdapter(new ArrayAdapter<DummyContent.DummyItem>(
-                getActivity(),
-                android.R.layout.simple_list_item_activated_1,
-                android.R.id.text1,
-                DummyContent.ITEMS));
     }
 
     @Override
@@ -90,6 +88,17 @@ public class GameServerItemListFragment extends ListFragment {
                 && savedInstanceState.containsKey(STATE_ACTIVATED_POSITION)) {
             setActivatedPosition(savedInstanceState.getInt(STATE_ACTIVATED_POSITION));
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // TODO: replace with a real list adapter.
+        setListAdapter(new ArrayAdapter<DummyContent.DummyItem>(
+                getActivity(),
+                android.R.layout.simple_list_item_activated_1,
+                android.R.id.text1,
+                DummyContent.ITEMS));
     }
 
     @Override
