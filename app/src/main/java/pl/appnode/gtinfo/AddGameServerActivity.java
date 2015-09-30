@@ -15,6 +15,7 @@ import android.widget.Toast;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static pl.appnode.gtinfo.Constants.IP_ADDRESS_PORT_PATTERN;
 import static pl.appnode.gtinfo.PreferencesSetupHelper.themeSetup;
 import static pl.appnode.gtinfo.Constants.SERVERS_PREFS_FILE;
 
@@ -63,10 +64,14 @@ public class AddGameServerActivity extends Activity implements View.OnClickListe
     }
 
     private boolean validateServerAddress(String address) {
-        Pattern pattern = Pattern.compile("^\\s*(.*?):(\\d+)\\s*$");
-        Matcher matcher = pattern.matcher(address);
+
+        // Pattern pattern = Pattern.compile("^\\s*(.*?):(\\d+)\\s*$");
+        Pattern validationPattern = Pattern.compile(IP_ADDRESS_PORT_PATTERN);
+        Matcher matcher = validationPattern.matcher(address);
         if (matcher.matches()) {
-            Log.d(TAG, "Validated address: " + matcher.group(1) + " port: " + Integer.parseInt(matcher.group(2)));
+            Log.d(TAG, "Validated address: " + matcher.group(1) + "." +  matcher.group(2)
+                    + "." +  matcher.group(3) + "." +  matcher.group(4)
+                    + " port: " + Integer.parseInt(matcher.group(5)));
             return true;
         }
         Log.d(TAG, "Wrong address.");

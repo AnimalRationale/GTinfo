@@ -8,10 +8,20 @@ import java.util.Map;
 public final class Constants {
     private Constants() {} /** Private constructor of final class to prevent instantiating. */
 
+    /** SharedPreferences file for storing serves IP and custom name */
     public static final String SERVERS_PREFS_FILE = "ServersPrefsFile";
 
-    public static final String GT_HTML_INFO_COMPONENT_BASE_URL = "http://cache.www.gametracker.com/components/html0/?host=";
+    /** Regexp pattern for server IP:port validation (note: allowing addresses starting with 0) */
+    public static final String IP_ADDRESS_PORT_PATTERN =
+            "^([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\."
+            + "([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\."
+            + "([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\."
+            + "([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\:"
+            + "(\\d{1,4})$";
 
+    /** Base URL for GT HTML component with game server information */
+    public static final String GT_HTML_INFO_COMPONENT_BASE_URL
+            = "http://cache.www.gametracker.com/components/html0/?host=";
 
     /** Dictionary of all colors 'themes' for GT HTML component */
     public static final Map<String, String> GT_HTML_COLORS = new HashMap<String, String>() {
@@ -45,5 +55,6 @@ public final class Constants {
         }
     };
 
+    /** Width of requested GT HTML component */
     public static final int GT_HTML_INFO_COMPONENT_WIDTH = 240;
 }
