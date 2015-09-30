@@ -48,17 +48,17 @@ public class AddGameServerActivity extends Activity implements View.OnClickListe
     private void pressedOk() {
         String address = mEditServerAddress.getText().toString();
         String name = mEditServerName.getText().toString();
+
         if (!address.equals("")) {
             if (validateServerAddress(address)) {
                 Log.d(TAG, "Saving: " + address + " " + name);
-                // saveAddedServer(address, name);
+                saveAddedServer(address, name);
                 finish();
             } else {
                 Toast.makeText(this, "Invalid server address",
                         Toast.LENGTH_SHORT).show();
             }
         }
-
     }
 
     private void pressedCancel() {
@@ -74,13 +74,12 @@ public class AddGameServerActivity extends Activity implements View.OnClickListe
                     + " port: " + Integer.parseInt(matcher.group(5)));
             return true;
         }
-        Log.d(TAG, "Wrong address.");
+        Log.d(TAG, "Invalid address.");
         return false;
     }
 
-    private static void saveAddedServer(String address, String name) {
-        SharedPreferences serversPrefs = AppContextHelper.getContext()
-                .getSharedPreferences(SERVERS_PREFS_FILE, MODE_PRIVATE);
+    private void saveAddedServer(String address, String name) {
+        SharedPreferences serversPrefs = AppContextHelper.getContext().getSharedPreferences(SERVERS_PREFS_FILE, MODE_PRIVATE);
         SharedPreferences.Editor editor = serversPrefs.edit();
         editor.putString(address, name);
         editor.apply();
@@ -97,5 +96,4 @@ public class AddGameServerActivity extends Activity implements View.OnClickListe
                 pressedCancel();
                 break;
         }
-    }
-}
+    }}

@@ -1,6 +1,7 @@
 package pl.appnode.gtinfo;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.View;
@@ -8,6 +9,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import pl.appnode.gtinfo.dummy.DummyContent;
+
+import static pl.appnode.gtinfo.Constants.SERVERS_PREFS_FILE;
 
 /**
  * A list fragment representing a list of GameIServersItems. This fragment
