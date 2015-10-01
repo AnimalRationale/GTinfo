@@ -18,5 +18,7 @@
     <string name="server_add_name_hint">Short name (max 40char) for game server</string>
     <string name="server_add_cancel">Cancel</string>
     <string name="server_add_ok">OK</string>
+    <string name="server_add_invalid_address">Invalid server address</string>
+    <string name="server_add_invalid_port">Invalid server port</string>
 
 </resources>

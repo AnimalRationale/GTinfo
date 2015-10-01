@@ -48,15 +48,11 @@ public class AddGameServerActivity extends Activity implements View.OnClickListe
     private void pressedOk() {
         String address = mEditServerAddress.getText().toString();
         String name = mEditServerName.getText().toString();
-
         if (!address.equals("")) {
             if (validateServerAddress(address)) {
                 Log.d(TAG, "Saving: " + address + " " + name);
                 saveAddedServer(address, name);
                 finish();
-            } else {
-                Toast.makeText(this, "Invalid server address",
-                        Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -67,13 +63,18 @@ public class AddGameServerActivity extends Activity implements View.OnClickListe
 
     private boolean validateServerAddress(String address) {
         Pattern validationPattern = Pattern.compile(IP_ADDRESS_PORT_PATTERN);
+        String errorMessage = this.getResources().getString(R.string.server_add_invalid_address);
         Matcher matcher = validationPattern.matcher(address);
         if (matcher.matches()) {
-            Log.d(TAG, "Validated address: " + matcher.group(1) + "." +  matcher.group(2)
-                    + "." +  matcher.group(3) + "." +  matcher.group(4)
-                    + " port: " + Integer.parseInt(matcher.group(5)));
-            return true;
+            int port = Integer.parseInt(matcher.group(5));
+            if (port > 1023 && port <= 65535) {
+                Log.d(TAG, "Validated address: " + matcher.group(1) + "." + matcher.group(2)
+                        + "." + matcher.group(3) + "." + matcher.group(4)
+                        + " port: " + port);
+                return true;
+            } else errorMessage = this.getResources().getString(R.string.server_add_invalid_port);
         }
+        Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
         Log.d(TAG, "Invalid address.");
         return false;
     }

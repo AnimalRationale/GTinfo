@@ -86,7 +86,6 @@ public class GameServerItemListFragment extends ListFragment {
         initServerList();
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
