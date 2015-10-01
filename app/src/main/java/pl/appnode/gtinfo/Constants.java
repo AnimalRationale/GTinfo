@@ -11,7 +11,8 @@ public final class Constants {
     /** SharedPreferences file for storing serves IP and custom name */
     public static final String SERVERS_PREFS_FILE = "ServersPrefsFile";
 
-    /** Regexp pattern for server IP:port validation (note: allowing addresses starting with 0) */
+    /** Regexp pattern for server IP:port validation
+     * (allowing addresses starting with 0 and port value in range 0..99999) */
     public static final String IP_ADDRESS_PORT_PATTERN =
             "^([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\."
             + "([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\."
