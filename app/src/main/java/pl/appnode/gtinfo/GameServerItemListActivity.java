@@ -29,11 +29,6 @@ import static pl.appnode.gtinfo.PreferencesSetupHelper.themeSetup;
 
 public class GameServerItemListActivity extends AppCompatActivity {
 
-    /**
-     * Whether or not the activity is in two-pane mode, i.e. running on a tablet
-     * device.
-     */
-
     private static final String TAG = "GameServerListAct";
     private boolean mTwoPane;
     private static boolean sThemeChangeFlag;
@@ -61,12 +56,6 @@ public class GameServerItemListActivity extends AppCompatActivity {
             // res/values-sw600dp). If this view is present, then the
             // activity should be in two-pane mode.
             mTwoPane = true;
-
-            // In two-pane mode, list items should be given the
-            // 'activated' state when touched.
-//            ((GameServerItemListFragment) getSupportFragmentManager()
-//                    .findFragmentById(R.id.gameserveritem_list))
-//                    .setActivateOnItemClick(true);
         }
 
         // TODO: If exposing deep links into your app, handle intents here.
@@ -100,33 +89,6 @@ public class GameServerItemListActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
-    /**
-     * Callback method from {GameServerItemListFragment.Callbacks}
-     * indicating that the item with the given ID was selected.
-     */
-//    @Override
-//    public void onItemSelected(String id) {
-//        if (mTwoPane) {
-//            // In two-pane mode, show the detail view in this activity by
-//            // adding or replacing the detail fragment using a
-//            // fragment transaction.
-//            Bundle arguments = new Bundle();
-//            arguments.putString(GameServerItemDetailFragment.ARG_ITEM_ID, id);
-//            GameServerItemDetailFragment fragment = new GameServerItemDetailFragment();
-//            fragment.setArguments(arguments);
-//            getSupportFragmentManager().beginTransaction()
-//                    .replace(R.id.gameserveritem_detail_container, fragment)
-//                    .commit();
-//
-//        } else {
-//            // In single-pane mode, simply start the detail activity
-//            // for the selected item ID.
-//            Intent detailIntent = new Intent(this, GameServerItemDetailActivity.class);
-//            detailIntent.putExtra(GameServerItemDetailFragment.ARG_ITEM_ID, id);
-//            startActivity(detailIntent);
-//        }
-//    }
 
     private void checkThemeChange() {
         if (sThemeChangeFlag != isDarkTheme(this)) {

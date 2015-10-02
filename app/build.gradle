@@ -8,7 +8,7 @@ android {
         applicationId "pl.appnode.gtinfo"
         minSdkVersion 15
         targetSdkVersion 22
-        versionCode 10
+        versionCode 11
         versionName "0.0"
     }
     buildTypes {
