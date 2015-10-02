@@ -21,8 +21,12 @@
         android:name="pl.appnode.gtinfo.GameServerItemListFragment"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        tools:layout="@android:layout/list_content" />
+        android:layout_weight="1" >
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/serversList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </fragment>
 
     <FrameLayout
         android:id="@+id/gameserveritem_detail_container"

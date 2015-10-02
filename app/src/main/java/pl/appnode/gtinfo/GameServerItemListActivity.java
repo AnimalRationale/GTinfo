@@ -3,6 +3,7 @@ package pl.appnode.gtinfo;
 import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -24,12 +25,9 @@ import static pl.appnode.gtinfo.PreferencesSetupHelper.themeSetup;
  * {@link GameServerItemListFragment} and the item details
  * (if present) is a {@link GameServerItemDetailFragment}.
  * <p/>
- * This activity also implements the required
- * {@link GameServerItemListFragment.Callbacks} interface
- * to listen for item selections.
  */
-public class GameServerItemListActivity extends AppCompatActivity
-        implements GameServerItemListFragment.Callbacks {
+
+public class GameServerItemListActivity extends AppCompatActivity {
 
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
@@ -51,6 +49,12 @@ public class GameServerItemListActivity extends AppCompatActivity
             actionBar.setDisplayShowHomeEnabled(true);
             actionBar.setIcon(R.mipmap.ic_launcher);
         }
+        if (savedInstanceState == null) {
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            GameServerItemListFragment fragment = new GameServerItemListFragment();
+            transaction.replace(R.id.placeholder_fragment, fragment);
+            transaction.commit();
+        }
         if (findViewById(R.id.gameserveritem_detail_container) != null) {
             // The detail container view will be present only in the
             // large-screen layouts (res/values-large and
@@ -60,12 +64,18 @@ public class GameServerItemListActivity extends AppCompatActivity
 
             // In two-pane mode, list items should be given the
             // 'activated' state when touched.
-            ((GameServerItemListFragment) getSupportFragmentManager()
-                    .findFragmentById(R.id.gameserveritem_list))
-                    .setActivateOnItemClick(true);
+//            ((GameServerItemListFragment) getSupportFragmentManager()
+//                    .findFragmentById(R.id.gameserveritem_list))
+//                    .setActivateOnItemClick(true);
         }
 
         // TODO: If exposing deep links into your app, handle intents here.
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        checkThemeChange();
     }
 
     @Override
@@ -92,31 +102,31 @@ public class GameServerItemListActivity extends AppCompatActivity
     }
 
     /**
-     * Callback method from {@link GameServerItemListFragment.Callbacks}
+     * Callback method from {GameServerItemListFragment.Callbacks}
      * indicating that the item with the given ID was selected.
      */
-    @Override
-    public void onItemSelected(String id) {
-        if (mTwoPane) {
-            // In two-pane mode, show the detail view in this activity by
-            // adding or replacing the detail fragment using a
-            // fragment transaction.
-            Bundle arguments = new Bundle();
-            arguments.putString(GameServerItemDetailFragment.ARG_ITEM_ID, id);
-            GameServerItemDetailFragment fragment = new GameServerItemDetailFragment();
-            fragment.setArguments(arguments);
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.gameserveritem_detail_container, fragment)
-                    .commit();
-
-        } else {
-            // In single-pane mode, simply start the detail activity
-            // for the selected item ID.
-            Intent detailIntent = new Intent(this, GameServerItemDetailActivity.class);
-            detailIntent.putExtra(GameServerItemDetailFragment.ARG_ITEM_ID, id);
-            startActivity(detailIntent);
-        }
-    }
+//    @Override
+//    public void onItemSelected(String id) {
+//        if (mTwoPane) {
+//            // In two-pane mode, show the detail view in this activity by
+//            // adding or replacing the detail fragment using a
+//            // fragment transaction.
+//            Bundle arguments = new Bundle();
+//            arguments.putString(GameServerItemDetailFragment.ARG_ITEM_ID, id);
+//            GameServerItemDetailFragment fragment = new GameServerItemDetailFragment();
+//            fragment.setArguments(arguments);
+//            getSupportFragmentManager().beginTransaction()
+//                    .replace(R.id.gameserveritem_detail_container, fragment)
+//                    .commit();
+//
+//        } else {
+//            // In single-pane mode, simply start the detail activity
+//            // for the selected item ID.
+//            Intent detailIntent = new Intent(this, GameServerItemDetailActivity.class);
+//            detailIntent.putExtra(GameServerItemDetailFragment.ARG_ITEM_ID, id);
+//            startActivity(detailIntent);
+//        }
+//    }
 
     private void checkThemeChange() {
         if (sThemeChangeFlag != isDarkTheme(this)) {
