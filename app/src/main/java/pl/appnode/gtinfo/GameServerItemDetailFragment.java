@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.webkit.WebView;
 
-import pl.appnode.gtinfo.dummy.DummyContent;
 
 import static pl.appnode.gtinfo.Constants.GT_HTML_COLORS;
 import static pl.appnode.gtinfo.Constants.GT_HTML_INFO_COMPONENT_BASE_URL;
@@ -38,7 +37,7 @@ public class GameServerItemDetailFragment extends Fragment {
     /**
      * The dummy content this fragment is presenting.
      */
-    private DummyContent.DummyItem mItem;
+    private GameServerItem mItem;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -55,7 +54,7 @@ public class GameServerItemDetailFragment extends Fragment {
             // Load the dummy content specified by the fragment
             // arguments. In a real-world scenario, use a Loader
             // to load content from a content provider.
-            mItem = DummyContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
+            //mItem = DummyContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
         }
     }
 
@@ -73,7 +72,7 @@ public class GameServerItemDetailFragment extends Fragment {
             WebView gameServerWebView = (WebView) rootView.findViewById(R.id.gameServerInfoWebview);
             gameServerWebView.setInitialScale(getWebviewScale());
             String url = GT_HTML_INFO_COMPONENT_BASE_URL
-                    + mItem.id
+                    + mItem.mId
                     + "&bgColor=" + GT_HTML_COLORS.get(keyPrefix + "bgColor")
                     + "&fontColor=" + GT_HTML_COLORS.get(keyPrefix + "fontColor")
                     + "&titleBgColor=" + GT_HTML_COLORS.get(keyPrefix + "titleBgColor")
