@@ -31,6 +31,7 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
     public void onBindViewHolder(final ServerViewHolder serverViewHolder, final int position) {
         final GameServerItem gameServer = sServersList.get(position);
         ServerViewHolder.vName.setText(gameServer.mName);
+        ServerViewHolder.vAddress.setText(gameServer.mId);
     }
 
     @Override
@@ -48,10 +49,12 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
     public static class ServerViewHolder extends RecyclerView.ViewHolder {
 
         protected static TextView vName;
+        protected static TextView vAddress;
 
         public ServerViewHolder(View v) {
             super(v);
             vName = (TextView) v.findViewById(R.id.server_name);
+            vAddress = (TextView) v.findViewById(R.id.server_address);
         }
     }
 }

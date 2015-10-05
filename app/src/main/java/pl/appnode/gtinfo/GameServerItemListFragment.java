@@ -48,6 +48,7 @@ public class GameServerItemListFragment extends Fragment {
     private void initServerList() {
         SharedPreferences gameServersPrefs = AppContextHelper.getContext()
                 .getSharedPreferences(SERVERS_PREFS_FILE, 0);
+        sServersList.clear();
         Map<String, ?> keys = gameServersPrefs.getAll();
         for (Map.Entry<String, ?> entry : keys.entrySet()) {
             GameServerItem gameServer = new GameServerItem();
