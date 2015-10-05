@@ -45,7 +45,7 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
                 (itemView, new GameServersAdapter.ServerViewHolder.IViewHolderOnClicks() {
             public void onCardClick(View caller) {
                 Intent detailIntent = new Intent(mContext, GameServerItemDetailActivity.class);
-                detailIntent.putExtra(GameServerItemDetailFragment.ARG_ITEM_ID, ServerViewHolder.vPosition);
+                detailIntent.putExtra(GameServerItemDetailFragment.ARG_ITEM_ID, ServerViewHolder.vPosition + "");
                 mContext.startActivity(detailIntent);
             }
                 });
@@ -65,6 +65,7 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
 
         public ServerViewHolder(View v, IViewHolderOnClicks listener) {
             super(v);
+            mClickListener = listener;
             vName = (TextView) v.findViewById(R.id.server_name);
             vAddress = (TextView) v.findViewById(R.id.server_address);
             vName.setOnClickListener(this);
