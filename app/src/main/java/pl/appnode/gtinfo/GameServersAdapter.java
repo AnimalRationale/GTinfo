@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,7 +46,9 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
                 (itemView, new GameServersAdapter.ServerViewHolder.IViewHolderOnClicks() {
             public void onCardClick(View caller) {
                 Intent detailIntent = new Intent(mContext, GameServerItemDetailActivity.class);
-                detailIntent.putExtra(GameServerItemDetailFragment.ARG_ITEM_ID, ServerViewHolder.vPosition + "");
+                detailIntent.putExtra(GameServerItemDetailFragment.ARG_ITEM_ID,
+                        ServerViewHolder.vPosition);
+                Log.d(TAG, "Address for detail activity: " + ServerViewHolder.vPosition);
                 mContext.startActivity(detailIntent);
             }
                 });

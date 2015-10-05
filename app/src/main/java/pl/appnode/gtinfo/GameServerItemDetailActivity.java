@@ -41,8 +41,8 @@ public class GameServerItemDetailActivity extends AppCompatActivity {
             // Create the detail fragment and add it to the activity
             // using a fragment transaction.
             Bundle arguments = new Bundle();
-            arguments.putString(GameServerItemDetailFragment.ARG_ITEM_ID,
-                    getIntent().getStringExtra(GameServerItemDetailFragment.ARG_ITEM_ID));
+            arguments.putInt(GameServerItemDetailFragment.ARG_ITEM_ID,
+                    getIntent().getIntExtra(GameServerItemDetailFragment.ARG_ITEM_ID, 0));
             GameServerItemDetailFragment fragment = new GameServerItemDetailFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
