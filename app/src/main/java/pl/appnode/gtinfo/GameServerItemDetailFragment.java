@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.webkit.WebView;
+import android.widget.TextView;
 
 import static pl.appnode.gtinfo.GameServerItemListFragment.sServersList;
 import static pl.appnode.gtinfo.Constants.GT_HTML_COLORS;
@@ -49,7 +50,6 @@ public class GameServerItemDetailFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         if (getArguments().containsKey(ARG_ITEM_ID)) {
             mItem = sServersList.get(getArguments().getInt(ARG_ITEM_ID));
         }
@@ -59,10 +59,12 @@ public class GameServerItemDetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_gameserveritem_detail, container, false);
-
+        TextView serverName = (TextView) rootView.findViewById(R.id.detail_server_name);
+        serverName.setText(mItem.mName);
         String keyPrefix;
         if (isDarkTheme(getActivity())) {
             keyPrefix = "dark-";
+            serverName.setBackgroundColor(0xFF000000);
         } else keyPrefix = "light-";
 
         if (mItem != null) {
