@@ -9,6 +9,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import static pl.appnode.gtinfo.Constants.ADD_SERVER_INTENT_REQUEST;
+import static pl.appnode.gtinfo.Constants.ADDED_SERVER_ADDRESS;
+import static pl.appnode.gtinfo.Constants.ADDED_SERVER_NAME;
+import static pl.appnode.gtinfo.GameServerItemListFragment.sServersAdapter;
+import static pl.appnode.gtinfo.GameServerItemListFragment.sServersList;
 import static pl.appnode.gtinfo.PreferencesSetupHelper.isDarkTheme;
 import static pl.appnode.gtinfo.PreferencesSetupHelper.themeSetup;
 
@@ -85,7 +90,7 @@ public class GameServerItemListActivity extends AppCompatActivity {
         }
         if (id == R.id.action_add_server) {
             Intent settingsIntent = new Intent(this, AddGameServerActivity.class);
-            this.startActivity(settingsIntent);
+            this.startActivityForResult(settingsIntent, ADD_SERVER_INTENT_REQUEST);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -99,4 +104,18 @@ public class GameServerItemListActivity extends AppCompatActivity {
             startActivity(intent);
         }
     }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent resultIntent) {
+        if (requestCode == ADD_SERVER_INTENT_REQUEST && resultCode == RESULT_OK
+                && resultIntent.getExtras() != null) {
+            Log.d(TAG, "Proper ResultIntent.");
+            GameServerItem gameServer = new GameServerItem();
+            gameServer.mId = resultIntent.getStringExtra(ADDED_SERVER_ADDRESS);
+            gameServer.mName = resultIntent.getStringExtra(ADDED_SERVER_NAME);
+            sServersList.add(gameServer);
+            sServersAdapter.notifyDataSetChanged();
+        }
+    }
+
+
 }

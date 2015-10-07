@@ -8,6 +8,13 @@ import java.util.Map;
 public final class Constants {
     private Constants() {} /** Private constructor of final class to prevent instantiating. */
 
+    /** Intent request code for add server activity  */
+    public static final int ADD_SERVER_INTENT_REQUEST = 501;
+
+    /** Extra keys for result intent in add server activity s*/
+    public static final String ADDED_SERVER_ADDRESS = "AddedServerAddress";
+    public static final String ADDED_SERVER_NAME = "AddedServerName";
+
     /** SharedPreferences file for storing serves IP and custom name */
     public static final String SERVERS_PREFS_FILE = "ServersPrefsFile";
 

@@ -1,6 +1,7 @@
 package pl.appnode.gtinfo;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +16,8 @@ import android.widget.Toast;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static pl.appnode.gtinfo.Constants.ADDED_SERVER_ADDRESS;
+import static pl.appnode.gtinfo.Constants.ADDED_SERVER_NAME;
 import static pl.appnode.gtinfo.Constants.IP_ADDRESS_PORT_PATTERN;
 import static pl.appnode.gtinfo.PreferencesSetupHelper.themeSetup;
 import static pl.appnode.gtinfo.Constants.SERVERS_PREFS_FILE;
@@ -52,13 +55,13 @@ public class AddGameServerActivity extends Activity implements View.OnClickListe
             if (validateServerAddress(address)) {
                 Log.d(TAG, "Saving: " + address + " " + name);
                 saveAddedServer(address, name);
-                finish();
+                resultOk(address, name);
             }
         }
     }
 
     private void pressedCancel() {
-        finish();
+        resultCancel();
     }
 
     private boolean validateServerAddress(String address) {
@@ -85,6 +88,20 @@ public class AddGameServerActivity extends Activity implements View.OnClickListe
         editor.putString(address, name);
         editor.apply();
         Log.d(TAG, "Saved server: " + address + " with name: " + name);
+    }
+
+    private void resultOk(String address, String name) {
+        Intent resultIntent = getIntent();
+        resultIntent.putExtra(ADDED_SERVER_ADDRESS, address);
+        resultIntent.putExtra(ADDED_SERVER_NAME, name);
+        setResult(RESULT_OK, resultIntent);
+        finish();
+    }
+
+    private void resultCancel() {
+        Intent resultIntent = getIntent();
+        setResult(RESULT_CANCELED, resultIntent);
+        finish();
     }
 
     @Override

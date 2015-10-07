@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +21,7 @@ public class GameServerItemListFragment extends Fragment {
     private static final String TAG = "GSI-List-fragment";
     private static final String TAG_V = "GameServerItemListFragment";
     protected static List<GameServerItem> sServersList = new ArrayList<>();
-    protected static GameServersAdapter mServersAdapter;
+    protected static GameServersAdapter sServersAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -40,21 +39,22 @@ public class GameServerItemListFragment extends Fragment {
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerServersList.setLayoutManager(llm);
-        mServersAdapter = new GameServersAdapter(getActivity());
-        recyclerServersList.setAdapter(mServersAdapter);
+        sServersAdapter = new GameServersAdapter(getActivity());
+        recyclerServersList.setAdapter(sServersAdapter);
         return rootView;
     }
 
     private void initServerList() {
-        SharedPreferences gameServersPrefs = AppContextHelper.getContext()
-                .getSharedPreferences(SERVERS_PREFS_FILE, 0);
-        sServersList.clear();
-        Map<String, ?> keys = gameServersPrefs.getAll();
-        for (Map.Entry<String, ?> entry : keys.entrySet()) {
-            GameServerItem gameServer = new GameServerItem();
-            gameServer.mId = entry.getKey();
-            gameServer.mName = entry.getValue().toString();
-            sServersList.add(gameServer);
+        if (sServersList.isEmpty()) {
+            SharedPreferences gameServersPrefs = AppContextHelper.getContext()
+                    .getSharedPreferences(SERVERS_PREFS_FILE, 0);
+            Map<String, ?> keys = gameServersPrefs.getAll();
+            for (Map.Entry<String, ?> entry : keys.entrySet()) {
+                GameServerItem gameServer = new GameServerItem();
+                gameServer.mId = entry.getKey();
+                gameServer.mName = entry.getValue().toString();
+                sServersList.add(gameServer);
+            }
         }
     }
 }
