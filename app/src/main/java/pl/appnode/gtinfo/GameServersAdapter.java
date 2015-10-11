@@ -32,9 +32,10 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
     @Override
     public void onBindViewHolder(final ServerViewHolder serverViewHolder, final int position) {
         final GameServerItem gameServer = sServersList.get(position);
-        ServerViewHolder.vName.setText(gameServer.mName);
-        ServerViewHolder.vAddress.setText(gameServer.mId);
-        ServerViewHolder.vPosition = position;
+        serverViewHolder.vName.setText(gameServer.mName);
+        serverViewHolder.vAddress.setText(gameServer.mId);
+        serverViewHolder.vPosition = position;
+        serverViewHolder.vPositionDisplay.setText(position + ")");
     }
 
     @Override
@@ -63,6 +64,7 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
 
         protected IViewHolderOnClicks mClickListener;
         protected static int vPosition;
+        protected static TextView vPositionDisplay;
         protected static TextView vName;
         protected static TextView vAddress;
 
@@ -71,6 +73,7 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
             mClickListener = listener;
             vName = (TextView) v.findViewById(R.id.server_name);
             vAddress = (TextView) v.findViewById(R.id.server_address);
+            vPositionDisplay = (TextView) v.findViewById(R.id.item_position);
             vName.setOnClickListener(this);
             v.setOnClickListener(this);
         }

@@ -35,6 +35,16 @@
             android:layout_alignWithParentIfMissing="true"
             android:text="@string/card_server_address_default"
             android:textSize="12sp" />
+        <TextView
+            android:id="@+id/item_position"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_alignParentBottom="true"
+            android:gravity="center_vertical|left"
+            android:layout_alignWithParentIfMissing="true"
+            android:text="..."
+            android:textSize="12sp" />
         <Button
             android:id="@+id/button_remove_server"
             android:layout_width="24dp"
