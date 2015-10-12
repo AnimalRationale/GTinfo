@@ -35,7 +35,7 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
         serverViewHolder.vName.setText(gameServer.mName);
         serverViewHolder.vAddress.setText(gameServer.mId);
         serverViewHolder.vPosition = position;
-        serverViewHolder.vPositionDisplay.setText(position + ")");
+        serverViewHolder.vPositionDisplay.setText(position + 1 + "");
     }
 
     @Override
