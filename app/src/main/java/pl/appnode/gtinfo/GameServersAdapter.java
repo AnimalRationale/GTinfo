@@ -45,11 +45,11 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
                 inflate(R.layout.card_layout, viewGroup, false);
         GameServersAdapter.ServerViewHolder viewHolder = new ServerViewHolder
                 (itemView, new GameServersAdapter.ServerViewHolder.IViewHolderOnClicks() {
-            public void onCardClick(View caller) {
+            public void onCardClick(View caller, int position) {
                 Intent detailIntent = new Intent(mContext, GameServerItemDetailActivity.class);
                 detailIntent.putExtra(GameServerItemDetailFragment.ARG_ITEM_ID,
-                        ServerViewHolder.vPosition);
-                Log.d(TAG, "Address for detail activity: " + ServerViewHolder.vPosition);
+                        position);
+                Log.d(TAG, "Address for detail activity: " + position);
                 mContext.startActivity(detailIntent);
             }
                 });
@@ -60,13 +60,13 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
         return viewHolder;
     }
 
-    public static class ServerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    static public class ServerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         protected IViewHolderOnClicks mClickListener;
-        protected static int vPosition;
-        protected static TextView vPositionDisplay;
-        protected static TextView vName;
-        protected static TextView vAddress;
+        protected int vPosition;
+        protected TextView vPositionDisplay;
+        protected TextView vName;
+        protected TextView vAddress;
 
         public ServerViewHolder(View v, IViewHolderOnClicks listener) {
             super(v);
@@ -81,14 +81,14 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
         @Override
         public void onClick(View v) {
             if (v instanceof TextView) {
-                mClickListener.onCardClick(v);
+                mClickListener.onCardClick(v, vPosition);
             } else {
-                mClickListener.onCardClick(v);
+                mClickListener.onCardClick(v, vPosition);
             }
         }
 
         public interface IViewHolderOnClicks {
-            void onCardClick(View caller);
+            void onCardClick(View caller, int position);
         }
     }
 }
