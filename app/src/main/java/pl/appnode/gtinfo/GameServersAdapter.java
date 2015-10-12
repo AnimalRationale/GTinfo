@@ -94,9 +94,9 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
             } else if (v instanceof Button) {
                 mClickListener.onRemoveButtonClick(v, vPosition);
             }
-//            else {
-//                mClickListener.onCardClick(v, vPosition);
-//            }
+            else {
+                mClickListener.onCardClick(v, vPosition);
+            }
         }
 
         public interface IViewHolderOnClicks {
