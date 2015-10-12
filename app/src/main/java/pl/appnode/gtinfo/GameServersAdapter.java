@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import static pl.appnode.gtinfo.GameServerItemListFragment.sServersList;
@@ -52,6 +53,11 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
                 Log.d(TAG, "Address for detail activity: " + position);
                 mContext.startActivity(detailIntent);
             }
+
+            public void onRemoveButtonClick(View caller, int position) {
+                Log.d(TAG, "Remove item: " + position);
+            }
+
                 });
         CardView card = (CardView) itemView;
         if (isDarkTheme(mContext)) {
@@ -67,6 +73,7 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
         protected TextView vPositionDisplay;
         protected TextView vName;
         protected TextView vAddress;
+        protected Button vRemoveButton;
 
         public ServerViewHolder(View v, IViewHolderOnClicks listener) {
             super(v);
@@ -74,7 +81,9 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
             vName = (TextView) v.findViewById(R.id.server_name);
             vAddress = (TextView) v.findViewById(R.id.server_address);
             vPositionDisplay = (TextView) v.findViewById(R.id.item_position);
+            vRemoveButton = (Button) v.findViewById(R.id.button_remove_server);
             vName.setOnClickListener(this);
+            vRemoveButton.setOnClickListener(this);
             v.setOnClickListener(this);
         }
 
@@ -82,13 +91,17 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
         public void onClick(View v) {
             if (v instanceof TextView) {
                 mClickListener.onCardClick(v, vPosition);
-            } else {
-                mClickListener.onCardClick(v, vPosition);
+            } else if (v instanceof Button) {
+                mClickListener.onRemoveButtonClick(v, vPosition);
             }
+//            else {
+//                mClickListener.onCardClick(v, vPosition);
+//            }
         }
 
         public interface IViewHolderOnClicks {
             void onCardClick(View caller, int position);
+            void onRemoveButtonClick(View caller, int position);
         }
     }
 }
