@@ -2,6 +2,7 @@ package pl.appnode.gtinfo;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import static pl.appnode.gtinfo.Constants.SERVERS_PREFS_FILE;
 import static pl.appnode.gtinfo.GameServerItemListFragment.sServersList;
 import static pl.appnode.gtinfo.PreferencesSetupHelper.isDarkTheme;
 
@@ -55,6 +57,7 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
             }
 
             public void onRemoveButtonClick(View caller, int position) {
+                removeItem(position);
                 Log.d(TAG, "Remove item: " + position);
             }
 
@@ -64,6 +67,17 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
             card.setCardBackgroundColor(Color.BLACK);
         } else card.setCardBackgroundColor(Color.WHITE);
         return viewHolder;
+    }
+
+    private void removeItem(int position) {
+        GameServerItem gameServer = sServersList.get(position);
+        SharedPreferences serversPrefs = AppContextHelper.getContext()
+                .getSharedPreferences(SERVERS_PREFS_FILE, mContext.MODE_PRIVATE);
+        SharedPreferences.Editor editor = serversPrefs.edit();
+        editor.remove(gameServer.mId);
+        editor.apply();
+        sServersList.remove(position);
+        notifyDataSetChanged();
     }
 
     static public class ServerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
