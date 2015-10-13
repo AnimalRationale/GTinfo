@@ -35,7 +35,7 @@ public class GameServerItemListFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_gameserveritem_list, container, false);
         rootView.setTag(TAG_V);
         RecyclerView recyclerServersList = (RecyclerView) rootView.findViewById(R.id.serversList);
-        // recyclerServersList.setItemAnimator(null);
+        recyclerServersList.setItemAnimator(null);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerServersList.setLayoutManager(llm);

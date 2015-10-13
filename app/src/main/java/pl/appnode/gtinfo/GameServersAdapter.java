@@ -75,27 +75,30 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
         protected TextView vAddress;
         protected Button vRemoveButton;
 
-        public ServerViewHolder(View v, IViewHolderOnClicks listener) {
-            super(v);
+        public ServerViewHolder(View itemCardView, IViewHolderOnClicks listener) {
+            super(itemCardView);
             mClickListener = listener;
-            vName = (TextView) v.findViewById(R.id.server_name);
-            vAddress = (TextView) v.findViewById(R.id.server_address);
-            vPositionDisplay = (TextView) v.findViewById(R.id.item_position);
-            vRemoveButton = (Button) v.findViewById(R.id.button_remove_server);
+            vName = (TextView) itemCardView.findViewById(R.id.server_name);
+            vAddress = (TextView) itemCardView.findViewById(R.id.server_address);
+            vPositionDisplay = (TextView) itemCardView.findViewById(R.id.item_position);
+            vRemoveButton = (Button) itemCardView.findViewById(R.id.button_remove_server);
             vName.setOnClickListener(this);
             vRemoveButton.setOnClickListener(this);
-            v.setOnClickListener(this);
+            itemCardView.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
-            if (v instanceof TextView) {
-                mClickListener.onCardClick(v, vPosition);
-            } else if (v instanceof Button) {
-                mClickListener.onRemoveButtonClick(v, vPosition);
-            }
-            else {
-                mClickListener.onCardClick(v, vPosition);
+            switch (v.getId()) {
+                case R.id.button_remove_server:
+                    mClickListener.onRemoveButtonClick(v, vPosition);
+                    break;
+                case R.id.server_name:
+                    mClickListener.onCardClick(v, vPosition);
+                    Log.d(TAG, "Server name clicked.");
+                    break;
+                default:
+                    mClickListener.onCardClick(v, vPosition);
             }
         }
 
