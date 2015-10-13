@@ -116,6 +116,4 @@ public class GameServerItemListActivity extends AppCompatActivity {
             sServersAdapter.notifyDataSetChanged();
         }
     }
-
-
 }
