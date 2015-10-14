@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.Build;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -65,6 +66,17 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
         CardView card = (CardView) itemView;
         if (isDarkTheme(mContext)) {
             card.setCardBackgroundColor(Color.BLACK);
+            Button removeButton = (Button)itemView.findViewById(R.id.button_remove_server);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                removeButton.setBackground(mContext.getResources()
+                        .getDrawable(R.drawable.ic_remove_circle_outline_white_24dp, mContext.getTheme()));
+            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                removeButton.setBackground(mContext.getResources()
+                        .getDrawable(R.drawable.ic_remove_circle_outline_white_24dp));
+            } else {
+                removeButton.setBackgroundDrawable(mContext.getResources()
+                        .getDrawable(R.drawable.ic_remove_circle_outline_white_24dp));
+            }
         } else card.setCardBackgroundColor(Color.WHITE);
         return viewHolder;
     }
