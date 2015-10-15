@@ -16,17 +16,17 @@
     
     -->
 
-    <fragment
+    <LinearLayout
         android:id="@+id/gameserveritem_list"
-        android:name="pl.appnode.gtinfo.GameServerItemListFragment"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1" >
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/serversList"
+        <FrameLayout
+            android:id="@+id/placeholder_fragment"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-    </fragment>
+            android:layout_height="match_parent">
+        </FrameLayout>
+        </LinearLayout>
 
     <FrameLayout
         android:id="@+id/gameserveritem_detail_container"

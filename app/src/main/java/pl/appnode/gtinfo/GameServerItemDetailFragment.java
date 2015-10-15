@@ -52,6 +52,9 @@ public class GameServerItemDetailFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments().containsKey(ARG_ITEM_ID)) {
             mItem = sServersList.get(getArguments().getInt(ARG_ITEM_ID));
+        } else {
+            mItem.mId = "0";
+            mItem.mName = "";
         }
     }
 
@@ -67,9 +70,9 @@ public class GameServerItemDetailFragment extends Fragment {
             serverName.setBackgroundColor(0xFF000000);
         } else keyPrefix = "light-";
 
-        if (mItem != null) {
+        if (mItem != null && mItem.mId != "0") {
             WebView gameServerWebView = (WebView) rootView.findViewById(R.id.gameServerInfoWebview);
-            gameServerWebView.setInitialScale(getWebviewScale());
+            gameServerWebView.setInitialScale(getWebViewScale());
             String url = GT_HTML_INFO_COMPONENT_BASE_URL
                     + mItem.mId
                     + "&bgColor=" + GT_HTML_COLORS.get(keyPrefix + "bgColor")
@@ -90,7 +93,7 @@ public class GameServerItemDetailFragment extends Fragment {
         return rootView;
     }
 
-    private int getWebviewScale() {
+    private int getWebViewScale() {
         WindowManager wm = (WindowManager) getActivity().getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
         DisplayMetrics metrics = new DisplayMetrics();
