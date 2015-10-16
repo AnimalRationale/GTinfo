@@ -5,10 +5,10 @@
     android:id="@+id/card_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    card_view:cardCornerRadius="16dp"
+    card_view:cardCornerRadius="0dp"
     android:layout_marginLeft="4dp"
     android:layout_marginRight="4dp"
-    android:layout_marginTop="16dp"
+    android:layout_marginTop="8dp"
     >
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
@@ -24,6 +24,7 @@
             android:layout_alignWithParentIfMissing="true"
             android:gravity="center_vertical|center_horizontal"
             android:text="@string/card_server_name_default"
+            android:textStyle="bold"
             android:textSize="16sp" />
         <TextView
             android:id="@+id/server_address"

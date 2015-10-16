@@ -8,8 +8,8 @@ android {
         applicationId "pl.appnode.gtinfo"
         minSdkVersion 15
         targetSdkVersion 22
-        versionCode 20
-        versionName "0.1"
+        versionCode 21
+        versionName "0.2"
     }
     buildTypes {
         release {
