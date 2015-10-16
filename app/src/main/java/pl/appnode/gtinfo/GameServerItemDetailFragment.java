@@ -99,6 +99,13 @@ public class GameServerItemDetailFragment extends Fragment {
         return rootView;
     }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+        serverName.setText("");
+        serverName.setText(mItem.mName);
+    }
+
     private int getWebViewScale(Double factor) {
         WindowManager wm = (WindowManager) getActivity().getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
