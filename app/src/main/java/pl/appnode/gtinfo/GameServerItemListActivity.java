@@ -35,8 +35,12 @@ import static pl.appnode.gtinfo.PreferencesSetupHelper.themeSetup;
 public class GameServerItemListActivity extends AppCompatActivity {
 
     private static final String TAG = "GameServerListAct";
-    private boolean mTwoPane;
+    private static boolean mTwoPane;
     private static boolean sThemeChangeFlag;
+
+    public static boolean isTwoPaneMode() {
+        return mTwoPane;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

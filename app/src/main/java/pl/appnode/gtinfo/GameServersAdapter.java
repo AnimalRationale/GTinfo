@@ -1,10 +1,14 @@
 package pl.appnode.gtinfo;
 
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
+import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -50,11 +54,23 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
         GameServersAdapter.ServerViewHolder viewHolder = new ServerViewHolder
                 (itemView, new GameServersAdapter.ServerViewHolder.IViewHolderOnClicks() {
             public void onCardClick(View caller, int position) {
-                Intent detailIntent = new Intent(mContext, GameServerItemDetailActivity.class);
-                detailIntent.putExtra(GameServerItemDetailFragment.ARG_ITEM_ID,
-                        position);
-                Log.d(TAG, "Address for detail activity: " + position);
-                mContext.startActivity(detailIntent);
+                if (!GameServerItemListActivity.isTwoPaneMode()) {
+                    Intent detailIntent = new Intent(mContext, GameServerItemDetailActivity.class);
+                    detailIntent.putExtra(GameServerItemDetailFragment.ARG_ITEM_ID,
+                            position);
+                    Log.d(TAG, "Address for detail activity: " + position);
+                    mContext.startActivity(detailIntent);
+                } else {
+                    Bundle arguments = new Bundle();
+                    arguments.putInt(GameServerItemDetailFragment.ARG_ITEM_ID, position);
+                    GameServerItemDetailFragment fragment = new GameServerItemDetailFragment();
+                    fragment.setArguments(arguments);
+                    FragmentActivity activity = (FragmentActivity) mContext;
+                    FragmentManager manager = activity.getSupportFragmentManager();
+                    manager.beginTransaction()
+                            .add(R.id.gameserveritem_detail_container, fragment)
+                            .commit();
+                }
             }
 
             public void onRemoveButtonClick(View caller, int position) {
