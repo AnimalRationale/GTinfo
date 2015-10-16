@@ -29,6 +29,8 @@ public class GameServerItemDetailFragment extends Fragment {
 
     public static final String TAG = "GameServerDetail";
 
+    TextView serverName = null;
+
     /**
      * The fragment argument representing the item ID that this fragment
      * represents.
@@ -62,7 +64,7 @@ public class GameServerItemDetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_gameserveritem_detail, container, false);
-        TextView serverName = (TextView) rootView.findViewById(R.id.detail_server_name);
+        serverName = (TextView) rootView.findViewById(R.id.detail_server_name);
         serverName.setText(mItem.mName);
         String keyPrefix;
         if (isDarkTheme(getActivity())) {
@@ -71,8 +73,12 @@ public class GameServerItemDetailFragment extends Fragment {
         } else keyPrefix = "light-";
 
         if (mItem != null && mItem.mId != "0") {
+            Double factor = 1.0;
             WebView gameServerWebView = (WebView) rootView.findViewById(R.id.gameServerInfoWebview);
-            gameServerWebView.setInitialScale(getWebViewScale());
+            if (GameServerItemListActivity.isTwoPaneMode()) {
+                factor = 1.8;
+            }
+            gameServerWebView.setInitialScale(getWebViewScale(factor));
             String url = GT_HTML_INFO_COMPONENT_BASE_URL
                     + mItem.mId
                     + "&bgColor=" + GT_HTML_COLORS.get(keyPrefix + "bgColor")
@@ -93,15 +99,15 @@ public class GameServerItemDetailFragment extends Fragment {
         return rootView;
     }
 
-    private int getWebViewScale() {
+    private int getWebViewScale(Double factor) {
         WindowManager wm = (WindowManager) getActivity().getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
         DisplayMetrics metrics = new DisplayMetrics();
         display.getMetrics(metrics);
-        int width = metrics.widthPixels;
+        Double width = metrics.widthPixels / factor;
         int height = metrics.heightPixels;
         Log.d(TAG, "Metrics: width=" + width + " height=" + height);
-        Double scale = new Double(width)/new Double(GT_HTML_INFO_COMPONENT_WIDTH);
+        Double scale = width / new Double(GT_HTML_INFO_COMPONENT_WIDTH);
         scale = scale * 100d;
         return scale.intValue();
     }
