@@ -27,6 +27,7 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
 
     private static final String TAG = "GameServersAdapter";
     private Context mContext;
+    private int mSelected = -1;
 
     public GameServersAdapter(Context context) {
         mContext = context;
@@ -44,6 +45,9 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
         serverViewHolder.vAddress.setText(gameServer.mId);
         serverViewHolder.vPosition = position;
         serverViewHolder.vPositionDisplay.setText(position + 1 + "");
+        if (mSelected == position) {
+            serverViewHolder.itemView.setBackgroundColor(Color.DKGRAY);
+        } else {serverViewHolder.itemView.setBackgroundColor(Color.BLACK);}
     }
 
     @Override
@@ -54,6 +58,12 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
         GameServersAdapter.ServerViewHolder viewHolder = new ServerViewHolder
                 (itemView, new GameServersAdapter.ServerViewHolder.IViewHolderOnClicks() {
             public void onCardClick(View caller, int position) {
+                int oldSelected = mSelected;
+                mSelected = position;
+                if (oldSelected != -1) {
+                    notifyItemChanged(oldSelected);
+                }
+                notifyItemChanged(mSelected);
                 if (!GameServerItemListActivity.isTwoPaneMode()) {
                     Intent detailIntent = new Intent(mContext, GameServerItemDetailActivity.class);
                     detailIntent.putExtra(GameServerItemDetailFragment.ARG_ITEM_ID,
