@@ -45,7 +45,7 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
         serverViewHolder.vAddress.setText(gameServer.mId);
         serverViewHolder.vPosition = position;
         serverViewHolder.vPositionDisplay.setText(position + 1 + "");
-        if (mSelected == position) {
+        if (mSelected == position && GameServerItemListActivity.isTwoPaneMode()) {
             serverViewHolder.itemView.setBackgroundColor(Color.DKGRAY);
         } else {serverViewHolder.itemView.setBackgroundColor(Color.BLACK);}
     }
