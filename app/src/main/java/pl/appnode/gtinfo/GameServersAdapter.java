@@ -46,8 +46,8 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
         serverViewHolder.vPosition = position;
         serverViewHolder.vPositionDisplay.setText(position + 1 + "");
         if (mSelected == position && GameServerItemListActivity.isTwoPaneMode()) {
-            serverViewHolder.itemView.setBackgroundColor(Color.DKGRAY);
-        } else {serverViewHolder.itemView.setBackgroundColor(Color.BLACK);}
+            serverViewHolder.itemView.setBackgroundColor(Color.BLACK);
+        } else {serverViewHolder.itemView.setBackgroundColor(Color.DKGRAY);}
     }
 
     @Override
@@ -91,7 +91,7 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
                 });
         CardView card = (CardView) itemView;
         if (isDarkTheme(mContext)) {
-            card.setCardBackgroundColor(Color.BLACK);
+            card.setCardBackgroundColor(Color.DKGRAY);
             Button removeButton = (Button)itemView.findViewById(R.id.button_remove_server);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 removeButton.setBackground(mContext.getResources()
@@ -103,7 +103,7 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
                 removeButton.setBackgroundDrawable(mContext.getResources()
                         .getDrawable(R.drawable.ic_remove_circle_outline_white_24dp));
             }
-        } else card.setCardBackgroundColor(Color.WHITE);
+        } else card.setCardBackgroundColor(Color.LTGRAY);
         return viewHolder;
     }
 

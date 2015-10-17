@@ -1,6 +1,7 @@
 package pl.appnode.gtinfo;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
@@ -78,6 +79,7 @@ public class GameServerItemDetailFragment extends Fragment {
             if (GameServerItemListActivity.isTwoPaneMode()) {
                 factor = 1.8;
             }
+            gameServerWebView.setBackgroundColor(Color.TRANSPARENT);
             gameServerWebView.setInitialScale(getWebViewScale(factor));
             String url = GT_HTML_INFO_COMPONENT_BASE_URL
                     + mItem.mId
