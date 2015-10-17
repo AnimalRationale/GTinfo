@@ -22,12 +22,11 @@ import static pl.appnode.gtinfo.Constants.SERVERS_PREFS_FILE;
 import static pl.appnode.gtinfo.GameServerItemListFragment.sServersList;
 import static pl.appnode.gtinfo.PreferencesSetupHelper.isDarkTheme;
 
-
 public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.ServerViewHolder>{
 
     private static final String TAG = "GameServersAdapter";
     private Context mContext;
-    private int mSelected = -1;
+
 
     public GameServersAdapter(Context context) {
         mContext = context;
@@ -45,7 +44,7 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
         serverViewHolder.vAddress.setText(gameServer.mId);
         serverViewHolder.vPosition = position;
         serverViewHolder.vPositionDisplay.setText(position + 1 + "");
-        if (mSelected == position && GameServerItemListActivity.isTwoPaneMode()) {
+        if (GameServerItemListActivity.getSelectedItem() == position && GameServerItemListActivity.isTwoPaneMode()) {
             serverViewHolder.itemView.setBackgroundColor(Color.BLACK);
         } else {serverViewHolder.itemView.setBackgroundColor(Color.DKGRAY);}
     }
@@ -58,12 +57,12 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
         GameServersAdapter.ServerViewHolder viewHolder = new ServerViewHolder
                 (itemView, new GameServersAdapter.ServerViewHolder.IViewHolderOnClicks() {
             public void onCardClick(View caller, int position) {
-                int oldSelected = mSelected;
-                mSelected = position;
+                int oldSelected = GameServerItemListActivity.getSelectedItem();
+                GameServerItemListActivity.setSelectedItem(position);
                 if (oldSelected != -1) {
                     notifyItemChanged(oldSelected);
                 }
-                notifyItemChanged(mSelected);
+                notifyItemChanged(position);
                 if (!GameServerItemListActivity.isTwoPaneMode()) {
                     Intent detailIntent = new Intent(mContext, GameServerItemDetailActivity.class);
                     detailIntent.putExtra(GameServerItemDetailFragment.ARG_ITEM_ID,

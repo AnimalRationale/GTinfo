@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import static pl.appnode.gtinfo.Constants.ADD_SERVER_INTENT_REQUEST;
 import static pl.appnode.gtinfo.Constants.ADDED_SERVER_ADDRESS;
 import static pl.appnode.gtinfo.Constants.ADDED_SERVER_NAME;
+import static pl.appnode.gtinfo.Constants.SELECTED_ITEM_POSITION;
 import static pl.appnode.gtinfo.GameServerItemListFragment.sServersAdapter;
 import static pl.appnode.gtinfo.GameServerItemListFragment.sServersList;
 import static pl.appnode.gtinfo.PreferencesSetupHelper.isDarkTheme;
@@ -37,14 +38,24 @@ public class GameServerItemListActivity extends AppCompatActivity {
     private static final String TAG = "GameServerListAct";
     private static boolean mTwoPane;
     private static boolean sThemeChangeFlag;
+    private static int mSelected = -1;
 
     public static boolean isTwoPaneMode() {
         return mTwoPane;
     }
 
+    public static int getSelectedItem() {return mSelected;}
+
+    public static void setSelectedItem(int position) {
+        mSelected = position;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (savedInstanceState != null) {
+            mSelected = savedInstanceState.getInt(SELECTED_ITEM_POSITION);
+        }
         themeSetup(this);
         sThemeChangeFlag = isDarkTheme(this);
         setContentView(R.layout.activity_gameserveritem_list);
@@ -119,5 +130,11 @@ public class GameServerItemListActivity extends AppCompatActivity {
             sServersList.add(gameServer);
             sServersAdapter.notifyDataSetChanged();
         }
+    }
+
+    @Override
+    protected void onSaveInstanceState (Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(SELECTED_ITEM_POSITION, mSelected);
     }
 }

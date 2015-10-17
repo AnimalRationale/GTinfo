@@ -18,6 +18,9 @@ public final class Constants {
     /** SharedPreferences file for storing serves IP and custom name */
     public static final String SERVERS_PREFS_FILE = "ServersPrefsFile";
 
+    /** Key for saving value of selected server list item used in instance state save*/
+    public static final String SELECTED_ITEM_POSITION = "mSelected";
+
     /** Regexp pattern for server IP:port validation
      * (allowing addresses starting with 0 and port value in range 0..99999) */
     public static final String IP_ADDRESS_PORT_PATTERN =

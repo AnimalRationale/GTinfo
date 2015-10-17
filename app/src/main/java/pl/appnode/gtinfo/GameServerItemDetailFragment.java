@@ -66,7 +66,9 @@ public class GameServerItemDetailFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_gameserveritem_detail, container, false);
         serverName = (TextView) rootView.findViewById(R.id.detail_server_name);
-        serverName.setText(mItem.mName);
+        if (!GameServerItemListActivity.isTwoPaneMode()) {
+            serverName.setText(mItem.mName);
+        } else {serverName.setVisibility(View.GONE);}
         String keyPrefix;
         if (isDarkTheme(getActivity())) {
             keyPrefix = "dark-";
