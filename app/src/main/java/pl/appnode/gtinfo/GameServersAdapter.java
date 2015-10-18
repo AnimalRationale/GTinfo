@@ -4,7 +4,6 @@ package pl.appnode.gtinfo;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -45,8 +44,10 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
         serverViewHolder.vPosition = position;
         serverViewHolder.vPositionDisplay.setText(position + 1 + "");
         if (GameServerItemListActivity.getSelectedItem() == position && GameServerItemListActivity.isTwoPaneMode()) {
-            serverViewHolder.itemView.setBackgroundColor(Color.BLACK);
-        } else {serverViewHolder.itemView.setBackgroundColor(Color.DKGRAY);}
+            ((CardView)serverViewHolder.itemView)
+                    .setCardBackgroundColor(mContext.getResources().getColor(R.color.black));
+        } else {((CardView)serverViewHolder.itemView)
+                .setCardBackgroundColor(mContext.getResources().getColor(R.color.dark_gray));}
     }
 
     @Override
@@ -90,7 +91,7 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
                 });
         CardView card = (CardView) itemView;
         if (isDarkTheme(mContext)) {
-            card.setCardBackgroundColor(Color.DKGRAY);
+            card.setCardBackgroundColor(mContext.getResources().getColor(R.color.dark_gray));
             Button removeButton = (Button)itemView.findViewById(R.id.button_remove_server);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 removeButton.setBackground(mContext.getResources()
@@ -102,7 +103,7 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
                 removeButton.setBackgroundDrawable(mContext.getResources()
                         .getDrawable(R.drawable.ic_remove_circle_outline_white_24dp));
             }
-        } else card.setCardBackgroundColor(Color.LTGRAY);
+        } else card.setCardBackgroundColor(mContext.getResources().getColor(R.color.light_gray));
         return viewHolder;
     }
 
