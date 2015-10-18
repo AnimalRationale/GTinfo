@@ -14,6 +14,8 @@ import android.view.WindowManager;
 import android.webkit.WebView;
 import android.widget.TextView;
 
+import static pl.appnode.gtinfo.Constants.SCALING_FACTOR_PHONE;
+import static pl.appnode.gtinfo.Constants.SCALING_FACTOR_TABLET;
 import static pl.appnode.gtinfo.GameServerItemListFragment.sServersList;
 import static pl.appnode.gtinfo.Constants.GT_HTML_COLORS;
 import static pl.appnode.gtinfo.Constants.GT_HTML_INFO_COMPONENT_BASE_URL;
@@ -68,18 +70,19 @@ public class GameServerItemDetailFragment extends Fragment {
         serverName = (TextView) rootView.findViewById(R.id.detail_server_name);
         if (!GameServerItemListActivity.isTwoPaneMode()) {
             serverName.setText(mItem.mName);
+            serverName.setBackgroundColor(getResources().getColor(R.color.accent_light));
         } else {serverName.setVisibility(View.GONE);}
         String keyPrefix;
         if (isDarkTheme(getActivity())) {
             keyPrefix = "dark-";
-            serverName.setBackgroundColor(0xFF000000);
-        } else keyPrefix = "light-";
+        } else {
+            keyPrefix = "light-";}
 
         if (mItem != null && mItem.mId != "0") {
-            Double factor = 1.0;
+            Double factor = SCALING_FACTOR_PHONE;
             WebView gameServerWebView = (WebView) rootView.findViewById(R.id.gameServerInfoWebview);
             if (GameServerItemListActivity.isTwoPaneMode()) {
-                factor = 1.8;
+                factor = SCALING_FACTOR_TABLET;
             }
             gameServerWebView.setBackgroundColor(Color.TRANSPARENT);
             gameServerWebView.setInitialScale(getWebViewScale(factor));

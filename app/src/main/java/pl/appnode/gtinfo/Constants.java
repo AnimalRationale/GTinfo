@@ -41,6 +41,12 @@ public final class Constants {
     public static final String GT_HTML_INFO_COMPONENT_BASE_URL
             = "http://cache.www.gametracker.com/components/html0/?host=";
 
+    /** Scaling factor for phones */
+    public static final Double SCALING_FACTOR_PHONE = 1.0;
+
+    /** Scaling factor for two pane mode */
+    public static final Double SCALING_FACTOR_TABLET = 1.8;
+
     /** Dictionary of all colors 'themes' for GT HTML component */
     public static final Map<String, String> GT_HTML_COLORS = new HashMap<String, String>() {
         {

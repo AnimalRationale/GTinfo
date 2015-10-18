@@ -17,7 +17,7 @@
 
     <string name="server_add_title">Game server data</string>
     <string name="server_add_address_title">Server address and port:</string>
-    <string name="server_add_name_title">Server name (max 40 characters):</string>
+    <string name="server_add_name_title">Server name (max 30 characters):</string>
     <string name="server_add_name_hint">Short name (max 40char) for game server</string>
     <string name="server_add_cancel">Cancel</string>
     <string name="server_add_ok">OK</string>
