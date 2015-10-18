@@ -90,7 +90,7 @@ public class GameServerItemListActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         checkThemeChange();
-        if (mSelected != -1) {
+        if (isTwoPaneMode() && mSelected != -1) {
             restoreDetailPane(mSelected);
         }
     }

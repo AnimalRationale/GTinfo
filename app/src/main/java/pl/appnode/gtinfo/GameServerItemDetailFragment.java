@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.TextView;
 
 import static pl.appnode.gtinfo.Constants.SCALING_FACTOR_PHONE;
@@ -78,8 +79,8 @@ public class GameServerItemDetailFragment extends Fragment {
         } else {
             keyPrefix = "light-";}
         if (mItem != null && !mItem.mId.equals("0")) {
-            Double factor = SCALING_FACTOR_PHONE;
             WebView gameServerWebView = (WebView) rootView.findViewById(R.id.gameServerInfoWebview);
+            Double factor = SCALING_FACTOR_PHONE;
             if (GameServerItemListActivity.isTwoPaneMode()) {
                 factor = SCALING_FACTOR_TABLET;
             }
