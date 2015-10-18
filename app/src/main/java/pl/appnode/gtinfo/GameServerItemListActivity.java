@@ -1,6 +1,8 @@
 package pl.appnode.gtinfo;
 
-import android.app.ActionBar;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
@@ -62,7 +64,7 @@ public class GameServerItemListActivity extends AppCompatActivity {
         if (isDarkTheme(this)) {
             getWindow().getDecorView().setBackgroundColor(getResources().getColor(R.color.black));
         } else {getWindow().getDecorView().setBackgroundColor(getResources().getColor(R.color.white));}
-        ActionBar actionBar = getActionBar();
+        ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayShowHomeEnabled(true);
             actionBar.setIcon(R.mipmap.ic_launcher);
@@ -88,6 +90,9 @@ public class GameServerItemListActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         checkThemeChange();
+        if (mSelected != -1) {
+            restoreDetailPane(mSelected);
+        }
     }
 
     @Override
@@ -122,6 +127,19 @@ public class GameServerItemListActivity extends AppCompatActivity {
             startActivity(intent);
         }
     }
+
+    private void restoreDetailPane(int position) {
+        Bundle arguments = new Bundle();
+        arguments.putInt(GameServerItemDetailFragment.ARG_ITEM_ID, position);
+        GameServerItemDetailFragment fragment = new GameServerItemDetailFragment();
+        fragment.setArguments(arguments);
+        FragmentActivity activity = this;
+        FragmentManager manager = activity.getSupportFragmentManager();
+        manager.beginTransaction()
+                .add(R.id.gameserveritem_detail_container, fragment)
+                .commit();
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent resultIntent) {
         if (requestCode == ADD_SERVER_INTENT_REQUEST && resultCode == RESULT_OK

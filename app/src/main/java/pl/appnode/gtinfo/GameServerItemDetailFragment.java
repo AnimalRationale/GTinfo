@@ -77,8 +77,7 @@ public class GameServerItemDetailFragment extends Fragment {
             keyPrefix = "dark-";
         } else {
             keyPrefix = "light-";}
-
-        if (mItem != null && mItem.mId != "0") {
+        if (mItem != null && !mItem.mId.equals("0")) {
             Double factor = SCALING_FACTOR_PHONE;
             WebView gameServerWebView = (WebView) rootView.findViewById(R.id.gameServerInfoWebview);
             if (GameServerItemListActivity.isTwoPaneMode()) {
