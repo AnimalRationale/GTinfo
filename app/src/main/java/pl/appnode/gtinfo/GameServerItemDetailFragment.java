@@ -16,10 +16,10 @@ import android.widget.TextView;
 
 import static pl.appnode.gtinfo.Constants.SCALING_FACTOR_PHONE;
 import static pl.appnode.gtinfo.Constants.SCALING_FACTOR_TABLET;
-import static pl.appnode.gtinfo.GameServerItemListFragment.sServersList;
 import static pl.appnode.gtinfo.Constants.GT_HTML_COLORS;
 import static pl.appnode.gtinfo.Constants.GT_HTML_INFO_COMPONENT_BASE_URL;
 import static pl.appnode.gtinfo.Constants.GT_HTML_INFO_COMPONENT_WIDTH;
+import static pl.appnode.gtinfo.GameServerItemListFragment.sServersList;
 import static pl.appnode.gtinfo.PreferencesSetupHelper.isDarkTheme;
 
 /**
@@ -112,15 +112,15 @@ public class GameServerItemDetailFragment extends Fragment {
         super.onResume();
     }
 
-    private int getWebViewScale(Double factor) {
+    private int getWebViewScale(Double factor) { // TODO: separate WebView scale and players list factor functions
         WindowManager wm = (WindowManager) getActivity().getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
         DisplayMetrics metrics = new DisplayMetrics();
         display.getMetrics(metrics);
         Double width = metrics.widthPixels / factor;
         int height = metrics.heightPixels;
-        int listFactor = 1;
         if (GameServerItemListActivity.isTwoPaneMode()) {
+            int listFactor = 1;
             if (height > 1300) {
                 listFactor = 5;
             } else {

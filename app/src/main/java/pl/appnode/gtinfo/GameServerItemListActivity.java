@@ -90,7 +90,12 @@ public class GameServerItemListActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         checkThemeChange();
-        if (isTwoPaneMode() && mSelected != -1) {
+    }
+
+    @Override
+    public void onPostResume() {
+        super.onPostResume();
+        if (isTwoPaneMode() && mSelected != -1 ) {
             restoreDetailPane(mSelected);
         }
     }
@@ -133,8 +138,7 @@ public class GameServerItemListActivity extends AppCompatActivity {
         arguments.putInt(GameServerItemDetailFragment.ARG_ITEM_ID, position);
         GameServerItemDetailFragment fragment = new GameServerItemDetailFragment();
         fragment.setArguments(arguments);
-        FragmentActivity activity = this;
-        FragmentManager manager = activity.getSupportFragmentManager();
+        FragmentManager manager = this.getSupportFragmentManager();
         manager.beginTransaction()
                 .add(R.id.gameserveritem_detail_container, fragment)
                 .commit();
