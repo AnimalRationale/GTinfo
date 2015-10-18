@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.TextView;
 
 import static pl.appnode.gtinfo.Constants.SCALING_FACTOR_PHONE;
@@ -33,7 +32,8 @@ public class GameServerItemDetailFragment extends Fragment {
 
     public static final String TAG = "GameServerDetail";
 
-    TextView serverName = null;
+    TextView mServerName = null;
+    int mCurrentPlayersListHeight = 200;
 
     /**
      * The fragment argument representing the item ID that this fragment
@@ -68,11 +68,12 @@ public class GameServerItemDetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_gameserveritem_detail, container, false);
-        serverName = (TextView) rootView.findViewById(R.id.detail_server_name);
+        mServerName = (TextView) rootView.findViewById(R.id.detail_server_name);
         if (!GameServerItemListActivity.isTwoPaneMode()) {
-            serverName.setText(mItem.mName);
-            serverName.setBackgroundColor(getResources().getColor(R.color.accent_light));
-        } else {serverName.setVisibility(View.GONE);}
+            mServerName.setText(mItem.mName);
+            mServerName.setBackgroundColor(getResources().getColor(R.color.accent_light));
+        } else {
+            mServerName.setVisibility(View.GONE);}
         String keyPrefix;
         if (isDarkTheme(getActivity())) {
             keyPrefix = "dark-";
@@ -96,7 +97,7 @@ public class GameServerItemDetailFragment extends Fragment {
                     + "&linkColor=" + GT_HTML_COLORS.get(keyPrefix + "linkColor")
                     + "&borderLinkColor=" + GT_HTML_COLORS.get(keyPrefix + "borderLinkColor")
                     + "&showMap=0"
-                    + "&currentPlayersHeight=200"
+                    + "&currentPlayersHeight=" + mCurrentPlayersListHeight
                     + "&showCurrPlayers=1"
                     + "&showTopPlayers=0"
                     + "&showBlogs=0"
@@ -109,8 +110,6 @@ public class GameServerItemDetailFragment extends Fragment {
     @Override
     public void onResume(){
         super.onResume();
-        serverName.setText("");
-        serverName.setText(mItem.mName);
     }
 
     private int getWebViewScale(Double factor) {
@@ -120,8 +119,19 @@ public class GameServerItemDetailFragment extends Fragment {
         display.getMetrics(metrics);
         Double width = metrics.widthPixels / factor;
         int height = metrics.heightPixels;
+        int listFactor = 1;
+        if (GameServerItemListActivity.isTwoPaneMode()) {
+            if (height > 1300) {
+                listFactor = 5;
+            } else {
+                if (height > 700) {
+                    listFactor = 3;
+                } else listFactor = 2;
+            }
+            mCurrentPlayersListHeight = height / listFactor;
+        }
         Log.d(TAG, "Metrics: width=" + width + " height=" + height);
-        Double scale = width / new Double(GT_HTML_INFO_COMPONENT_WIDTH);
+        Double scale = width / GT_HTML_INFO_COMPONENT_WIDTH;
         scale = scale * 100d;
         return scale.intValue();
     }
