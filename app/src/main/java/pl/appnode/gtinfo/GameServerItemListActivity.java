@@ -59,6 +59,9 @@ public class GameServerItemListActivity extends AppCompatActivity {
         themeSetup(this);
         sThemeChangeFlag = isDarkTheme(this);
         setContentView(R.layout.activity_gameserveritem_list);
+        if (isDarkTheme(this)) {
+            getWindow().getDecorView().setBackgroundColor(getResources().getColor(R.color.black));
+        } else {getWindow().getDecorView().setBackgroundColor(getResources().getColor(R.color.white));}
         ActionBar actionBar = getActionBar();
         if (actionBar != null) {
             actionBar.setDisplayShowHomeEnabled(true);

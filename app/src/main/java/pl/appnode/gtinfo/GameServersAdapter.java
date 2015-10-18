@@ -43,11 +43,38 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
         serverViewHolder.vAddress.setText(gameServer.mId);
         serverViewHolder.vPosition = position;
         serverViewHolder.vPositionDisplay.setText(position + 1 + "");
-        if (GameServerItemListActivity.getSelectedItem() == position && GameServerItemListActivity.isTwoPaneMode()) {
-            ((CardView)serverViewHolder.itemView)
-                    .setCardBackgroundColor(mContext.getResources().getColor(R.color.black));
-        } else {((CardView)serverViewHolder.itemView)
-                .setCardBackgroundColor(mContext.getResources().getColor(R.color.dark_gray));}
+        ((CardView)serverViewHolder.itemView)
+                    .setCardBackgroundColor(setCardColor(position));
+    }
+
+    private int setCardColor(int position) {
+        int state = 1;
+        if (GameServerItemListActivity.getSelectedItem() == position) {state = 2;}
+        if (isDarkTheme(mContext)) {
+            if (GameServerItemListActivity.isTwoPaneMode()) {
+                switch (state) {
+                    case 1:
+                        return mContext.getResources().getColor(R.color.dark_gray);
+                    case 2:
+                        return mContext.getResources().getColor(R.color.black);
+                }
+            } else {
+                return mContext.getResources().getColor(R.color.black);
+            }
+        }
+        if (!isDarkTheme(mContext)) {
+            if (GameServerItemListActivity.isTwoPaneMode()) {
+                switch (state) {
+                    case 1:
+                        return mContext.getResources().getColor(R.color.light_gray);
+                    case 2:
+                        return mContext.getResources().getColor(R.color.white);
+                }
+            } else {
+                return mContext.getResources().getColor(R.color.white);
+            }
+        }
+        return mContext.getResources().getColor(R.color.black);
     }
 
     @Override
