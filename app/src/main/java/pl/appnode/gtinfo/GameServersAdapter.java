@@ -17,6 +17,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import static pl.appnode.gtinfo.Constants.CARD_STATE_DEFAULT;
+import static pl.appnode.gtinfo.Constants.CARD_STATE_SELECTED;
 import static pl.appnode.gtinfo.Constants.SERVERS_PREFS_FILE;
 import static pl.appnode.gtinfo.GameServerItemListFragment.sServersList;
 import static pl.appnode.gtinfo.PreferencesSetupHelper.isDarkTheme;
@@ -48,33 +50,36 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
     }
 
     private int setCardColor(int position) {
-        int state = 1;
-        if (GameServerItemListActivity.getSelectedItem() == position) {state = 2;}
+
+        int state = CARD_STATE_DEFAULT;
+        if (GameServerItemListActivity.getSelectedItem() == position) {state = CARD_STATE_SELECTED;}
+
         if (isDarkTheme(mContext)) {
             if (GameServerItemListActivity.isTwoPaneMode()) {
                 switch (state) {
-                    case 1:
+                    case CARD_STATE_DEFAULT:
                         return mContext.getResources().getColor(R.color.dark_gray);
-                    case 2:
+                    case CARD_STATE_SELECTED:
                         return mContext.getResources().getColor(R.color.black);
                 }
             } else {
                 return mContext.getResources().getColor(R.color.black);
             }
         }
+
         if (!isDarkTheme(mContext)) {
             if (GameServerItemListActivity.isTwoPaneMode()) {
                 switch (state) {
-                    case 1:
+                    case CARD_STATE_DEFAULT:
                         return mContext.getResources().getColor(R.color.light_gray);
-                    case 2:
+                    case CARD_STATE_SELECTED:
                         return mContext.getResources().getColor(R.color.white);
                 }
             } else {
                 return mContext.getResources().getColor(R.color.white);
             }
         }
-        return mContext.getResources().getColor(R.color.black);
+        return mContext.getResources().getColor(R.color.white);
     }
 
     @Override

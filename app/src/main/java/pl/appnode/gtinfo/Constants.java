@@ -21,6 +21,13 @@ public final class Constants {
     /** Key for saving value of selected server list item used in instance state save*/
     public static final String SELECTED_ITEM_POSITION = "mSelected";
 
+    /** Servers list item default state, used to determine card colour */
+    public static final int CARD_STATE_DEFAULT = 1;
+
+    /** Servers list item selected state, used to determine card colour */
+    public static final int CARD_STATE_SELECTED = 2;
+
+
     /** Regexp pattern for server IP:port validation
      * (allowing addresses starting with 0 and port value in range 0..99999) */
     public static final String IP_ADDRESS_PORT_PATTERN =
