@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import static pl.appnode.gtinfo.Constants.ADD_SERVER_INTENT_REQUEST;
 import static pl.appnode.gtinfo.Constants.ADDED_SERVER_ADDRESS;
@@ -116,10 +117,6 @@ public class GameServerItemListActivity extends AppCompatActivity {
             Intent settingsIntent = new Intent(this, PreferencesActivity.class);
             this.startActivity(settingsIntent);
         }
-        if (id == R.id.action_add_server) {
-            Intent settingsIntent = new Intent(this, AddGameServerActivity.class);
-            this.startActivityForResult(settingsIntent, ADD_SERVER_INTENT_REQUEST);
-        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -131,6 +128,11 @@ public class GameServerItemListActivity extends AppCompatActivity {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         }
+    }
+
+    public void addServer(View fab) {
+        Intent settingsIntent = new Intent(this, AddGameServerActivity.class);
+        this.startActivityForResult(settingsIntent, ADD_SERVER_INTENT_REQUEST);
     }
 
     private void restoreDetailPane(int position) {
