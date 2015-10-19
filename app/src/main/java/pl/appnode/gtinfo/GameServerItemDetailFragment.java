@@ -71,7 +71,7 @@ public class GameServerItemDetailFragment extends Fragment {
         mServerName = (TextView) rootView.findViewById(R.id.detail_server_name);
         if (!GameServerItemListActivity.isTwoPaneMode()) {
             mServerName.setText(mItem.mName);
-            mServerName.setBackgroundColor(getResources().getColor(R.color.accent_light));
+            mServerName.setBackgroundColor(getResources().getColor(R.color.icon_orange));
         } else {
             mServerName.setVisibility(View.GONE);}
         String keyPrefix;
