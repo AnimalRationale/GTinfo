@@ -15,6 +15,7 @@ import android.webkit.WebView;
 import android.widget.TextView;
 
 import static pl.appnode.gtinfo.Constants.SCALING_FACTOR_PHONE;
+import static pl.appnode.gtinfo.Constants.SCALING_FACTOR_PHONE_LANDSCAPE;
 import static pl.appnode.gtinfo.Constants.SCALING_FACTOR_TABLET;
 import static pl.appnode.gtinfo.Constants.GT_HTML_COLORS;
 import static pl.appnode.gtinfo.Constants.GT_HTML_INFO_COMPONENT_BASE_URL;
@@ -82,8 +83,10 @@ public class GameServerItemDetailFragment extends Fragment {
         if (mItem != null && !mItem.mId.equals("0")) {
             WebView gameServerWebView = (WebView) rootView.findViewById(R.id.gameServerInfoWebview);
             Double factor = SCALING_FACTOR_PHONE;
-            if (GameServerItemListActivity.isTwoPaneMode()) {
+            if (GameServerItemListActivity.isTwoPaneMode() && !GameServerItemListActivity.isPhone()) {
                 factor = SCALING_FACTOR_TABLET;
+            } else if (GameServerItemListActivity.isPhone()) {
+                factor = SCALING_FACTOR_PHONE_LANDSCAPE;
             }
             gameServerWebView.setBackgroundColor(Color.TRANSPARENT);
             gameServerWebView.setInitialScale(getWebViewScale(factor));

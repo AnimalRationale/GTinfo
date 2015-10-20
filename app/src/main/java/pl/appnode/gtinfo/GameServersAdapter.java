@@ -93,7 +93,7 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
             public void onCardClick(View caller, int position) {
                 int oldSelected = GameServerItemListActivity.getSelectedItem();
                 GameServerItemListActivity.setSelectedItem(position);
-                GameServerItemListActivity.setsScrollTo(position);
+                GameServerItemListActivity.setScrollTo(position);
                 if (oldSelected != -1) {
                     notifyItemChanged(oldSelected);
                 }

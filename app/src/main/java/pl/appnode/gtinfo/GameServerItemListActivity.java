@@ -46,18 +46,21 @@ import static pl.appnode.gtinfo.PreferencesSetupHelper.themeSetup;
 public class GameServerItemListActivity extends AppCompatActivity {
 
     private static final String TAG = "GameServerListAct";
-    private static boolean mTwoPane;
+    private static boolean sTwoPane;
+    private static boolean sPhone;
     private static boolean sThemeChangeFlag;
     private static int sSelected = NO_ITEM;
     private static int sScrollTo = NO_ITEM;
 
     public static boolean isTwoPaneMode() {
-        return mTwoPane;
+        return sTwoPane;
     }
 
-    public static int getsScrollTo() {return sScrollTo;}
+    public static boolean isPhone() {return sPhone;}
 
-    public static void setsScrollTo(int position) {
+    public static int getScrollTo() {return sScrollTo;}
+
+    public static void setScrollTo(int position) {
         sScrollTo = position;
     }
 
@@ -79,6 +82,7 @@ public class GameServerItemListActivity extends AppCompatActivity {
         if (configuration.smallestScreenWidthDp < 600
                 && configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
             setContentView(R.layout.activity_gameserveritem_list_landscape);
+            sPhone = true;
         } else setContentView(R.layout.activity_gameserveritem_list);
         if (isDarkTheme(this)) {
             getWindow().getDecorView().setBackgroundColor(getResources().getColor(R.color.black));
@@ -99,9 +103,9 @@ public class GameServerItemListActivity extends AppCompatActivity {
             // large-screen layouts (res/values-large and
             // res/values-sw600dp). If this view is present, then the
             // activity should be in two-pane mode.
-            mTwoPane = true;
+            sTwoPane = true;
         } else {
-            mTwoPane = false;
+            sTwoPane = false;
             sSelected = NO_ITEM;
         }
 

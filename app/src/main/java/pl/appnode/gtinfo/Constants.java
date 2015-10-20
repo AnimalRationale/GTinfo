@@ -24,7 +24,6 @@ public final class Constants {
     /** Value indicating no server list item selected or no position to scroll server list */
     public static final int NO_ITEM = -1;
 
-
     /** Servers list item default state, used to determine card colour */
     public static final int CARD_STATE_DEFAULT = 1;
 
@@ -47,6 +46,9 @@ public final class Constants {
 
     /** Scaling factor for phones */
     public static final Double SCALING_FACTOR_PHONE = 1.0;
+
+    /** Scaling factor for phones in landscape */
+    public static final Double SCALING_FACTOR_PHONE_LANDSCAPE = 2.0;
 
     /** Scaling factor for two pane mode */
     public static final Double SCALING_FACTOR_TABLET = 1.8;

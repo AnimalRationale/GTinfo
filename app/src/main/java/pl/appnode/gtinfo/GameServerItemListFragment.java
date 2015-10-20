@@ -50,8 +50,8 @@ public class GameServerItemListFragment extends Fragment {
         recyclerServersList.setItemAnimator(new DefaultItemAnimator());
         sServersAdapter = new GameServersAdapter(getActivity());
         recyclerServersList.setAdapter(sServersAdapter);
-        if (GameServerItemListActivity.getsScrollTo() != NO_ITEM) {
-            llm.scrollToPositionWithOffset(GameServerItemListActivity.getsScrollTo(), 0);
+        if (GameServerItemListActivity.getScrollTo() != NO_ITEM) {
+            llm.scrollToPositionWithOffset(GameServerItemListActivity.getScrollTo(), 0);
         }
         return rootView;
     }
