@@ -1,6 +1,6 @@
 package pl.appnode.gtinfo;
 
-import android.support.v4.app.FragmentActivity;
+import android.content.SharedPreferences;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 import android.content.Intent;
@@ -12,10 +12,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static pl.appnode.gtinfo.Constants.ADD_SERVER_INTENT_REQUEST;
 import static pl.appnode.gtinfo.Constants.ADDED_SERVER_ADDRESS;
 import static pl.appnode.gtinfo.Constants.ADDED_SERVER_NAME;
 import static pl.appnode.gtinfo.Constants.SELECTED_ITEM_POSITION;
+import static pl.appnode.gtinfo.Constants.SERVERS_PREFS_FILE;
 import static pl.appnode.gtinfo.GameServerItemListFragment.sServersAdapter;
 import static pl.appnode.gtinfo.GameServerItemListFragment.sServersList;
 import static pl.appnode.gtinfo.PreferencesSetupHelper.isDarkTheme;
@@ -117,6 +121,9 @@ public class GameServerItemListActivity extends AppCompatActivity {
             Intent settingsIntent = new Intent(this, PreferencesActivity.class);
             this.startActivity(settingsIntent);
         }
+        if (id == R.id.action_populate) {
+            populateServerList();
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -133,6 +140,38 @@ public class GameServerItemListActivity extends AppCompatActivity {
     public void addServer(View fab) {
         Intent settingsIntent = new Intent(this, AddGameServerActivity.class);
         this.startActivityForResult(settingsIntent, ADD_SERVER_INTENT_REQUEST);
+    }
+
+    private void populateServerList() {
+        final Map<String, String> SERVERS_EXAMPLE = new HashMap<String, String>() {
+            {
+                put("1.2.3.4:2000", "Test");
+                put ("185.49.14.11:27015", "Skillownia CS:GO PL");
+                put("5.39.72.122:2302", "ATD Exile");
+                put ("94.23.247.102:2502", "XG Exile Altis");
+                put("109.230.249.148:2302", "PvE NL/UK Exile Altis");
+                put("37.152.48.105:2302", "DMR PvE");
+                put("94.250.209.13:2302", "PvE Der Rentner Exile Altis");
+                put("109.236.89.182:2402", "PvE Cranky Exile Altis");
+                put("31.186.251.213:2302", "Hostile Takeover EU#1");
+                put("100.200.300.400:5555","Test 2");
+
+            }
+        };
+        Log.d(TAG, "Created servers example list");
+        SharedPreferences serversPrefs = getSharedPreferences(SERVERS_PREFS_FILE, MODE_PRIVATE);
+        SharedPreferences.Editor editor = serversPrefs.edit();
+        for (Map.Entry<String, String> entry : SERVERS_EXAMPLE.entrySet()) {
+            GameServerItem gameServer = new GameServerItem();
+            gameServer.mId = entry.getKey();
+            gameServer.mName = entry.getValue();
+            sServersList.add(gameServer);
+            Log.d(TAG, "Added: " + entry.getKey() + "#" + entry.getValue());
+            editor.putString(entry.getKey(), entry.getValue());
+        }
+        editor.apply();
+
+        sServersAdapter.notifyDataSetChanged();
     }
 
     private void restoreDetailPane(int position) {
