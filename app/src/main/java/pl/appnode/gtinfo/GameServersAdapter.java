@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import static pl.appnode.gtinfo.Constants.CARD_STATE_DEFAULT;
 import static pl.appnode.gtinfo.Constants.CARD_STATE_SELECTED;
+import static pl.appnode.gtinfo.Constants.NO_ITEM;
 import static pl.appnode.gtinfo.Constants.SERVERS_PREFS_FILE;
 import static pl.appnode.gtinfo.GameServerItemListFragment.sServersList;
 import static pl.appnode.gtinfo.PreferencesSetupHelper.isDarkTheme;
@@ -92,6 +93,7 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
             public void onCardClick(View caller, int position) {
                 int oldSelected = GameServerItemListActivity.getSelectedItem();
                 GameServerItemListActivity.setSelectedItem(position);
+                GameServerItemListActivity.setsScrollTo(position);
                 if (oldSelected != -1) {
                     notifyItemChanged(oldSelected);
                 }
@@ -117,7 +119,7 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
 
             public void onRemoveButtonClick(View caller, int position) {
                 removeItem(position);
-
+                GameServerItemListActivity.setSelectedItem(NO_ITEM);
                 Log.d(TAG, "Remove item: " + position);
             }
 

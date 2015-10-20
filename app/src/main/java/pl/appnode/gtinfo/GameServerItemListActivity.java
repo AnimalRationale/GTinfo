@@ -19,6 +19,7 @@ import java.util.Map;
 import static pl.appnode.gtinfo.Constants.ADD_SERVER_INTENT_REQUEST;
 import static pl.appnode.gtinfo.Constants.ADDED_SERVER_ADDRESS;
 import static pl.appnode.gtinfo.Constants.ADDED_SERVER_NAME;
+import static pl.appnode.gtinfo.Constants.NO_ITEM;
 import static pl.appnode.gtinfo.Constants.SELECTED_ITEM_POSITION;
 import static pl.appnode.gtinfo.Constants.SERVERS_PREFS_FILE;
 import static pl.appnode.gtinfo.GameServerItemListFragment.sServersAdapter;
@@ -47,23 +48,30 @@ public class GameServerItemListActivity extends AppCompatActivity {
     private static final String TAG = "GameServerListAct";
     private static boolean mTwoPane;
     private static boolean sThemeChangeFlag;
-    private static int mSelected = -1;
+    private static int sSelected = NO_ITEM;
+    private static int sScrollTo = NO_ITEM;
 
     public static boolean isTwoPaneMode() {
         return mTwoPane;
     }
 
-    public static int getSelectedItem() {return mSelected;}
+    public static int getsScrollTo() {return sScrollTo;}
+
+    public static void setsScrollTo(int position) {
+        sScrollTo = position;
+    }
+
+    public static int getSelectedItem() {return sSelected;}
 
     public static void setSelectedItem(int position) {
-        mSelected = position;
+        sSelected = position;
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (savedInstanceState != null) {
-            mSelected = savedInstanceState.getInt(SELECTED_ITEM_POSITION);
+            sSelected = savedInstanceState.getInt(SELECTED_ITEM_POSITION);
         }
         themeSetup(this);
         sThemeChangeFlag = isDarkTheme(this);
@@ -94,7 +102,7 @@ public class GameServerItemListActivity extends AppCompatActivity {
             mTwoPane = true;
         } else {
             mTwoPane = false;
-            mSelected = -1;
+            sSelected = NO_ITEM;
         }
 
         // TODO: If exposing deep links into your app, handle intents here.
@@ -110,9 +118,9 @@ public class GameServerItemListActivity extends AppCompatActivity {
     @Override
     public void onPostResume() {
         super.onPostResume();
-        if (isTwoPaneMode() && mSelected != -1 ) {
+        if (isTwoPaneMode() && sSelected != NO_ITEM) {
             Log.d(TAG, "Restoring detail view.");
-            restoreDetailPane(mSelected);
+            restoreDetailPane(sSelected);
         }
     }
 
@@ -212,6 +220,6 @@ public class GameServerItemListActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState (Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putInt(SELECTED_ITEM_POSITION, mSelected);
+        outState.putInt(SELECTED_ITEM_POSITION, sSelected);
     }
 }

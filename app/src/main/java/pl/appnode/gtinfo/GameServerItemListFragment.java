@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import static pl.appnode.gtinfo.Constants.NO_ITEM;
 import static pl.appnode.gtinfo.Constants.SERVERS_PREFS_FILE;
 
 public class GameServerItemListFragment extends Fragment {
@@ -49,6 +50,9 @@ public class GameServerItemListFragment extends Fragment {
         recyclerServersList.setItemAnimator(new DefaultItemAnimator());
         sServersAdapter = new GameServersAdapter(getActivity());
         recyclerServersList.setAdapter(sServersAdapter);
+        if (GameServerItemListActivity.getsScrollTo() != NO_ITEM) {
+            llm.scrollToPositionWithOffset(GameServerItemListActivity.getsScrollTo(), 0);
+        }
         return rootView;
     }
 

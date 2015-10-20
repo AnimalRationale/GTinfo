@@ -21,6 +21,10 @@ public final class Constants {
     /** Key for saving value of selected server list item used in instance state save*/
     public static final String SELECTED_ITEM_POSITION = "mSelected";
 
+    /** Value indicating no server list item selected or no position to scroll server list */
+    public static final int NO_ITEM = -1;
+
+
     /** Servers list item default state, used to determine card colour */
     public static final int CARD_STATE_DEFAULT = 1;
 
