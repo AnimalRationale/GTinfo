@@ -83,9 +83,9 @@ public class GameServerItemDetailFragment extends Fragment {
         if (mItem != null && !mItem.mId.equals("0")) {
             WebView gameServerWebView = (WebView) rootView.findViewById(R.id.gameServerInfoWebview);
             Double factor = SCALING_FACTOR_PHONE;
-            if (GameServerItemListActivity.isTwoPaneMode() && !GameServerItemListActivity.isPhone()) {
+            if (!GameServerItemListActivity.isPhone() && GameServerItemListActivity.isTwoPaneMode()) {
                 factor = SCALING_FACTOR_TABLET;
-            } else if (GameServerItemListActivity.isPhone()) {
+            } else if (GameServerItemListActivity.isTwoPaneMode() && GameServerItemListActivity.isPhone()) {
                 factor = SCALING_FACTOR_PHONE_LANDSCAPE;
             }
             gameServerWebView.setBackgroundColor(Color.TRANSPARENT);
