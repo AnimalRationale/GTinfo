@@ -117,6 +117,7 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
 
             public void onRemoveButtonClick(View caller, int position) {
                 removeItem(position);
+
                 Log.d(TAG, "Remove item: " + position);
             }
 

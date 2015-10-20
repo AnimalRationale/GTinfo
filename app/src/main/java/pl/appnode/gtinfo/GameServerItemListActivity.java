@@ -1,6 +1,7 @@
 package pl.appnode.gtinfo;
 
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 import android.content.Intent;
@@ -23,6 +24,7 @@ import static pl.appnode.gtinfo.Constants.SERVERS_PREFS_FILE;
 import static pl.appnode.gtinfo.GameServerItemListFragment.sServersAdapter;
 import static pl.appnode.gtinfo.GameServerItemListFragment.sServersList;
 import static pl.appnode.gtinfo.PreferencesSetupHelper.isDarkTheme;
+import static pl.appnode.gtinfo.PreferencesSetupHelper.orientationSetup;
 import static pl.appnode.gtinfo.PreferencesSetupHelper.themeSetup;
 
 
@@ -65,7 +67,11 @@ public class GameServerItemListActivity extends AppCompatActivity {
         }
         themeSetup(this);
         sThemeChangeFlag = isDarkTheme(this);
-        setContentView(R.layout.activity_gameserveritem_list);
+        Configuration configuration = getResources().getConfiguration();
+        if (configuration.smallestScreenWidthDp < 600
+                && configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            setContentView(R.layout.activity_gameserveritem_list_landscape);
+        } else setContentView(R.layout.activity_gameserveritem_list);
         if (isDarkTheme(this)) {
             getWindow().getDecorView().setBackgroundColor(getResources().getColor(R.color.black));
         } else {getWindow().getDecorView().setBackgroundColor(getResources().getColor(R.color.white));}
@@ -86,6 +92,9 @@ public class GameServerItemListActivity extends AppCompatActivity {
             // res/values-sw600dp). If this view is present, then the
             // activity should be in two-pane mode.
             mTwoPane = true;
+        } else {
+            mTwoPane = false;
+            mSelected = -1;
         }
 
         // TODO: If exposing deep links into your app, handle intents here.
@@ -94,6 +103,7 @@ public class GameServerItemListActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
+        orientationSetup(this);
         checkThemeChange();
     }
 
@@ -101,6 +111,7 @@ public class GameServerItemListActivity extends AppCompatActivity {
     public void onPostResume() {
         super.onPostResume();
         if (isTwoPaneMode() && mSelected != -1 ) {
+            Log.d(TAG, "Restoring detail view.");
             restoreDetailPane(mSelected);
         }
     }
