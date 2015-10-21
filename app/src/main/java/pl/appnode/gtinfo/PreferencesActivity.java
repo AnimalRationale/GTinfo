@@ -1,10 +1,12 @@
 package pl.appnode.gtinfo;
 
 import android.app.ActionBar;
+import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
+import android.preference.PreferenceManager;
 import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
 
@@ -21,6 +23,7 @@ public class PreferencesActivity extends PreferenceActivity
     public void onCreate(Bundle savedInstanceState) {
         themeSetup(this);
         super.onCreate(savedInstanceState);
+        PreferenceManager.getDefaultSharedPreferences(this).registerOnSharedPreferenceChangeListener(this);
         getActionBar().setDisplayHomeAsUpEnabled(true);
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayShowHomeEnabled(true);
@@ -32,7 +35,7 @@ public class PreferencesActivity extends PreferenceActivity
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
                                           String key) {
         if (key.equals(KEY_PREF_THEME)) {
-
+            this.recreate();
         }
     }
 
