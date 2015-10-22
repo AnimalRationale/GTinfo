@@ -86,8 +86,7 @@ public class GameServerItemDetailFragment extends Fragment {
         } else {
             keyPrefix = "light-";}
         if (mItem != null && !mItem.mId.equals("0")) {
-            WebView gameServerWebView = (WebView) rootView.findViewById(R.id.gameServerInfoWebview);
-            gameServerWebView.loadUrl("about:blank");
+            final WebView gameServerWebView = (WebView) rootView.findViewById(R.id.gameServerInfoWebview);
             gameServerWebView.setWebViewClient(new WebViewClient() {
                 public void onPageFinished(WebView view, String url) {
                     mProgressBar.setVisibility(View.GONE);
