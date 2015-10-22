@@ -16,9 +16,6 @@ import static pl.appnode.gtinfo.PreferencesSetupHelper.themeSetup;
 public class PreferencesActivity extends PreferenceActivity
         implements SharedPreferences.OnSharedPreferenceChangeListener {
 
-
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         themeSetup(this);
@@ -27,6 +24,7 @@ public class PreferencesActivity extends PreferenceActivity
         ActionBar actionBar = getActionBar();
         if (actionBar != null) {
             actionBar.setDisplayShowHomeEnabled(true);
+            actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setIcon(R.mipmap.ic_launcher);
         }
         getFragmentManager().beginTransaction()
