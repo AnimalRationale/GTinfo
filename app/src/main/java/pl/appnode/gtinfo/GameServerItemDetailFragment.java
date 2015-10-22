@@ -2,6 +2,7 @@ package pl.appnode.gtinfo;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
@@ -12,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import static pl.appnode.gtinfo.Constants.SCALING_FACTOR_PHONE;
@@ -34,6 +37,7 @@ public class GameServerItemDetailFragment extends Fragment {
     public static final String TAG = "GameServerDetail";
 
     TextView mServerName = null;
+    ProgressBar mProgressBar;
     int mCurrentPlayersListHeight = 200;
 
     /**
@@ -70,6 +74,7 @@ public class GameServerItemDetailFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_gameserveritem_detail, container, false);
         mServerName = (TextView) rootView.findViewById(R.id.detail_server_name);
+        mProgressBar = (ProgressBar)rootView.findViewById(R.id.webview_progress_bar);
         if (!GameServerItemListActivity.isTwoPaneMode()) {
             mServerName.setText(mItem.mName);
             mServerName.setBackgroundColor(getResources().getColor(R.color.icon_orange));
@@ -82,6 +87,12 @@ public class GameServerItemDetailFragment extends Fragment {
             keyPrefix = "light-";}
         if (mItem != null && !mItem.mId.equals("0")) {
             WebView gameServerWebView = (WebView) rootView.findViewById(R.id.gameServerInfoWebview);
+            gameServerWebView.loadUrl("about:blank");
+            gameServerWebView.setWebViewClient(new WebViewClient() {
+                public void onPageFinished(WebView view, String url) {
+                    mProgressBar.setVisibility(View.GONE);
+                }
+            });
             Double factor = SCALING_FACTOR_PHONE;
             if (!GameServerItemListActivity.isPhone() && GameServerItemListActivity.isTwoPaneMode()) {
                 factor = SCALING_FACTOR_TABLET;
