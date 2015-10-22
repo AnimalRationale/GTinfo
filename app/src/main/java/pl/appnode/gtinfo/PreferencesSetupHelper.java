@@ -7,6 +7,8 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.os.Build;
 
+import static pl.appnode.gtinfo.Constants.KEY_SETTINGS_THEME;
+
 
 public class PreferencesSetupHelper {
 
@@ -34,7 +36,7 @@ public class PreferencesSetupHelper {
 
     public static boolean isDarkTheme(Context context) {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
-        return settings.getBoolean("settings_checkbox_theme", false);
+        return settings.getBoolean(KEY_SETTINGS_THEME, false);
     }
 
     public static boolean isRotationOn(Context context) {

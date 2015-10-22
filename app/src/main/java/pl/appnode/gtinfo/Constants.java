@@ -18,6 +18,9 @@ public final class Constants {
     /** SharedPreferences file for storing serves IP and custom name */
     public static final String SERVERS_PREFS_FILE = "ServersPrefsFile";
 
+    /** Key for saving theme settings */
+    public static final String KEY_SETTINGS_THEME = "settings_checkbox_theme";
+
     /** Key for saving value of selected server list item used in instance state save*/
     public static final String SELECTED_ITEM_POSITION = "mSelected";
 

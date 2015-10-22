@@ -1,7 +1,6 @@
 package pl.appnode.gtinfo;
 
 import android.app.ActionBar;
-import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
@@ -10,6 +9,7 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
 
+import static pl.appnode.gtinfo.Constants.KEY_SETTINGS_THEME;
 import static pl.appnode.gtinfo.PreferencesSetupHelper.orientationSetup;
 import static pl.appnode.gtinfo.PreferencesSetupHelper.themeSetup;
 
@@ -17,7 +17,7 @@ public class PreferencesActivity extends PreferenceActivity
         implements SharedPreferences.OnSharedPreferenceChangeListener {
 
 
-    public static final String KEY_PREF_THEME = "settings_checkbox_theme";
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -35,7 +35,7 @@ public class PreferencesActivity extends PreferenceActivity
 
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
                                           String key) {
-        if (key.equals(KEY_PREF_THEME)) {
+        if (key.equals(KEY_SETTINGS_THEME)) {
             this.recreate();
         }
     }
