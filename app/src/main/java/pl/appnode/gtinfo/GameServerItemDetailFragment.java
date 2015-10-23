@@ -2,7 +2,6 @@ package pl.appnode.gtinfo;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
@@ -12,8 +11,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.animation.LinearInterpolator;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -75,6 +76,8 @@ public class GameServerItemDetailFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_gameserveritem_detail, container, false);
         mServerName = (TextView) rootView.findViewById(R.id.detail_server_name);
         mProgressBar = (ProgressBar)rootView.findViewById(R.id.webview_progress_bar);
+        LinearLayout detailBackground = (LinearLayout) rootView.findViewById(R.id.detail_background);
+
         if (!GameServerItemListActivity.isTwoPaneMode()) {
             mServerName.setText(mItem.mName);
             mServerName.setBackgroundColor(getResources().getColor(R.color.icon_orange));
@@ -82,11 +85,15 @@ public class GameServerItemDetailFragment extends Fragment {
             mServerName.setVisibility(View.GONE);}
         String keyPrefix;
         if (isDarkTheme(getActivity())) {
+            detailBackground.setBackgroundColor(getResources().getColor(R.color.black));
             keyPrefix = "dark-";
         } else {
-            keyPrefix = "light-";}
+            keyPrefix = "light-";
+            detailBackground.setBackgroundColor(getResources().getColor(R.color.white));
+        }
+
         if (mItem != null && !mItem.mId.equals("0")) {
-            final WebView gameServerWebView = (WebView) rootView.findViewById(R.id.gameServerInfoWebview);
+            WebView gameServerWebView = (WebView) rootView.findViewById(R.id.gameServerInfoWebview);
             gameServerWebView.setWebViewClient(new WebViewClient() {
                 public void onPageFinished(WebView view, String url) {
                     mProgressBar.setVisibility(View.GONE);
@@ -118,11 +125,6 @@ public class GameServerItemDetailFragment extends Fragment {
             gameServerWebView.loadUrl(url);
         }
         return rootView;
-    }
-
-    @Override
-    public void onResume(){
-        super.onResume();
     }
 
     private int getWebViewScale(Double factor) { // TODO: separate WebView scale and players list factor functions
