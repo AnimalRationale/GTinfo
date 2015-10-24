@@ -18,8 +18,11 @@ public final class Constants {
     /** SharedPreferences file for storing serves IP and custom name */
     public static final String SERVERS_PREFS_FILE = "ServersPrefsFile";
 
-    /** Key for saving theme settings */
+    /** Key for saving theme settings in app preferences */
     public static final String KEY_SETTINGS_THEME = "settings_checkbox_theme";
+
+    /** Key for saving GT show map options in app preferences */
+    public static final String KEY_SETTINGS_GT_SHOW_MAP = "settings_checkbox_show_map";
 
     /** Key for saving value of selected server list item used in instance state save*/
     public static final String SELECTED_ITEM_POSITION = "mSelected";

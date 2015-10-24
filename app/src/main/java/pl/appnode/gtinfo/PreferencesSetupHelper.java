@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.os.Build;
 
+import static pl.appnode.gtinfo.Constants.KEY_SETTINGS_GT_SHOW_MAP;
 import static pl.appnode.gtinfo.Constants.KEY_SETTINGS_THEME;
 
 
@@ -49,5 +50,10 @@ public class PreferencesSetupHelper {
         boolean firstRun = settings.getBoolean("settings_first_run", true);
         settings.edit().putBoolean("settings_first_run", false).apply();
         return firstRun;
+    }
+
+    public static boolean isShowMap(Context context) {
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
+        return settings.getBoolean(KEY_SETTINGS_GT_SHOW_MAP, false);
     }
 }
