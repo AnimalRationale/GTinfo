@@ -127,7 +127,7 @@ public class GameServerItemDetailFragment extends Fragment {
         return rootView;
     }
 
-    private int getWebViewScale(Double factor) { // TODO: separate WebView scale and players list factor functions
+    private int getWebViewScale(Double factor) { // TODO: separate WebView scale and players list height factor functions
         WindowManager wm = (WindowManager) getActivity().getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
         DisplayMetrics metrics = new DisplayMetrics();

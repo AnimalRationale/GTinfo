@@ -1,12 +1,18 @@
 <resources>
     <string name="preferences_activity_title">Settings</string>
     <string name="preferences_header_general">General</string>
-
+    
+    <string name="preferences_app_settings_title">Application settings</string>
     <string name="preferences_checkbox_theme">Dark theme</string>
     <string name="preferences_checkbox_theme_description">Set dark version of device\'s default theme
     </string>
-
     <string name="preferences_checkbox_orientation">Screen rotation</string>
     <string name="preferences_checkbox_orientation_description">Allow changing of screen orientation to landscape
     </string>
+
+    <string name="preferences_gt_settings_title">GT info options</string>
+    <string name="preferences_checkbox_show_map">Current map image</string>
+    <string name="preferences_checkbox_show_map_description">Show current game map image in GT info (bigger data usage)
+    </string>
+
 </resources>
