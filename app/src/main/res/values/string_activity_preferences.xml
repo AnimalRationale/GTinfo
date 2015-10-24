@@ -12,7 +12,9 @@
 
     <string name="preferences_gt_settings_title">GT info options</string>
     <string name="preferences_checkbox_show_map">Current map image</string>
-    <string name="preferences_checkbox_show_map_description">Show current game map image in GT info (bigger data usage)
-    </string>
-
+    <string name="preferences_checkbox_show_map_description">Show current game map image in GT info
+        (bigger data usage)</string>
+    <string name="preferences_checkbox_show_top_players">Top players</string>
+    <string name="preferences_checkbox_show_top_players_description">Show server top players
+        list in GT info</string>
 </resources>

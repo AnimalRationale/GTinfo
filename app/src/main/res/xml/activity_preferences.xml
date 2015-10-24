@@ -9,6 +9,11 @@
             android:title="@string/preferences_checkbox_show_map"
             android:summary="@string/preferences_checkbox_show_map_description"
             android:defaultValue="false" />
+        <CheckBoxPreference
+            android:key="settings_checkbox_show_top_players"
+            android:title="@string/preferences_checkbox_show_top_players"
+            android:summary="@string/preferences_checkbox_show_top_players_description"
+            android:defaultValue="false" />
     </PreferenceCategory>
 
     <PreferenceCategory

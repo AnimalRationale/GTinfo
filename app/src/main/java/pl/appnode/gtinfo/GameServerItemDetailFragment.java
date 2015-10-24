@@ -27,6 +27,7 @@ import static pl.appnode.gtinfo.Constants.GT_HTML_INFO_COMPONENT_WIDTH;
 import static pl.appnode.gtinfo.GameServerItemListFragment.sServersList;
 import static pl.appnode.gtinfo.PreferencesSetupHelper.isDarkTheme;
 import static pl.appnode.gtinfo.PreferencesSetupHelper.isShowMap;
+import static pl.appnode.gtinfo.PreferencesSetupHelper.isShowTopPlayers;
 
 /**
  * A fragment representing a single GameServerItem detail screen.
@@ -112,6 +113,10 @@ public class GameServerItemDetailFragment extends Fragment {
             if (isShowMap(getActivity())) {
                 showMap = "1";
             }
+            String topPlayers = "0";
+            if (isShowTopPlayers(getActivity())) {
+                topPlayers = "1";
+            }
             String url = GT_HTML_INFO_COMPONENT_BASE_URL
                     + mItem.mId
                     + "&bgColor=" + GT_HTML_COLORS.get(keyPrefix + "bgColor")
@@ -124,7 +129,7 @@ public class GameServerItemDetailFragment extends Fragment {
                     + "&showMap=" + showMap
                     + "&currentPlayersHeight=" + mCurrentPlayersListHeight
                     + "&showCurrPlayers=1"
-                    + "&showTopPlayers=0"
+                    + "&showTopPlayers=" + topPlayers
                     + "&showBlogs=0"
                     + "&width=" + GT_HTML_INFO_COMPONENT_WIDTH;
             gameServerWebView.loadUrl(url);

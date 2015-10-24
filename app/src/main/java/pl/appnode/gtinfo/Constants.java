@@ -24,6 +24,9 @@ public final class Constants {
     /** Key for saving GT show map options in app preferences */
     public static final String KEY_SETTINGS_GT_SHOW_MAP = "settings_checkbox_show_map";
 
+    /** Key for saving GT show server top players options in app preferences */
+    public static final String KEY_SETTINGS_GT_SHOW_TOP_PLAYERS = "settings_checkbox_show_top_players";
+
     /** Key for saving value of selected server list item used in instance state save*/
     public static final String SELECTED_ITEM_POSITION = "mSelected";
 

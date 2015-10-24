@@ -8,6 +8,7 @@ import android.preference.PreferenceManager;
 import android.os.Build;
 
 import static pl.appnode.gtinfo.Constants.KEY_SETTINGS_GT_SHOW_MAP;
+import static pl.appnode.gtinfo.Constants.KEY_SETTINGS_GT_SHOW_TOP_PLAYERS;
 import static pl.appnode.gtinfo.Constants.KEY_SETTINGS_THEME;
 
 
@@ -55,5 +56,10 @@ public class PreferencesSetupHelper {
     public static boolean isShowMap(Context context) {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
         return settings.getBoolean(KEY_SETTINGS_GT_SHOW_MAP, false);
+    }
+
+    public static boolean isShowTopPlayers(Context context) {
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
+        return settings.getBoolean(KEY_SETTINGS_GT_SHOW_TOP_PLAYERS, false);
     }
 }
