@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.view.animation.LinearInterpolator;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
@@ -107,6 +106,10 @@ public class GameServerItemDetailFragment extends Fragment {
             } else if (GameServerItemListActivity.isTwoPaneMode() && GameServerItemListActivity.isPhone()) {
                 factor = SCALING_FACTOR_PHONE_LANDSCAPE;
             }
+            int currentPlayersListHeight = 200;
+            if (GameServerItemListActivity.isTwoPaneMode()) {
+                currentPlayersListHeight = getScaledCurrentPlayersListHeight();
+            }
             gameServerWebView.setBackgroundColor(Color.TRANSPARENT);
             gameServerWebView.setInitialScale(getWebViewScale(factor));
             String showMap = "0";
@@ -127,7 +130,7 @@ public class GameServerItemDetailFragment extends Fragment {
                     + "&linkColor=" + GT_HTML_COLORS.get(keyPrefix + "linkColor")
                     + "&borderLinkColor=" + GT_HTML_COLORS.get(keyPrefix + "borderLinkColor")
                     + "&showMap=" + showMap
-                    + "&currentPlayersHeight=" + mCurrentPlayersListHeight
+                    + "&currentPlayersHeight=" + currentPlayersListHeight
                     + "&showCurrPlayers=1"
                     + "&showTopPlayers=" + topPlayers
                     + "&showBlogs=0"
@@ -145,21 +148,22 @@ public class GameServerItemDetailFragment extends Fragment {
         return metrics;
     }
 
-    private int getWebViewScale(Double factor) { // TODO: separate WebView scale and players list height factor functions
+    private int getScaledCurrentPlayersListHeight() {
+        int height = getDisplay().heightPixels;
+        int listFactor = 1;
+        if (height > 1300) {
+            listFactor = 5;
+        } else {
+            if (height > 700) {
+                listFactor = 3;
+            } else listFactor = 2;
+        }
+        return (height / listFactor);
+    }
 
+    private int getWebViewScale(Double factor) {
         Double width = getDisplay().widthPixels / factor;
         int height = getDisplay().heightPixels;
-        if (GameServerItemListActivity.isTwoPaneMode()) {
-            int listFactor = 1;
-            if (height > 1300) {
-                listFactor = 5;
-            } else {
-                if (height > 700) {
-                    listFactor = 3;
-                } else listFactor = 2;
-            }
-            mCurrentPlayersListHeight = height / listFactor;
-        }
         Log.d(TAG, "Metrics: width=" + width + " height=" + height);
         Double scale = width / GT_HTML_INFO_COMPONENT_WIDTH;
         scale = scale * 100d;
