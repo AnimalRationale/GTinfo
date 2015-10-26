@@ -137,13 +137,18 @@ public class GameServerItemDetailFragment extends Fragment {
         return rootView;
     }
 
-    private int getWebViewScale(Double factor) { // TODO: separate WebView scale and players list height factor functions
+    private DisplayMetrics getDisplay() {
         WindowManager wm = (WindowManager) getActivity().getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
         DisplayMetrics metrics = new DisplayMetrics();
         display.getMetrics(metrics);
-        Double width = metrics.widthPixels / factor;
-        int height = metrics.heightPixels;
+        return metrics;
+    }
+
+    private int getWebViewScale(Double factor) { // TODO: separate WebView scale and players list height factor functions
+
+        Double width = getDisplay().widthPixels / factor;
+        int height = getDisplay().heightPixels;
         if (GameServerItemListActivity.isTwoPaneMode()) {
             int listFactor = 1;
             if (height > 1300) {
