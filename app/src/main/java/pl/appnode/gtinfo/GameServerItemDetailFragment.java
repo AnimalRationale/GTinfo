@@ -17,6 +17,9 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import static pl.appnode.gtinfo.Constants.PLAYERS_LIST_HEIGHT_FACTOR_WITH_MAP_IMAGE_BIG;
+import static pl.appnode.gtinfo.Constants.PLAYERS_LIST_HEIGHT_FACTOR_WITH_MAP_IMAGE_SMALL;
+import static pl.appnode.gtinfo.Constants.PLAYERS_LIST_HEIGHT_FACTOR_WITH_TOP_PLAYERS;
 import static pl.appnode.gtinfo.Constants.SCALING_FACTOR_PHONE;
 import static pl.appnode.gtinfo.Constants.SCALING_FACTOR_PHONE_LANDSCAPE;
 import static pl.appnode.gtinfo.Constants.SCALING_FACTOR_TABLET;
@@ -152,11 +155,11 @@ public class GameServerItemDetailFragment extends Fragment {
         int height = getDisplay().heightPixels;
         if (isShowMap(getActivity())) {
             if (height <= 1300) {
-                height = height - 300;
-            } else height = height - 500;
+                height = height - PLAYERS_LIST_HEIGHT_FACTOR_WITH_MAP_IMAGE_SMALL;
+            } else height = height - PLAYERS_LIST_HEIGHT_FACTOR_WITH_MAP_IMAGE_BIG;
         }
         if (isShowTopPlayers(getActivity())) {
-            height = height - 400;
+            height = height - PLAYERS_LIST_HEIGHT_FACTOR_WITH_TOP_PLAYERS;
         }
         int listFactor;
         if (height > 1300) {

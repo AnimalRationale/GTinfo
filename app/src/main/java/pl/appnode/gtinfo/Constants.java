@@ -62,6 +62,15 @@ public final class Constants {
     /** Scaling factor for two pane mode */
     public static final Double SCALING_FACTOR_TABLET = 1.8;
 
+    /** Factor for scaling players list height when map image is shown on smaller devices */
+    public static final int PLAYERS_LIST_HEIGHT_FACTOR_WITH_MAP_IMAGE_SMALL = 300;
+
+    /** Factor for scaling players list height when map image is shown on bigger devices */
+    public static final int PLAYERS_LIST_HEIGHT_FACTOR_WITH_MAP_IMAGE_BIG = 500;
+
+    /** Factor for scaling players list height when top players list is shown */
+    public static final int PLAYERS_LIST_HEIGHT_FACTOR_WITH_TOP_PLAYERS = 400;
+
     /** Dictionary of all colors 'themes' for GT HTML component */
     public static final Map<String, String> GT_HTML_COLORS = new HashMap<String, String>() {
         {
