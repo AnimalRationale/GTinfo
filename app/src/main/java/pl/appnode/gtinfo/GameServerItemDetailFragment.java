@@ -150,7 +150,15 @@ public class GameServerItemDetailFragment extends Fragment {
 
     private int getScaledCurrentPlayersListHeight() {
         int height = getDisplay().heightPixels;
-        int listFactor = 1;
+        if (isShowMap(getActivity())) {
+            if (height <= 1300) {
+                height = height - 300;
+            } else height = height - 500;
+        }
+        if (isShowTopPlayers(getActivity())) {
+            height = height - 400;
+        }
+        int listFactor;
         if (height > 1300) {
             listFactor = 5;
         } else {
