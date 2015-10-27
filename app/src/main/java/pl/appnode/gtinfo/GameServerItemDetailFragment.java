@@ -16,6 +16,7 @@ import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import static pl.appnode.gtinfo.Constants.PLAYERS_LIST_HEIGHT_FACTOR_WITH_MAP_IMAGE_BIG;
 import static pl.appnode.gtinfo.Constants.PLAYERS_LIST_HEIGHT_FACTOR_WITH_MAP_IMAGE_SMALL;
@@ -43,7 +44,6 @@ public class GameServerItemDetailFragment extends Fragment {
 
     TextView mServerName = null;
     ProgressBar mProgressBar;
-    int mCurrentPlayersListHeight = 200;
 
     /**
      * The fragment argument representing the item ID that this fragment
@@ -97,10 +97,18 @@ public class GameServerItemDetailFragment extends Fragment {
         }
 
         if (mItem != null && !mItem.mId.equals("0")) {
-            WebView gameServerWebView = (WebView) rootView.findViewById(R.id.gameServerInfoWebview);
+            final WebView gameServerWebView = (WebView) rootView.findViewById(R.id.gameServerInfoWebview);
             gameServerWebView.setWebViewClient(new WebViewClient() {
                 public void onPageFinished(WebView view, String url) {
                     mProgressBar.setVisibility(View.GONE);
+                }
+
+                @Override
+                public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
+                    mProgressBar.setVisibility(View.GONE);
+                    gameServerWebView.loadUrl("about:blank");                    
+                    Toast.makeText(getActivity(), description, Toast.LENGTH_LONG).show();
+                    super.onReceivedError(view, errorCode, description, failingUrl);
                 }
             });
             Double factor = SCALING_FACTOR_PHONE;
