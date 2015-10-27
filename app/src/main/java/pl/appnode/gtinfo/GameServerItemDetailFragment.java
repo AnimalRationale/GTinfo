@@ -1,7 +1,9 @@
 package pl.appnode.gtinfo;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
@@ -104,9 +106,16 @@ public class GameServerItemDetailFragment extends Fragment {
                 }
 
                 @Override
+                public boolean shouldOverrideUrlLoading(WebView view, String url){
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                    startActivity(intent);
+                    return true;
+                }
+
+                @Override
                 public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
                     mProgressBar.setVisibility(View.GONE);
-                    gameServerWebView.loadUrl("about:blank");                    
+                    gameServerWebView.loadUrl("about:blank");
                     Toast.makeText(getActivity(), description, Toast.LENGTH_LONG).show();
                     super.onReceivedError(view, errorCode, description, failingUrl);
                 }
