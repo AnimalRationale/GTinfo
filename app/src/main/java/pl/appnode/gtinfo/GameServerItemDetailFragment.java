@@ -20,6 +20,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import static pl.appnode.gtinfo.Constants.GT_ORIGINAL_PLAYERS_LIST_HEIGHT;
 import static pl.appnode.gtinfo.Constants.PLAYERS_LIST_HEIGHT_FACTOR_WITH_MAP_IMAGE_BIG;
 import static pl.appnode.gtinfo.Constants.PLAYERS_LIST_HEIGHT_FACTOR_WITH_MAP_IMAGE_SMALL;
 import static pl.appnode.gtinfo.Constants.PLAYERS_LIST_HEIGHT_FACTOR_WITH_TOP_PLAYERS;
@@ -126,7 +127,7 @@ public class GameServerItemDetailFragment extends Fragment {
             } else if (GameServerItemListActivity.isTwoPaneMode() && GameServerItemListActivity.isPhone()) {
                 factor = SCALING_FACTOR_PHONE_LANDSCAPE;
             }
-            int currentPlayersListHeight = 200;
+            int currentPlayersListHeight = GT_ORIGINAL_PLAYERS_LIST_HEIGHT;
             if (GameServerItemListActivity.isTwoPaneMode()) {
                 currentPlayersListHeight = getScaledCurrentPlayersListHeight();
             }

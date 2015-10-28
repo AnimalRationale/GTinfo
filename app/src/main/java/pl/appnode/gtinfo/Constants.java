@@ -62,6 +62,9 @@ public final class Constants {
     /** Scaling factor for two pane mode */
     public static final Double SCALING_FACTOR_TABLET = 1.8;
 
+    /** GT HTML component original height of players list */
+    public static final int GT_ORIGINAL_PLAYERS_LIST_HEIGHT = 200;
+
     /** Factor for scaling players list height when map image is shown on smaller devices */
     public static final int PLAYERS_LIST_HEIGHT_FACTOR_WITH_MAP_IMAGE_SMALL = 300;
 
