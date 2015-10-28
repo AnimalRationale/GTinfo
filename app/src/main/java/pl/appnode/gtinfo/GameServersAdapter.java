@@ -85,9 +85,13 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
 
     @Override
     public ServerViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+        int cardLayout;
+        if (GameServerItemListActivity.isPhone()) {
+            cardLayout = R.layout.card_layout_landscape;
+        } else cardLayout = R.layout.card_layout;
         View itemView = LayoutInflater.
                 from(viewGroup.getContext()).
-                inflate(R.layout.card_layout, viewGroup, false);
+                inflate(cardLayout, viewGroup, false);
         GameServersAdapter.ServerViewHolder viewHolder = new ServerViewHolder
                 (itemView, new GameServersAdapter.ServerViewHolder.IViewHolderOnClicks() {
             public void onCardClick(View caller, int position) {
