@@ -77,9 +77,6 @@ public class GameServerItemListActivity extends AppCompatActivity {
             sSelected = savedInstanceState.getInt(SELECTED_ITEM_POSITION);
         }
         themeSetup(this);
-        if (isDarkTheme(this)) {
-            setTheme(R.style.AppThemeDark);
-        }
         sThemeChangeFlag = isDarkTheme(this);
         Configuration configuration = getResources().getConfiguration();
         if (configuration.smallestScreenWidthDp < 600
