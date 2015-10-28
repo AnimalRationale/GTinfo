@@ -4,6 +4,7 @@ package pl.appnode.gtinfo;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -86,7 +87,9 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
     @Override
     public ServerViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         int cardLayout;
-        if (GameServerItemListActivity.isPhone()) {
+        Configuration configuration = mContext.getResources().getConfiguration();
+        if (GameServerItemListActivity.isPhone()
+                && configuration.orientation == Configuration.ORIENTATION_LANDSCAPE ) {
             cardLayout = R.layout.card_layout_landscape;
         } else cardLayout = R.layout.card_layout;
         View itemView = LayoutInflater.
