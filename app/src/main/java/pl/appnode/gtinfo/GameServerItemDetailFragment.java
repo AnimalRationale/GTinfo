@@ -47,6 +47,8 @@ public class GameServerItemDetailFragment extends Fragment {
 
     TextView mServerName = null;
     ProgressBar mProgressBar;
+    String mKeyPrefix;
+    WebView mGameServerWebView;
 
     /**
      * The fragment argument representing the item ID that this fragment
@@ -82,32 +84,36 @@ public class GameServerItemDetailFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_gameserveritem_detail, container, false);
         mServerName = (TextView) rootView.findViewById(R.id.detail_server_name);
-        mProgressBar = (ProgressBar)rootView.findViewById(R.id.webview_progress_bar);
+        mProgressBar = (ProgressBar) rootView.findViewById(R.id.webview_progress_bar);
         LinearLayout detailBackground = (LinearLayout) rootView.findViewById(R.id.detail_background);
 
         if (!GameServerItemListActivity.isTwoPaneMode()) {
             mServerName.setText(mItem.mName);
             mServerName.setBackgroundColor(getResources().getColor(R.color.icon_orange));
         } else {
-            mServerName.setVisibility(View.GONE);}
-        String keyPrefix;
+            mServerName.setVisibility(View.GONE);
+        }
         if (isDarkTheme(getActivity())) {
             detailBackground.setBackgroundColor(getResources().getColor(R.color.black));
-            keyPrefix = "dark-";
+            mKeyPrefix = "dark-";
         } else {
-            keyPrefix = "light-";
+            mKeyPrefix = "light-";
             detailBackground.setBackgroundColor(getResources().getColor(R.color.white));
         }
+        mGameServerWebView = (WebView) rootView.findViewById(R.id.gameServerInfoWebview);
+        showServerInfo();
+        return rootView;
+    }
 
+    private boolean showServerInfo() {
         if (mItem != null && !mItem.mId.equals("0")) {
-            final WebView gameServerWebView = (WebView) rootView.findViewById(R.id.gameServerInfoWebview);
-            gameServerWebView.setWebViewClient(new WebViewClient() {
+            mGameServerWebView.setWebViewClient(new WebViewClient() {
                 public void onPageFinished(WebView view, String url) {
                     mProgressBar.setVisibility(View.GONE);
                 }
 
                 @Override
-                public boolean shouldOverrideUrlLoading(WebView view, String url){
+                public boolean shouldOverrideUrlLoading(WebView view, String url) {
                     Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                     startActivity(intent);
                     return true;
@@ -116,7 +122,7 @@ public class GameServerItemDetailFragment extends Fragment {
                 @Override
                 public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
                     mProgressBar.setVisibility(View.GONE);
-                    gameServerWebView.loadUrl("about:blank");
+                    mGameServerWebView.loadUrl("about:blank");
                     Toast.makeText(getActivity(), description, Toast.LENGTH_LONG).show();
                     super.onReceivedError(view, errorCode, description, failingUrl);
                 }
@@ -131,8 +137,8 @@ public class GameServerItemDetailFragment extends Fragment {
             if (GameServerItemListActivity.isTwoPaneMode()) {
                 currentPlayersListHeight = getScaledCurrentPlayersListHeight();
             }
-            gameServerWebView.setBackgroundColor(Color.TRANSPARENT);
-            gameServerWebView.setInitialScale(getWebViewScale(factor));
+            mGameServerWebView.setBackgroundColor(Color.TRANSPARENT);
+            mGameServerWebView.setInitialScale(getWebViewScale(factor));
             String showMap = "0";
             if (isShowMap(getActivity())) {
                 showMap = "1";
@@ -143,22 +149,22 @@ public class GameServerItemDetailFragment extends Fragment {
             }
             String url = GT_HTML_INFO_COMPONENT_BASE_URL
                     + mItem.mId
-                    + "&bgColor=" + GT_HTML_COLORS.get(keyPrefix + "bgColor")
-                    + "&fontColor=" + GT_HTML_COLORS.get(keyPrefix + "fontColor")
-                    + "&titleBgColor=" + GT_HTML_COLORS.get(keyPrefix + "titleBgColor")
-                    + "&titleColor=" + GT_HTML_COLORS.get(keyPrefix + "titleColor")
-                    + "&borderColor=" + GT_HTML_COLORS.get(keyPrefix + "borderColor")
-                    + "&linkColor=" + GT_HTML_COLORS.get(keyPrefix + "linkColor")
-                    + "&borderLinkColor=" + GT_HTML_COLORS.get(keyPrefix + "borderLinkColor")
+                    + "&bgColor=" + GT_HTML_COLORS.get(mKeyPrefix + "bgColor")
+                    + "&fontColor=" + GT_HTML_COLORS.get(mKeyPrefix + "fontColor")
+                    + "&titleBgColor=" + GT_HTML_COLORS.get(mKeyPrefix + "titleBgColor")
+                    + "&titleColor=" + GT_HTML_COLORS.get(mKeyPrefix + "titleColor")
+                    + "&borderColor=" + GT_HTML_COLORS.get(mKeyPrefix + "borderColor")
+                    + "&linkColor=" + GT_HTML_COLORS.get(mKeyPrefix + "linkColor")
+                    + "&borderLinkColor=" + GT_HTML_COLORS.get(mKeyPrefix + "borderLinkColor")
                     + "&showMap=" + showMap
                     + "&currentPlayersHeight=" + currentPlayersListHeight
                     + "&showCurrPlayers=1"
                     + "&showTopPlayers=" + topPlayers
                     + "&showBlogs=0"
                     + "&width=" + GT_HTML_INFO_COMPONENT_WIDTH;
-            gameServerWebView.loadUrl(url);
-        }
-        return rootView;
+            mGameServerWebView.loadUrl(url);
+            return true;
+        } else return false;
     }
 
     private DisplayMetrics getDisplay() {
