@@ -3,12 +3,15 @@ package pl.appnode.gtinfo;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -106,6 +109,7 @@ public class GameServerItemDetailFragment extends Fragment {
     }
 
     private boolean showServerInfo() {
+        if (!isConnection()) return false;
         if (mItem != null && !mItem.mId.equals("0")) {
             mGameServerWebView.setWebViewClient(new WebViewClient() {
                 public void onPageFinished(WebView view, String url) {
@@ -203,5 +207,19 @@ public class GameServerItemDetailFragment extends Fragment {
         Double scale = width / GT_HTML_INFO_COMPONENT_WIDTH;
         scale = scale * 100d;
         return scale.intValue();
+    }
+
+    public boolean isConnection() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getActivity()
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        if ((networkInfo == null) || (!networkInfo.isConnected())) {
+            Toast toast = Toast.makeText(getActivity(),
+                    "Network problem - check Internet connection", Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.TOP | Gravity.CENTER, 0, 0);
+            toast.show();
+            return false;
+        }
+        return true;
     }
 }
