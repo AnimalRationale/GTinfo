@@ -216,7 +216,6 @@ public class GameServerItemDetailFragment extends Fragment {
         if ((networkInfo == null) || (!networkInfo.isConnected())) {
             Toast toast = Toast.makeText(getActivity(),
                     "Network problem - check Internet connection", Toast.LENGTH_LONG);
-            toast.setGravity(Gravity.TOP | Gravity.CENTER, 0, 0);
             toast.show();
             return false;
         }
