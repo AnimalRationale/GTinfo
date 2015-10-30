@@ -109,7 +109,10 @@ public class GameServerItemDetailFragment extends Fragment {
     }
 
     private boolean showServerInfo() {
-        if (!isConnection()) return false;
+        if (!isConnection()) {
+            mProgressBar.setVisibility(View.GONE); //TODO: information about problem in detail view
+            return false;
+        }
         if (mItem != null && !mItem.mId.equals("0")) {
             mGameServerWebView.setWebViewClient(new WebViewClient() {
                 public void onPageFinished(WebView view, String url) {
@@ -215,7 +218,7 @@ public class GameServerItemDetailFragment extends Fragment {
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
         if ((networkInfo == null) || (!networkInfo.isConnected())) {
             Toast toast = Toast.makeText(getActivity(),
-                    "Network problem - check Internet connection", Toast.LENGTH_LONG);
+                    R.string.error_network_access, Toast.LENGTH_SHORT);
             toast.show();
             return false;
         }
