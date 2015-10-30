@@ -46,7 +46,6 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
         serverViewHolder.vName.setText(gameServer.mName);
         serverViewHolder.vAddress.setText(gameServer.mId);
         serverViewHolder.vPosition = position;
-        serverViewHolder.vPositionDisplay.setText(position + 1 + "");
         ((CardView)serverViewHolder.itemView)
                     .setCardBackgroundColor(setCardColor(position));
     }
@@ -123,28 +122,10 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
                             .commit();
                 }
             }
-
-            public void onRemoveButtonClick(View caller, int position) {
-                removeItem(position);
-                GameServerItemListActivity.setSelectedItem(NO_ITEM);
-                Log.d(TAG, "Remove item: " + position);
-            }
-
-                });
+        });
         CardView card = (CardView) itemView;
         if (isDarkTheme(mContext)) {
             card.setCardBackgroundColor(mContext.getResources().getColor(R.color.dark_gray));
-            Button removeButton = (Button)itemView.findViewById(R.id.button_remove_server);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                removeButton.setBackground(mContext.getResources()
-                        .getDrawable(R.drawable.ic_remove_circle_outline_white_24dp, mContext.getTheme()));
-            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                removeButton.setBackground(mContext.getResources()
-                        .getDrawable(R.drawable.ic_remove_circle_outline_white_24dp));
-            } else {
-                removeButton.setBackgroundDrawable(mContext.getResources()
-                        .getDrawable(R.drawable.ic_remove_circle_outline_white_24dp));
-            }
         } else card.setCardBackgroundColor(mContext.getResources().getColor(R.color.light_gray));
         return viewHolder;
     }
@@ -164,29 +145,21 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
 
         protected IViewHolderOnClicks mClickListener;
         protected int vPosition;
-        protected TextView vPositionDisplay;
         protected TextView vName;
         protected TextView vAddress;
-        protected Button vRemoveButton;
 
         public ServerViewHolder(View itemCardView, IViewHolderOnClicks listener) {
             super(itemCardView);
             mClickListener = listener;
             vName = (TextView) itemCardView.findViewById(R.id.server_name);
             vAddress = (TextView) itemCardView.findViewById(R.id.server_address);
-            vPositionDisplay = (TextView) itemCardView.findViewById(R.id.item_position);
-            vRemoveButton = (Button) itemCardView.findViewById(R.id.button_remove_server);
             vName.setOnClickListener(this);
-            vRemoveButton.setOnClickListener(this);
             itemCardView.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
-                case R.id.button_remove_server:
-                    mClickListener.onRemoveButtonClick(v, vPosition);
-                    break;
                 case R.id.server_name:
                     mClickListener.onCardClick(v, vPosition);
                     Log.d(TAG, "Server name clicked.");
@@ -198,7 +171,6 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
 
         public interface IViewHolderOnClicks {
             void onCardClick(View caller, int position);
-            void onRemoveButtonClick(View caller, int position);
         }
     }
 }
