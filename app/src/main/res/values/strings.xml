@@ -27,4 +27,6 @@
 
     <string name="error_network_access">Check Internet connection</string>
 
+    <string name="confirmation_server_removed">\u0020removed.</string>
+
 </resources>

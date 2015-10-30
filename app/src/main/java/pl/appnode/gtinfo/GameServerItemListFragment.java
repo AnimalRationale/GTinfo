@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,12 +65,30 @@ public class GameServerItemListFragment extends Fragment {
             }
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
-                //Remove swiped item from list and notify the RecyclerView
+                removeGameServer(viewHolder.getAdapterPosition());
             }
         };
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
         itemTouchHelper.attachToRecyclerView(recyclerServersList);
         return rootView;
+    }
+
+    private void removeGameServer(int position) { //TODO: Undo
+        GameServerItem gameServer = sServersList.get(position);
+        sServersList.remove(position);
+        sServersAdapter.notifyDataSetChanged();
+        SharedPreferences gameServersPrefs = AppContextHelper.getContext()
+                .getSharedPreferences(SERVERS_PREFS_FILE, 0);
+        if (gameServersPrefs.contains(gameServer.mId)) {
+            SharedPreferences.Editor editor = gameServersPrefs.edit();
+            editor.remove(gameServer.mId);
+            editor.apply();
+        }
+        String confirmation = gameServer.mName + getActivity().getResources()
+                .getString(R.string.confirmation_server_removed);
+        Toast toast = Toast.makeText(getActivity(),
+                confirmation, Toast.LENGTH_SHORT);
+        toast.show();
     }
 
     private void initServerList() {
