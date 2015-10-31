@@ -24,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import static pl.appnode.gtinfo.Constants.GT_ORIGINAL_PLAYERS_LIST_HEIGHT;
+import static pl.appnode.gtinfo.Constants.NO_ITEM;
 import static pl.appnode.gtinfo.Constants.PLAYERS_LIST_HEIGHT_FACTOR_WITH_MAP_IMAGE_BIG;
 import static pl.appnode.gtinfo.Constants.PLAYERS_LIST_HEIGHT_FACTOR_WITH_MAP_IMAGE_SMALL;
 import static pl.appnode.gtinfo.Constants.PLAYERS_LIST_HEIGHT_FACTOR_WITH_TOP_PLAYERS;
@@ -62,7 +63,7 @@ public class GameServerItemDetailFragment extends Fragment {
     /**
      * Content this fragment is presenting.
      */
-    private GameServerItem mItem;
+    private GameServerItem mItem = null;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -75,10 +76,9 @@ public class GameServerItemDetailFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments().containsKey(ARG_ITEM_ID)) {
-            mItem = sServersList.get(getArguments().getInt(ARG_ITEM_ID));
-        } else {
-            mItem.mId = "0";
-            mItem.mName = "";
+            if (getArguments().getInt(ARG_ITEM_ID) > NO_ITEM) {
+                mItem = sServersList.get(getArguments().getInt(ARG_ITEM_ID));
+            }
         }
     }
 
@@ -109,7 +109,7 @@ public class GameServerItemDetailFragment extends Fragment {
     }
 
     private boolean showServerInfo() {
-        if (!isConnection()) {
+        if (!isConnection() || mItem == null) {
             mProgressBar.setVisibility(View.GONE); //TODO: information about problem in detail view
             return false;
         }
@@ -171,7 +171,7 @@ public class GameServerItemDetailFragment extends Fragment {
                     + "&width=" + GT_HTML_INFO_COMPONENT_WIDTH;
             mGameServerWebView.loadUrl(url);
             return true;
-        } else return false;
+        } else {return false;}
     }
 
     private DisplayMetrics getDisplay() {

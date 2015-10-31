@@ -78,16 +78,17 @@ public class GameServerItemListFragment extends Fragment {
     private void removeGameServer(int position) { //TODO: Undo
         int selectedItem = GameServerItemListActivity.getSelectedItem();
         if (position == selectedItem) {
-//            Bundle arguments = new Bundle();
-//            arguments.putInt("Removed", position);
-//            GameServerItemDetailFragment fragment = new GameServerItemDetailFragment();
-//            fragment.setArguments(arguments);
-//            FragmentActivity activity = (FragmentActivity) getActivity();
-//            FragmentManager manager = activity.getSupportFragmentManager();
-//            manager.beginTransaction()
-//                    .add(R.id.gameserveritem_detail_container, fragment)
-//                    .commit();
             GameServerItemListActivity.setSelectedItem(NO_ITEM);
+            Bundle arguments = new Bundle();
+            arguments.putInt(GameServerItemDetailFragment.ARG_ITEM_ID, NO_ITEM);
+            GameServerItemDetailFragment fragment = new GameServerItemDetailFragment();
+            fragment.setArguments(arguments);
+            FragmentActivity activity = getActivity();
+            FragmentManager manager = activity.getSupportFragmentManager();
+            Log.d(TAG, "Detail fragment transaction commit.");
+            manager.beginTransaction()
+                    .add(R.id.gameserveritem_detail_container, fragment)
+                    .commit();
         }
         if (position < selectedItem) {
             GameServerItemListActivity.setSelectedItem(selectedItem - 1);
