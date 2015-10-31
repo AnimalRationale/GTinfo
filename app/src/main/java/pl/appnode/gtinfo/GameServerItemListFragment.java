@@ -4,6 +4,8 @@ package pl.appnode.gtinfo;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -74,6 +76,22 @@ public class GameServerItemListFragment extends Fragment {
     }
 
     private void removeGameServer(int position) { //TODO: Undo
+        int selectedItem = GameServerItemListActivity.getSelectedItem();
+        if (position == selectedItem) {
+//            Bundle arguments = new Bundle();
+//            arguments.putInt("Removed", position);
+//            GameServerItemDetailFragment fragment = new GameServerItemDetailFragment();
+//            fragment.setArguments(arguments);
+//            FragmentActivity activity = (FragmentActivity) getActivity();
+//            FragmentManager manager = activity.getSupportFragmentManager();
+//            manager.beginTransaction()
+//                    .add(R.id.gameserveritem_detail_container, fragment)
+//                    .commit();
+            GameServerItemListActivity.setSelectedItem(NO_ITEM);
+        }
+        if (position < selectedItem) {
+            GameServerItemListActivity.setSelectedItem(selectedItem - 1);
+        }
         GameServerItem gameServer = sServersList.get(position);
         sServersList.remove(position);
         sServersAdapter.notifyDataSetChanged();
