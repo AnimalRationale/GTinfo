@@ -118,7 +118,9 @@ public class GameServerItemDetailFragment extends Fragment {
 
     private boolean showServerInfo() {
         if (!isConnection() || mItem == null) {
-            mProgressBar.setVisibility(View.GONE); //TODO: information about problem in detail view
+            mProgressBar.setVisibility(View.GONE);
+            mErrorInfoText.setText(R.string.error_network_access_info);
+            mErrorInfoText.setVisibility(View.VISIBLE);
             return false;
         }
         if (mItem != null && !mItem.mId.equals("0")) {
@@ -140,8 +142,10 @@ public class GameServerItemDetailFragment extends Fragment {
                     mProgressBar.setVisibility(View.GONE);
                     mErrorInfoText.setVisibility(View.VISIBLE);
                     mWebError = true;
+                    String errorToastInfo = "Problem accessing game server data";
+                    if (description != null) {errorToastInfo = description;}
                     mGameServerWebView.loadUrl("about:blank");
-                    Toast.makeText(getActivity(), description, Toast.LENGTH_LONG).show();
+                    Toast.makeText(AppContextHelper.getContext(), errorToastInfo, Toast.LENGTH_LONG).show();
                     super.onReceivedError(view, errorCode, description, failingUrl);
                 }
             });
