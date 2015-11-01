@@ -37,11 +37,13 @@ public class GameServerItemListFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initServerList();
+        Log.d(TAG, "OnCreate finish.");
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.d(TAG, "OnCreateView start.");
         View rootView = inflater.inflate(R.layout.fragment_gameserveritem_list, container, false);
         rootView.setTag(TAG_V);
         if (GameServerItemListActivity.isTwoPaneMode()) {
@@ -77,15 +79,18 @@ public class GameServerItemListFragment extends Fragment {
         };
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
         itemTouchHelper.attachToRecyclerView(recyclerServersList);
+        Log.d(TAG, "OnCreateView finish.");
         return rootView;
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        Log.d(TAG, "onResume start.");
         if (GameServerItemListActivity.getScrollTo() != NO_ITEM) {
             mLinearLayoutManager.scrollToPositionWithOffset(GameServerItemListActivity.getScrollTo(), 0);
         }
+        Log.d(TAG, "onResume finish.");
     }
 
     private void removeGameServer(int position) { //TODO: Undo
