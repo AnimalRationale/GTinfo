@@ -6,7 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
+import android.view.View;
 
+import static pl.appnode.gtinfo.Constants.NO_ITEM;
 import static pl.appnode.gtinfo.PreferencesSetupHelper.themeSetup;
 
 /**
@@ -45,15 +47,24 @@ public class GameServerItemDetailActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             // Create the detail fragment and add it to the activity
             // using a fragment transaction.
-            Bundle arguments = new Bundle();
-            arguments.putInt(GameServerItemDetailFragment.ARG_ITEM_ID,
-                    getIntent().getIntExtra(GameServerItemDetailFragment.ARG_ITEM_ID, 0));
-            GameServerItemDetailFragment fragment = new GameServerItemDetailFragment();
-            fragment.setArguments(arguments);
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.gameserveritem_detail_container, fragment)
-                    .commit();
+            showDetailFragment(getIntent().getIntExtra(GameServerItemDetailFragment.ARG_ITEM_ID, NO_ITEM));
         }
+    }
+
+    public void refreshWebView(View fab) {
+        if (GameServerItemListActivity.getSelectedItem() != NO_ITEM) {
+            showDetailFragment(GameServerItemListActivity.getSelectedItem());
+        }
+    }
+
+    private void showDetailFragment(int position) {
+        Bundle arguments = new Bundle();
+        arguments.putInt(GameServerItemDetailFragment.ARG_ITEM_ID, position);
+        GameServerItemDetailFragment fragment = new GameServerItemDetailFragment();
+        fragment.setArguments(arguments);
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.gameserveritem_detail_container, fragment)
+                .commit();
     }
 
     @Override

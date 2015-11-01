@@ -169,6 +169,12 @@ public class GameServerItemListActivity extends AppCompatActivity {
         this.startActivityForResult(settingsIntent, ADD_SERVER_INTENT_REQUEST);
     }
 
+    public void refreshWebView(View fab) {
+        if (sSelected != NO_ITEM) {
+            restoreDetailPane(sSelected);
+        };
+    }
+
     private void populateServerList() {
         final Map<String, String> SERVERS_EXAMPLE = new HashMap<String, String>() {
             {

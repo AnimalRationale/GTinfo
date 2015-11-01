@@ -1,3 +1,7 @@
+<RelativeLayout
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/detail_background"
@@ -40,7 +44,6 @@
         android:indeterminateOnly="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="0dp"
         android:layout_margin="0dp"
         />
     <WebView  xmlns:android="http://schemas.android.com/apk/res/android"
@@ -48,17 +51,21 @@
         android:gravity ="top"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-    <android.support.design.widget.FloatingActionButton
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/fab_webview_refresh"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:elevation="6dp"
-        app:borderWidth="0dp"
-        app:rippleColor="@color/icon_orange_light"
-        app:backgroundTint="@color/icon_orange"
-        android:layout_gravity="bottom|right"
-        android:layout_margin="24dp"
-        android:clickable="true"
-        android:onClick="refreshWebView"/>
 </LinearLayout>
+    android:padding="0dp"<android.support.design.widget.FloatingActionButton
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/fab_refresh_webview"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentRight="true"
+    android:layout_alignParentBottom="true"
+    app:elevation="6dp"
+    app:borderWidth="0dp"
+    app:rippleColor="@color/icon_orange_light"
+    app:backgroundTint="@color/icon_orange"
+    android:layout_gravity="bottom|right"
+    android:layout_margin="24dp"
+    android:clickable="true"
+    android:src="@drawable/ic_refresh_white_24dp"
+    android:onClick="refreshWebView"/>
+</RelativeLayout>

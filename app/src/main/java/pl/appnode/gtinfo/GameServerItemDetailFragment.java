@@ -12,7 +12,6 @@ import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -92,7 +91,7 @@ public class GameServerItemDetailFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_gameserveritem_detail, container, false);
         mServerName = (TextView) rootView.findViewById(R.id.detail_server_name);
         mProgressBar = (ProgressBar) rootView.findViewById(R.id.webview_progress_bar);
-        mRefreshButton = (FloatingActionButton) rootView.findViewById(R.id.fab_webview_refresh);
+        mRefreshButton = (FloatingActionButton) rootView.findViewById(R.id.fab_refresh_webview);
         mRefreshButton.setVisibility(View.GONE);
         mErrorInfoText = (TextView) rootView.findViewById(R.id.detail_error_information);
         mErrorInfoText.setVisibility(View.GONE);
@@ -123,11 +122,11 @@ public class GameServerItemDetailFragment extends Fragment {
             mErrorInfoText.setVisibility(View.VISIBLE);
             return false;
         }
-        if (mItem != null && !mItem.mId.equals("0")) {
+        if (mItem != null) {
             mGameServerWebView.setWebViewClient(new WebViewClient() {
                 public void onPageFinished(WebView view, String url) {
                     mProgressBar.setVisibility(View.GONE);
-                    if (!mWebError) {mRefreshButton.setVisibility(View.VISIBLE);}
+                    mRefreshButton.setVisibility(View.VISIBLE);
                 }
 
                 @Override
