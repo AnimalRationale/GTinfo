@@ -31,6 +31,7 @@ public class GameServerItemListFragment extends Fragment {
     private static final String TAG_V = "GameServerItemListFragment";
     protected static List<GameServerItem> sServersList = new ArrayList<>();
     protected static GameServersAdapter sServersAdapter;
+    protected LinearLayoutManager mLinearLayoutManager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -50,9 +51,9 @@ public class GameServerItemListFragment extends Fragment {
         }
         RecyclerView recyclerServersList = (RecyclerView) rootView.findViewById(R.id.serversList);
         recyclerServersList.setItemAnimator(null);
-        LinearLayoutManager llm = new LinearLayoutManager(getActivity());
-        llm.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerServersList.setLayoutManager(llm);
+        mLinearLayoutManager = new LinearLayoutManager(getActivity());
+        mLinearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerServersList.setLayoutManager(mLinearLayoutManager);
         if (!GameServerItemListActivity.isTwoPaneMode()) {
             RecyclerView.ItemDecoration itemDecoration =
                     new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST);
@@ -61,9 +62,6 @@ public class GameServerItemListFragment extends Fragment {
         recyclerServersList.setItemAnimator(new DefaultItemAnimator());
         sServersAdapter = new GameServersAdapter(getActivity());
         recyclerServersList.setAdapter(sServersAdapter);
-        if (GameServerItemListActivity.getScrollTo() != NO_ITEM) {
-            llm.scrollToPositionWithOffset(GameServerItemListActivity.getScrollTo(), 0);
-        }
         ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper
                 .SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
 
@@ -80,6 +78,14 @@ public class GameServerItemListFragment extends Fragment {
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
         itemTouchHelper.attachToRecyclerView(recyclerServersList);
         return rootView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (GameServerItemListActivity.getScrollTo() != NO_ITEM) {
+            mLinearLayoutManager.scrollToPositionWithOffset(GameServerItemListActivity.getScrollTo(), 0);
+        }
     }
 
     private void removeGameServer(int position) { //TODO: Undo

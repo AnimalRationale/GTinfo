@@ -5,10 +5,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
+import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import static pl.appnode.gtinfo.Constants.ADD_SERVER_INTENT_REQUEST;
 import static pl.appnode.gtinfo.Constants.NO_ITEM;
+import static pl.appnode.gtinfo.PreferencesSetupHelper.isDarkTheme;
+import static pl.appnode.gtinfo.PreferencesSetupHelper.orientationSetup;
 import static pl.appnode.gtinfo.PreferencesSetupHelper.themeSetup;
 
 /**
@@ -22,10 +27,13 @@ import static pl.appnode.gtinfo.PreferencesSetupHelper.themeSetup;
  */
 public class GameServerItemDetailActivity extends AppCompatActivity {
 
+    private static boolean sThemeChangeFlag;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         themeSetup(this);
+        sThemeChangeFlag = isDarkTheme(this);
         setContentView(R.layout.activity_gameserveritem_detail);
 
         // Show the Up button in the action bar.
@@ -51,20 +59,22 @@ public class GameServerItemDetailActivity extends AppCompatActivity {
         }
     }
 
-    public void refreshWebView(View fab) {
-        if (GameServerItemListActivity.getSelectedItem() != NO_ITEM) {
-            showDetailFragment(GameServerItemListActivity.getSelectedItem());
-        }
+    @Override
+    public void onResume() {
+        super.onResume();
+        orientationSetup(this);
+        checkThemeChange();
+        showDetailFragment(GameServerItemListActivity.getSelectedItem());
     }
 
-    private void showDetailFragment(int position) {
-        Bundle arguments = new Bundle();
-        arguments.putInt(GameServerItemDetailFragment.ARG_ITEM_ID, position);
-        GameServerItemDetailFragment fragment = new GameServerItemDetailFragment();
-        fragment.setArguments(arguments);
-        getSupportFragmentManager().beginTransaction()
-                .add(R.id.gameserveritem_detail_container, fragment)
-                .commit();
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        if (!GameServerItemListActivity.isTwoPaneMode()) {
+            MenuItem menuAddServer = menu.findItem(R.id.action_add_server);
+            menuAddServer.setVisible(false);
+        }
+        return true;
     }
 
     @Override
@@ -81,6 +91,43 @@ public class GameServerItemDetailActivity extends AppCompatActivity {
             NavUtils.navigateUpTo(this, new Intent(this, GameServerItemListActivity.class));
             return true;
         }
+        if (id == R.id.action_about) {
+            AboutDialog.showDialog(GameServerItemDetailActivity.this);
+        }
+        if (id == R.id.action_settings) {
+            Intent settingsIntent = new Intent(this, PreferencesActivity.class);
+            this.startActivity(settingsIntent);
+        }
+        if (id == R.id.action_add_server) {
+            Intent settingsIntent = new Intent(this, AddGameServerActivity.class);
+            this.startActivityForResult(settingsIntent, ADD_SERVER_INTENT_REQUEST);
+        }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void checkThemeChange() {
+        if (sThemeChangeFlag != isDarkTheme(this)) {
+            finish();
+            Intent intent = new Intent(this, GameServerItemListActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        }
+    }
+
+    public void refreshWebView(View fab) {
+        if (GameServerItemListActivity.getSelectedItem() != NO_ITEM) {
+            showDetailFragment(GameServerItemListActivity.getSelectedItem());
+        }
+    }
+
+    private void showDetailFragment(int position) {
+        Bundle arguments = new Bundle();
+        arguments.putInt(GameServerItemDetailFragment.ARG_ITEM_ID, position);
+        GameServerItemDetailFragment fragment = new GameServerItemDetailFragment();
+        fragment.setArguments(arguments);
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.gameserveritem_detail_container, fragment)
+                .commit();
     }
 }
