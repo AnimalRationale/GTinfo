@@ -116,10 +116,15 @@ public class GameServerItemDetailFragment extends Fragment {
     }
 
     private boolean showServerInfo() {
-        if (!isConnection() || mItem == null) {
+        if (!isConnection()) {
             mProgressBar.setVisibility(View.GONE);
             mErrorInfoText.setText(R.string.error_network_access_info);
             mErrorInfoText.setVisibility(View.VISIBLE);
+            return false;
+        }
+        if (mItem == null) {
+            mProgressBar.setVisibility(View.GONE);
+            mGameServerWebView.setVisibility(View.GONE);
             return false;
         }
         if (mItem != null) {
