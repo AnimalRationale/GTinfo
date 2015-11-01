@@ -3,6 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".GameServerItemListActivity">
     <item
+        android:id="@+id/action_add_server"
+        android:title="@string/menu_action_add_server"
+        android:icon="@drawable/ic_add_white_24dp"
+        android:orderInCategory="85"
+        app:showAsAction="always|withText" />
+    <item
         android:id="@+id/action_about"
         android:title="@string/menu_action_about"
         android:orderInCategory="95"

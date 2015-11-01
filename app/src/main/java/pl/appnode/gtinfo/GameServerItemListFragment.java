@@ -3,6 +3,7 @@ package pl.appnode.gtinfo;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -42,6 +43,11 @@ public class GameServerItemListFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_gameserveritem_list, container, false);
         rootView.setTag(TAG_V);
+        if (GameServerItemListActivity.isTwoPaneMode()) {
+            FloatingActionButton addServerFab = (FloatingActionButton) rootView
+                    .findViewById(R.id.fab_add_server);
+            addServerFab.setVisibility(View.GONE);
+        }
         RecyclerView recyclerServersList = (RecyclerView) rootView.findViewById(R.id.serversList);
         recyclerServersList.setItemAnimator(null);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());

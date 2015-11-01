@@ -2,6 +2,7 @@ package pl.appnode.gtinfo;
 
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 import android.content.Intent;
@@ -134,6 +135,10 @@ public class GameServerItemListActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        if (!sTwoPane) {
+            MenuItem menuAddServer = menu.findItem(R.id.action_add_server);
+            menuAddServer.setVisible(false);
+        }
         return true;
     }
 
@@ -151,6 +156,9 @@ public class GameServerItemListActivity extends AppCompatActivity {
         if (id == R.id.action_populate) {
             populateServerList();
         }
+        if (id == R.id.action_add_server) {
+            addServerDialog();
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -165,6 +173,10 @@ public class GameServerItemListActivity extends AppCompatActivity {
     }
 
     public void addServer(View fab) {
+        addServerDialog();
+    }
+
+    private void addServerDialog() {
         Intent settingsIntent = new Intent(this, AddGameServerActivity.class);
         this.startActivityForResult(settingsIntent, ADD_SERVER_INTENT_REQUEST);
     }
