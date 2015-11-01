@@ -7,6 +7,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -49,10 +50,13 @@ public class GameServerItemDetailFragment extends Fragment {
 
     public static final String TAG = "GameServerDetail";
 
-    TextView mServerName = null;
+    TextView mServerName;
+    TextView mErrorInfoText;
     ProgressBar mProgressBar;
     String mKeyPrefix;
     WebView mGameServerWebView;
+    FloatingActionButton mRefreshButton;
+    boolean mWebError = false;
 
     /**
      * The fragment argument representing the item ID that this fragment
@@ -88,6 +92,10 @@ public class GameServerItemDetailFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_gameserveritem_detail, container, false);
         mServerName = (TextView) rootView.findViewById(R.id.detail_server_name);
         mProgressBar = (ProgressBar) rootView.findViewById(R.id.webview_progress_bar);
+        mRefreshButton = (FloatingActionButton) rootView.findViewById(R.id.fab_webview_refresh);
+        mRefreshButton.setVisibility(View.GONE);
+        mErrorInfoText = (TextView) rootView.findViewById(R.id.detail_error_information);
+        mErrorInfoText.setVisibility(View.GONE);
         LinearLayout detailBackground = (LinearLayout) rootView.findViewById(R.id.detail_background);
 
         if (!GameServerItemListActivity.isTwoPaneMode()) {
@@ -117,6 +125,7 @@ public class GameServerItemDetailFragment extends Fragment {
             mGameServerWebView.setWebViewClient(new WebViewClient() {
                 public void onPageFinished(WebView view, String url) {
                     mProgressBar.setVisibility(View.GONE);
+                    if (!mWebError) {mRefreshButton.setVisibility(View.VISIBLE);}
                 }
 
                 @Override
@@ -129,6 +138,8 @@ public class GameServerItemDetailFragment extends Fragment {
                 @Override
                 public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
                     mProgressBar.setVisibility(View.GONE);
+                    mErrorInfoText.setVisibility(View.VISIBLE);
+                    mWebError = true;
                     mGameServerWebView.loadUrl("about:blank");
                     Toast.makeText(getActivity(), description, Toast.LENGTH_LONG).show();
                     super.onReceivedError(view, errorCode, description, failingUrl);

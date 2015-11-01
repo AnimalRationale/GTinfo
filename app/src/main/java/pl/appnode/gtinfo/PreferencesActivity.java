@@ -7,6 +7,7 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NavUtils;
+import android.util.Log;
 import android.view.MenuItem;
 
 import static pl.appnode.gtinfo.Constants.KEY_SETTINGS_THEME;
@@ -15,6 +16,8 @@ import static pl.appnode.gtinfo.PreferencesSetupHelper.themeSetup;
 
 public class PreferencesActivity extends PreferenceActivity
         implements SharedPreferences.OnSharedPreferenceChangeListener {
+
+    private static final String TAG = "Preferences";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,6 +48,7 @@ public class PreferencesActivity extends PreferenceActivity
         {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.activity_preferences);
+            Log.d(TAG, "Preferences Selected: " + GameServerItemListActivity.getSelectedItem());
         }
     }
 

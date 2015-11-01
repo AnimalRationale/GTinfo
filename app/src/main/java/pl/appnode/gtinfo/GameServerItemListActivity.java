@@ -75,6 +75,7 @@ public class GameServerItemListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         if (savedInstanceState != null) {
             sSelected = savedInstanceState.getInt(SELECTED_ITEM_POSITION);
+            Log.d(TAG, "SavedInstanceState Selected : " + sSelected);
         }
         themeSetup(this);
         sThemeChangeFlag = isDarkTheme(this);
@@ -118,13 +119,14 @@ public class GameServerItemListActivity extends AppCompatActivity {
         super.onResume();
         orientationSetup(this);
         checkThemeChange();
+        Log.d(TAG, "Activity onResume Selected : " + sSelected);
     }
 
     @Override
     public void onPostResume() {
         super.onPostResume();
         if (isTwoPaneMode() && sSelected != NO_ITEM) {
-            Log.d(TAG, "Restoring detail view.");
+            Log.d(TAG, "Restoring detail view, Selected = " + sSelected);
             restoreDetailPane(sSelected);
         }
     }
@@ -142,6 +144,7 @@ public class GameServerItemListActivity extends AppCompatActivity {
             AboutDialog.showDialog(GameServerItemListActivity.this);
         }
         if (id == R.id.action_settings) {
+            Log.d(TAG, "Selected before settings start : " + sSelected);
             Intent settingsIntent = new Intent(this, PreferencesActivity.class);
             this.startActivity(settingsIntent);
         }
@@ -226,5 +229,6 @@ public class GameServerItemListActivity extends AppCompatActivity {
     protected void onSaveInstanceState (Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt(SELECTED_ITEM_POSITION, sSelected);
+        Log.d(TAG, "onSaveInstanceState in activity : " + sSelected);
     }
 }

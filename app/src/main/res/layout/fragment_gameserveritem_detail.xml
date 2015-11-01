@@ -20,6 +20,19 @@
         android:textStyle="bold"
         android:textSize="20sp"
         />
+    <TextView
+        android:id="@+id/detail_error_information"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="0dip"
+        android:layout_marginTop="10dp"
+        android:layout_alignWithParentIfMissing="true"
+        android:gravity="center_vertical|center_horizontal"
+        android:text="@string/error_default_info"
+        android:textStyle="bold"
+        android:textColor="@color/accent"
+        android:textSize="14sp"
+        />
     <ProgressBar
         android:id="@+id/webview_progress_bar"
         style="@android:style/Widget.Holo.Light.ProgressBar.Horizontal"
@@ -35,5 +48,17 @@
         android:gravity ="top"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-
+    <android.support.design.widget.FloatingActionButton
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/fab_webview_refresh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:elevation="6dp"
+        app:borderWidth="0dp"
+        app:rippleColor="@color/icon_orange_light"
+        app:backgroundTint="@color/icon_orange"
+        android:layout_gravity="bottom|right"
+        android:layout_margin="24dp"
+        android:clickable="true"
+        android:onClick="refreshWebView"/>
 </LinearLayout>

@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 import static pl.appnode.gtinfo.Constants.NO_ITEM;
+import static pl.appnode.gtinfo.Constants.SELECTED_ITEM_POSITION;
 import static pl.appnode.gtinfo.Constants.SERVERS_PREFS_FILE;
 
 public class GameServerItemListFragment extends Fragment {
@@ -79,6 +80,7 @@ public class GameServerItemListFragment extends Fragment {
         int selectedItem = GameServerItemListActivity.getSelectedItem();
         if (position == selectedItem) {
             GameServerItemListActivity.setSelectedItem(NO_ITEM);
+            Log.d(TAG, "Selected NO_ITEM : " + GameServerItemListActivity.getSelectedItem());
             Bundle arguments = new Bundle();
             arguments.putInt(GameServerItemDetailFragment.ARG_ITEM_ID, NO_ITEM);
             GameServerItemDetailFragment fragment = new GameServerItemDetailFragment();
@@ -92,6 +94,7 @@ public class GameServerItemListFragment extends Fragment {
         }
         if (position < selectedItem) {
             GameServerItemListActivity.setSelectedItem(selectedItem - 1);
+            Log.d(TAG, "Position < selectedItem : " + GameServerItemListActivity.getSelectedItem());
         }
         GameServerItem gameServer = sServersList.get(position);
         sServersList.remove(position);
