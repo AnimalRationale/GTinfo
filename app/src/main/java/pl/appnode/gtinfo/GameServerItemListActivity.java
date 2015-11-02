@@ -245,8 +245,8 @@ public class GameServerItemListActivity extends AppCompatActivity {
 
     @Override
     protected void onSaveInstanceState (Bundle outState) {
-        super.onSaveInstanceState(outState);
         outState.putInt(SELECTED_ITEM_POSITION, sSelected);
+        super.onSaveInstanceState(outState);
         Log.d(TAG, "onSaveInstanceState in activity : " + sSelected);
     }
 }
