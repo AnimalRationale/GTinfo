@@ -22,7 +22,6 @@ import java.util.List;
 import java.util.Map;
 
 import static pl.appnode.gtinfo.Constants.NO_ITEM;
-import static pl.appnode.gtinfo.Constants.SELECTED_ITEM_POSITION;
 import static pl.appnode.gtinfo.Constants.SERVERS_PREFS_FILE;
 
 public class GameServerItemListFragment extends Fragment {

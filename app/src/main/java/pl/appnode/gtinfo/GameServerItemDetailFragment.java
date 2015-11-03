@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
@@ -105,16 +106,16 @@ public class GameServerItemDetailFragment extends Fragment {
 
         if (!GameServerItemListActivity.isTwoPaneMode()) {
             mServerName.setText(mItem.mName);
-            mServerName.setBackgroundColor(getResources().getColor(R.color.icon_orange));
+            mServerName.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.icon_orange));
         } else {
             mServerName.setVisibility(View.GONE);
         }
         if (isDarkTheme(getActivity())) {
-            detailBackground.setBackgroundColor(getResources().getColor(R.color.black));
+            detailBackground.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.black));
             mKeyPrefix = "dark-";
         } else {
             mKeyPrefix = "light-";
-            detailBackground.setBackgroundColor(getResources().getColor(R.color.white));
+            detailBackground.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.white));
         }
         mGameServerWebView = (WebView) rootView.findViewById(R.id.gameServerInfoWebview);
         showServerInfo();

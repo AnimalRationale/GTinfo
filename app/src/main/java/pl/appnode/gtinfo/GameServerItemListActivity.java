@@ -2,8 +2,8 @@ package pl.appnode.gtinfo;
 
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
@@ -88,8 +88,8 @@ public class GameServerItemListActivity extends AppCompatActivity {
             sPhone = true;
         } else setContentView(R.layout.activity_gameserveritem_list);
         if (isDarkTheme(this)) {
-            getWindow().getDecorView().setBackgroundColor(getResources().getColor(R.color.black));
-        } else {getWindow().getDecorView().setBackgroundColor(getResources().getColor(R.color.white));}
+            getWindow().getDecorView().setBackgroundColor(ContextCompat.getColor(this, R.color.black));
+        } else {getWindow().getDecorView().setBackgroundColor(ContextCompat.getColor(this, R.color.white));}
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayShowHomeEnabled(true);
@@ -190,7 +190,7 @@ public class GameServerItemListActivity extends AppCompatActivity {
     public void refreshWebView(View fab) {
         if (sSelected != NO_ITEM) {
             restoreDetailPane(sSelected);
-        };
+        }
     }
 
     private void populateServerList() {

@@ -3,25 +3,21 @@ package pl.appnode.gtinfo;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import static pl.appnode.gtinfo.Constants.CARD_STATE_DEFAULT;
 import static pl.appnode.gtinfo.Constants.CARD_STATE_SELECTED;
-import static pl.appnode.gtinfo.Constants.NO_ITEM;
-import static pl.appnode.gtinfo.Constants.SERVERS_PREFS_FILE;
 import static pl.appnode.gtinfo.GameServerItemListFragment.sServersList;
 import static pl.appnode.gtinfo.PreferencesSetupHelper.isDarkTheme;
 
@@ -59,12 +55,12 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
             if (GameServerItemListActivity.isTwoPaneMode()) {
                 switch (state) {
                     case CARD_STATE_DEFAULT:
-                        return mContext.getResources().getColor(R.color.dark_gray);
+                        return ContextCompat.getColor(mContext, R.color.dark_gray);
                     case CARD_STATE_SELECTED:
-                        return mContext.getResources().getColor(R.color.black);
+                        return ContextCompat.getColor(mContext, R.color.black);
                 }
             } else {
-                return mContext.getResources().getColor(R.color.black);
+                return ContextCompat.getColor(mContext, R.color.black);
             }
         }
 
@@ -72,15 +68,15 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
             if (GameServerItemListActivity.isTwoPaneMode()) {
                 switch (state) {
                     case CARD_STATE_DEFAULT:
-                        return mContext.getResources().getColor(R.color.light_gray);
+                        return ContextCompat.getColor(mContext, R.color.light_gray);
                     case CARD_STATE_SELECTED:
-                        return mContext.getResources().getColor(R.color.white);
+                        return ContextCompat.getColor(mContext, R.color.white);
                 }
             } else {
-                return mContext.getResources().getColor(R.color.white);
+                return ContextCompat.getColor(mContext, R.color.white);
             }
         }
-        return mContext.getResources().getColor(R.color.white);
+        return ContextCompat.getColor(mContext, R.color.white);
     }
 
     @Override
@@ -125,20 +121,9 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
         });
         CardView card = (CardView) itemView;
         if (isDarkTheme(mContext)) {
-            card.setCardBackgroundColor(mContext.getResources().getColor(R.color.dark_gray));
-        } else card.setCardBackgroundColor(mContext.getResources().getColor(R.color.light_gray));
+            card.setCardBackgroundColor(ContextCompat.getColor(mContext, R.color.dark_gray));
+        } else card.setCardBackgroundColor(ContextCompat.getColor(mContext, R.color.light_gray));
         return viewHolder;
-    }
-
-    private void removeItem(int position) {
-        GameServerItem gameServer = sServersList.get(position);
-        SharedPreferences serversPrefs = AppContextHelper.getContext()
-                .getSharedPreferences(SERVERS_PREFS_FILE, mContext.MODE_PRIVATE);
-        SharedPreferences.Editor editor = serversPrefs.edit();
-        editor.remove(gameServer.mId);
-        editor.apply();
-        sServersList.remove(position);
-        notifyDataSetChanged();
     }
 
     static public class ServerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
