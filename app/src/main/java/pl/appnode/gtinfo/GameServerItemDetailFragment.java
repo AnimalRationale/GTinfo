@@ -23,6 +23,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import static pl.appnode.gtinfo.Constants.BLANK_ITEM_ID;
+import static pl.appnode.gtinfo.Constants.BLANK_ITEM_NAME;
 import static pl.appnode.gtinfo.Constants.GT_ORIGINAL_PLAYERS_LIST_HEIGHT;
 import static pl.appnode.gtinfo.Constants.NO_ITEM;
 import static pl.appnode.gtinfo.Constants.PLAYERS_LIST_HEIGHT_FACTOR_WITH_MAP_IMAGE_BIG;
@@ -66,7 +68,7 @@ public class GameServerItemDetailFragment extends Fragment {
     /**
      * Content this fragment is presenting.
      */
-    private GameServerItem mItem = null;
+    private GameServerItem mItem;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -81,6 +83,10 @@ public class GameServerItemDetailFragment extends Fragment {
         if (getArguments().containsKey(ARG_ITEM_ID)) {
             if (getArguments().getInt(ARG_ITEM_ID) > NO_ITEM) {
                 mItem = sServersList.get(getArguments().getInt(ARG_ITEM_ID));
+            } else {
+                mItem = new GameServerItem();
+                mItem.mId = BLANK_ITEM_ID;
+                mItem.mName = BLANK_ITEM_NAME;
             }
         }
     }
@@ -122,7 +128,7 @@ public class GameServerItemDetailFragment extends Fragment {
             mErrorInfoText.setVisibility(View.VISIBLE);
             return false;
         }
-        if (mItem == null) {
+        if (mItem.mId.equals(BLANK_ITEM_ID)) {
             mProgressBar.setVisibility(View.GONE);
             mGameServerWebView.setVisibility(View.GONE);
             return false;

@@ -33,6 +33,10 @@ public final class Constants {
     /** Value indicating no server list item selected or no position to scroll server list */
     public static final int NO_ITEM = -1;
 
+    /** Values for creating empty game server item for blank detail view (when no item is selected in two pane mode) */
+    public static final String BLANK_ITEM_ID = "";
+    public static final String BLANK_ITEM_NAME = "";
+
     /** Servers list item default state, used to determine card colour */
     public static final int CARD_STATE_DEFAULT = 1;
 

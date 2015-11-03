@@ -73,6 +73,7 @@ public class GameServerItemListActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d(TAG, "Start.");
         super.onCreate(savedInstanceState);
         if (savedInstanceState != null) {
             sSelected = savedInstanceState.getInt(SELECTED_ITEM_POSITION);
@@ -113,6 +114,12 @@ public class GameServerItemListActivity extends AppCompatActivity {
         }
 
         // TODO: If exposing deep links into your app, handle intents here.
+    }
+
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        sSelected = savedInstanceState.getInt(SELECTED_ITEM_POSITION, NO_ITEM);
     }
 
     @Override
@@ -220,6 +227,7 @@ public class GameServerItemListActivity extends AppCompatActivity {
     }
 
     private void restoreDetailPane(int position) {
+        Log.d(TAG, "Restoring detail pane.");
         Bundle arguments = new Bundle();
         arguments.putInt(GameServerItemDetailFragment.ARG_ITEM_ID, position);
         GameServerItemDetailFragment fragment = new GameServerItemDetailFragment();
