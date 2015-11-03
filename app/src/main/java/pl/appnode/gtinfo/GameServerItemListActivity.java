@@ -107,7 +107,6 @@ public class GameServerItemListActivity extends AppCompatActivity {
             // res/values-sw600dp). If this view is present, then the
             // activity should be in two-pane mode.
             sTwoPane = true;
-            if (sScrollTo != NO_ITEM) {sSelected = sScrollTo;}
         } else {
             sTwoPane = false;
             sSelected = NO_ITEM;
