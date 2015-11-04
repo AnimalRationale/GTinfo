@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -41,6 +42,7 @@ public class GameServerItemListFragment extends Fragment {
     protected static List<GameServerItem> sServersList = new ArrayList<>();
     protected static GameServersAdapter sServersAdapter;
     protected LinearLayoutManager mLinearLayoutManager;
+    private CoordinatorLayout fabCoordinator;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -60,6 +62,7 @@ public class GameServerItemListFragment extends Fragment {
                     .findViewById(R.id.fab_add_server);
             addServerFab.setVisibility(View.GONE);
         }
+        fabCoordinator = (CoordinatorLayout) rootView.findViewById(R.id.fab_coordinator);
         final RecyclerView recyclerServersList = (RecyclerView) rootView.findViewById(R.id.serversList);
         recyclerServersList.setItemAnimator(null);
         mLinearLayoutManager = new LinearLayoutManager(getActivity());
@@ -85,6 +88,7 @@ public class GameServerItemListFragment extends Fragment {
             @Override
             public void onSwiped(final RecyclerView.ViewHolder viewHolder, int swipeDir) {
                 removeGameServer(viewHolder.getAdapterPosition());
+                clearView(recyclerServersList, viewHolder);
             }
         };
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
@@ -104,7 +108,7 @@ public class GameServerItemListFragment extends Fragment {
     }
 
     private void removeGameServer(final int position) {
-        int selectedItem = GameServerItemListActivity.getSelectedItem();
+        final int selectedItem = GameServerItemListActivity.getSelectedItem();
         if (position == selectedItem) {
             GameServerItemListActivity.setSelectedItem(NO_ITEM);
             Log.d(TAG, "Selected NO_ITEM : " + GameServerItemListActivity.getSelectedItem());
@@ -119,7 +123,7 @@ public class GameServerItemListFragment extends Fragment {
                     .add(R.id.gameserveritem_detail_container, fragment)
                     .commit();
         }
-        if (position < selectedItem) { // TODO: restoring proper value for dismiss undo
+        if (position < selectedItem) {
             GameServerItemListActivity.setSelectedItem(selectedItem - 1);
             Log.d(TAG, "Position < selectedItem : " + GameServerItemListActivity.getSelectedItem());
         }
@@ -144,12 +148,13 @@ public class GameServerItemListFragment extends Fragment {
         confirmationRemoved.append(getActivity().getResources().getString(R.string.confirmation_server_removed));
 
         //noinspection ResourceType
-        Snackbar.make(getView(), confirmationRemoved, UNDO_TIME)
+        Snackbar.make(fabCoordinator, confirmationRemoved, UNDO_TIME)
                 .setAction(R.string.confirmation_server_removed_undo, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         editor.putString(gameServer.mId, gameServer.mName);
                         editor.apply();
+                        GameServerItemListActivity.setSelectedItem(selectedItem);
                         sServersList.add(position, gameServer);
                         sServersAdapter.notifyItemInserted(position);
                     }
