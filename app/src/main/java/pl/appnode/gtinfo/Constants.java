@@ -43,6 +43,8 @@ public final class Constants {
     /** Servers list item selected state, used to determine card colour */
     public static final int CARD_STATE_SELECTED = 2;
 
+    /** Servers list item deleted state, used to determine card colour with undo option */
+    public static final int CARD_STATE_DELETED = 3;
 
     /** Regexp pattern for server IP:port validation
      * (allowing addresses starting with 0 and port value in range 0..99999) */

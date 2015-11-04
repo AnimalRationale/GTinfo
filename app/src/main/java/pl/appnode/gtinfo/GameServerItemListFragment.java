@@ -2,11 +2,14 @@ package pl.appnode.gtinfo;
 
 
 import android.content.SharedPreferences;
+import android.graphics.Canvas;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +18,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -50,7 +54,7 @@ public class GameServerItemListFragment extends Fragment {
                     .findViewById(R.id.fab_add_server);
             addServerFab.setVisibility(View.GONE);
         }
-        RecyclerView recyclerServersList = (RecyclerView) rootView.findViewById(R.id.serversList);
+        final RecyclerView recyclerServersList = (RecyclerView) rootView.findViewById(R.id.serversList);
         recyclerServersList.setItemAnimator(null);
         mLinearLayoutManager = new LinearLayoutManager(getActivity());
         mLinearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -73,7 +77,10 @@ public class GameServerItemListFragment extends Fragment {
             }
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
-                removeGameServer(viewHolder.getAdapterPosition());
+                GameServerItem gameServer = sServersList.get(viewHolder.getAdapterPosition());
+                if (gameServer.mAlive) {
+                    dismissCard(viewHolder.getAdapterPosition());
+                } else removeGameServer(viewHolder.getAdapterPosition());
             }
         };
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
@@ -90,6 +97,14 @@ public class GameServerItemListFragment extends Fragment {
             mLinearLayoutManager.scrollToPositionWithOffset(GameServerItemListActivity.getScrollTo(), 0);
         }
         Log.d(TAG, "onResume finish.");
+    }
+
+    private void dismissCard(int position){
+        GameServerItem gameServer = sServersList.get(position);
+        if (gameServer.mAlive) {
+            gameServer.mAlive = false;
+            sServersAdapter.notifyItemChanged(position);
+        }
     }
 
     private void removeGameServer(int position) { //TODO: Undo
