@@ -114,16 +114,10 @@ public class GameServerItemListFragment extends Fragment {
             isFragmentUndo = true;
             GameServerItemListActivity.setSelectedItem(NO_ITEM);
             Log.d(TAG, "Selected NO_ITEM : " + GameServerItemListActivity.getSelectedItem());
-            Bundle arguments = new Bundle();
-            arguments.putInt(GameServerItemDetailFragment.ARG_ITEM_ID, NO_ITEM);
-            GameServerItemDetailFragment fragment = new GameServerItemDetailFragment();
-            fragment.setArguments(arguments);
-            FragmentActivity activity = getActivity();
-            FragmentManager manager = activity.getSupportFragmentManager();
-            manager.beginTransaction()
-                    .add(R.id.gameserveritem_detail_container, fragment)
-                    .commit();
-        } else {isFragmentUndo = false;}
+            showDetailFragment(NO_ITEM);
+        } else {
+            isFragmentUndo = false;
+        }
         if (position < selectedItem) {
             GameServerItemListActivity.setSelectedItem(selectedItem - 1);
             Log.d(TAG, "Position < selectedItem : " + GameServerItemListActivity.getSelectedItem());
@@ -149,7 +143,7 @@ public class GameServerItemListFragment extends Fragment {
         confirmationRemoved.append(getActivity().getResources().getString(R.string.confirmation_server_removed));
         View snackView;
         if (GameServerItemListActivity.isTwoPaneMode()) {
-            if (getActivity().getView().findViewById(R.id.fab_refresh_coordinator) != null) {
+            if (getView().findViewById(R.id.fab_refresh_coordinator) != null) {
                 snackView = getView().findViewById(R.id.fab_refresh_coordinator);
                 Log.d(TAG, "FAB 2 coordinator");
             } else snackView = getView();
@@ -165,20 +159,24 @@ public class GameServerItemListFragment extends Fragment {
                         sServersList.add(position, gameServer);
                         sServersAdapter.notifyItemInserted(position);
                         if (isFragmentUndo) {
-                            Bundle arguments = new Bundle();
-                            arguments.putInt(GameServerItemDetailFragment.ARG_ITEM_ID, selectedItem);
-                            GameServerItemDetailFragment fragment = new GameServerItemDetailFragment();
-                            fragment.setArguments(arguments);
-                            FragmentActivity activity = getActivity();
-                            FragmentManager manager = activity.getSupportFragmentManager();
-                            manager.beginTransaction()
-                                    .add(R.id.gameserveritem_detail_container, fragment)
-                                    .commit();
+                            showDetailFragment(selectedItem);
                         }
                     }
                 })
                 .setActionTextColor(ContextCompat.getColor(getActivity(), R.color.icon_orange))
                 .show();
+    }
+
+    private void showDetailFragment(int position) {
+        Bundle arguments = new Bundle();
+        arguments.putInt(GameServerItemDetailFragment.ARG_ITEM_ID, position);
+        GameServerItemDetailFragment fragment = new GameServerItemDetailFragment();
+        fragment.setArguments(arguments);
+        FragmentActivity activity = getActivity();
+        FragmentManager manager = activity.getSupportFragmentManager();
+        manager.beginTransaction()
+                .add(R.id.gameserveritem_detail_container, fragment)
+                .commit();
     }
 
     private void initServerList() {
