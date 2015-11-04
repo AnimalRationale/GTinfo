@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import static pl.appnode.gtinfo.Constants.CARD_STATE_DEFAULT;
 import static pl.appnode.gtinfo.Constants.CARD_STATE_SELECTED;
@@ -92,7 +93,7 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
                 from(viewGroup.getContext()).
                 inflate(cardLayout, viewGroup, false);
         final GameServersAdapter.ServerViewHolder viewHolder = new ServerViewHolder
-                (itemView, new GameServersAdapter.ServerViewHolder.IViewHolderOnClicks() {
+                (itemView, new GameServersAdapter.ServerViewHolder.IViewHolderOnClicks(){
             public void onCardClick(View caller, int position) {
                 GameServerItem gameServer = sServersList.get(position);
                 Log.d(TAG, "Clicked: " + gameServer.mName + " position: " + position);
@@ -121,6 +122,10 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
                             .commit();
                 }
             }
+            public void onCardLongClick(View caller, int position) {
+                Toast.makeText(AppContextHelper.getContext(), "LongClick", Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "LongClick.");
+            }
         });
         CardView card = (CardView) itemView;
         if (isDarkTheme(mContext)) {
@@ -129,9 +134,11 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
         return viewHolder;
     }
 
-    static public class ServerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    static public class ServerViewHolder extends RecyclerView.ViewHolder
+            implements View.OnClickListener, View.OnLongClickListener {
 
         protected IViewHolderOnClicks mClickListener;
+        protected IViewHolderOnClicks mLongClickListener;
         protected int vPosition;
         protected TextView vName;
         protected TextView vAddress;
@@ -139,9 +146,11 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
         public ServerViewHolder(View itemCardView, IViewHolderOnClicks listener) {
             super(itemCardView);
             mClickListener = listener;
+            mLongClickListener = listener;
             vName = (TextView) itemCardView.findViewById(R.id.server_name);
             vAddress = (TextView) itemCardView.findViewById(R.id.server_address);
             itemCardView.setOnClickListener(this);
+            itemCardView.setOnLongClickListener(this);
         }
 
         @Override
@@ -157,8 +166,20 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
             }
         }
 
+        @Override
+        public boolean onLongClick(View v) {
+            mLongClickListener.onCardLongClick(v, vPosition);
+            Log.d(TAG, "Card longclicked: " + vPosition);
+            return true;
+        }
+
         public interface IViewHolderOnClicks {
             void onCardClick(View caller, int position);
+            void onCardLongClick(View caller, int position);
         }
+
+//        public interface IViewHolderOnLongClicks {
+//            void onCardLongClick(View caller, int position);
+//        }
     }
 }

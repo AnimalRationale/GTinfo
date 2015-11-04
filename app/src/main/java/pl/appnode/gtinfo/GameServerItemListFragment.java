@@ -2,8 +2,6 @@ package pl.appnode.gtinfo;
 
 
 import android.content.SharedPreferences;
-import android.graphics.Canvas;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -24,8 +22,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +38,7 @@ public class GameServerItemListFragment extends Fragment {
     protected static List<GameServerItem> sServersList = new ArrayList<>();
     protected static GameServersAdapter sServersAdapter;
     protected LinearLayoutManager mLinearLayoutManager;
-    private CoordinatorLayout fabCoordinator;
+    private CoordinatorLayout mFabCoordinator;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -62,7 +58,7 @@ public class GameServerItemListFragment extends Fragment {
                     .findViewById(R.id.fab_add_server);
             addServerFab.setVisibility(View.GONE);
         }
-        fabCoordinator = (CoordinatorLayout) rootView.findViewById(R.id.fab_coordinator);
+        mFabCoordinator = (CoordinatorLayout) rootView.findViewById(R.id.fab_coordinator);
         final RecyclerView recyclerServersList = (RecyclerView) rootView.findViewById(R.id.serversList);
         recyclerServersList.setItemAnimator(null);
         mLinearLayoutManager = new LinearLayoutManager(getActivity());
@@ -136,35 +132,37 @@ public class GameServerItemListFragment extends Fragment {
         SpannableStringBuilder confirmationRemoved = new SpannableStringBuilder();
         int boldStart = confirmationRemoved.length();
         confirmationRemoved.append(gameServer.mName);
-        confirmationRemoved.setSpan(new ForegroundColorSpan(ContextCompat.getColor(getActivity(), R.color.light_green)),
-                boldStart, confirmationRemoved.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        confirmationRemoved.setSpan(new ForegroundColorSpan(ContextCompat.getColor(getActivity(),
+                R.color.light_green)), boldStart, confirmationRemoved.length(),
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         confirmationRemoved.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), boldStart,
                 confirmationRemoved.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         confirmationRemoved.append(getActivity().getResources().getString(R.string.confirmation_server_removed));
         View snackView;
         if (GameServerItemListActivity.isTwoPaneMode()) {
-            if (getView().findViewById(R.id.fab_refresh_coordinator) != null) {
-                snackView = getView().findViewById(R.id.fab_refresh_coordinator);
-                Log.d(TAG, "FAB 2 coordinator");
-            } else snackView = getView();
-        } else snackView = fabCoordinator;
-        //noinspection ResourceType
-        Snackbar.make(snackView, confirmationRemoved, UNDO_TIME)
-                .setAction(R.string.confirmation_server_removed_undo, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        editor.putString(gameServer.mId, gameServer.mName);
-                        editor.apply();
-                        GameServerItemListActivity.setSelectedItem(selectedItem);
-                        sServersList.add(position, gameServer);
-                        sServersAdapter.notifyItemInserted(position);
-                        if (isFragmentUndo) {
-                            showDetailFragment(selectedItem);
-                        }
-                    }
-                })
-                .setActionTextColor(ContextCompat.getColor(getActivity(), R.color.icon_orange))
-                .show();
+            snackView = getView();
+        } else snackView = mFabCoordinator;
+
+        if (snackView != null) {
+            //noinspection ResourceType
+            Snackbar.make(snackView, confirmationRemoved, UNDO_TIME)
+            // Workaround for using custom int values in duration without false warnings
+                    .setAction(R.string.confirmation_server_removed_undo, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                editor.putString(gameServer.mId, gameServer.mName);
+                                editor.apply();
+                                GameServerItemListActivity.setSelectedItem(selectedItem);
+                                sServersList.add(position, gameServer);
+                                sServersAdapter.notifyItemInserted(position);
+                                if (isFragmentUndo) {
+                                    showDetailFragment(selectedItem);
+                                }
+                            }
+                        })
+                    .setActionTextColor(ContextCompat.getColor(getActivity(), R.color.icon_orange))
+                    .show();
+        }
     }
 
     private void showDetailFragment(int position) {
