@@ -177,9 +177,5 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
             void onCardClick(View caller, int position);
             void onCardLongClick(View caller, int position);
         }
-
-//        public interface IViewHolderOnLongClicks {
-//            void onCardLongClick(View caller, int position);
-//        }
     }
 }
