@@ -52,20 +52,26 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
-    android:padding="0dp"<android.support.design.widget.FloatingActionButton
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/fab_refresh_webview"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_alignParentRight="true"
-    android:layout_alignParentBottom="true"
-    app:elevation="6dp"
-    app:borderWidth="0dp"
-    app:rippleColor="@color/icon_orange_light"
-    app:backgroundTint="@color/icon_orange"
-    android:layout_gravity="bottom|right"
-    android:layout_margin="24dp"
-    android:clickable="true"
-    android:src="@drawable/ic_refresh_white_24dp"
-    android:onClick="refreshWebView"/>
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/fab_refresh_coordinator"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        android:padding="0dp"
+        <android.support.design.widget.FloatingActionButton
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/fab_refresh_webview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            app:elevation="6dp"
+            app:borderWidth="0dp"
+            app:rippleColor="@color/icon_orange_light"
+            app:backgroundTint="@color/icon_orange"
+            android:layout_gravity="bottom|right"
+            android:layout_margin="24dp"
+            android:clickable="true"
+            android:src="@drawable/ic_refresh_white_24dp"
+            android:onClick="refreshWebView"/>
+    </android.support.design.widget.CoordinatorLayout>
 </RelativeLayout>

@@ -108,8 +108,10 @@ public class GameServerItemListFragment extends Fragment {
     }
 
     private void removeGameServer(final int position) {
+        final boolean isFragmentUndo;
         final int selectedItem = GameServerItemListActivity.getSelectedItem();
-        if (position == selectedItem) {
+        if (position == selectedItem && GameServerItemListActivity.isTwoPaneMode()) {
+            isFragmentUndo = true;
             GameServerItemListActivity.setSelectedItem(NO_ITEM);
             Log.d(TAG, "Selected NO_ITEM : " + GameServerItemListActivity.getSelectedItem());
             Bundle arguments = new Bundle();
@@ -118,11 +120,10 @@ public class GameServerItemListFragment extends Fragment {
             fragment.setArguments(arguments);
             FragmentActivity activity = getActivity();
             FragmentManager manager = activity.getSupportFragmentManager();
-            Log.d(TAG, "Detail fragment transaction commit.");
             manager.beginTransaction()
                     .add(R.id.gameserveritem_detail_container, fragment)
                     .commit();
-        }
+        } else {isFragmentUndo = false;}
         if (position < selectedItem) {
             GameServerItemListActivity.setSelectedItem(selectedItem - 1);
             Log.d(TAG, "Position < selectedItem : " + GameServerItemListActivity.getSelectedItem());
@@ -146,9 +147,15 @@ public class GameServerItemListFragment extends Fragment {
         confirmationRemoved.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), boldStart,
                 confirmationRemoved.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         confirmationRemoved.append(getActivity().getResources().getString(R.string.confirmation_server_removed));
-
+        View snackView;
+        if (GameServerItemListActivity.isTwoPaneMode()) {
+            if (getActivity().getView().findViewById(R.id.fab_refresh_coordinator) != null) {
+                snackView = getView().findViewById(R.id.fab_refresh_coordinator);
+                Log.d(TAG, "FAB 2 coordinator");
+            } else snackView = getView();
+        } else snackView = fabCoordinator;
         //noinspection ResourceType
-        Snackbar.make(fabCoordinator, confirmationRemoved, UNDO_TIME)
+        Snackbar.make(snackView, confirmationRemoved, UNDO_TIME)
                 .setAction(R.string.confirmation_server_removed_undo, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -157,6 +164,17 @@ public class GameServerItemListFragment extends Fragment {
                         GameServerItemListActivity.setSelectedItem(selectedItem);
                         sServersList.add(position, gameServer);
                         sServersAdapter.notifyItemInserted(position);
+                        if (isFragmentUndo) {
+                            Bundle arguments = new Bundle();
+                            arguments.putInt(GameServerItemDetailFragment.ARG_ITEM_ID, selectedItem);
+                            GameServerItemDetailFragment fragment = new GameServerItemDetailFragment();
+                            fragment.setArguments(arguments);
+                            FragmentActivity activity = getActivity();
+                            FragmentManager manager = activity.getSupportFragmentManager();
+                            manager.beginTransaction()
+                                    .add(R.id.gameserveritem_detail_container, fragment)
+                                    .commit();
+                        }
                     }
                 })
                 .setActionTextColor(ContextCompat.getColor(getActivity(), R.color.icon_orange))
