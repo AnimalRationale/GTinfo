@@ -32,6 +32,7 @@ import java.util.Map;
 
 import static pl.appnode.gtinfo.Constants.NO_ITEM;
 import static pl.appnode.gtinfo.Constants.SERVERS_PREFS_FILE;
+import static pl.appnode.gtinfo.Constants.UNDO_TIME;
 
 public class GameServerItemListFragment extends Fragment {
 
@@ -71,6 +72,7 @@ public class GameServerItemListFragment extends Fragment {
         }
         recyclerServersList.setItemAnimator(new DefaultItemAnimator());
         sServersAdapter = new GameServersAdapter(getActivity());
+        recyclerServersList.setHasFixedSize(true);
         recyclerServersList.setAdapter(sServersAdapter);
         ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper
                 .SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
@@ -101,7 +103,7 @@ public class GameServerItemListFragment extends Fragment {
         Log.d(TAG, "onResume finish.");
     }
 
-    private void removeGameServer(final int position) { //TODO: Undo
+    private void removeGameServer(final int position) {
         int selectedItem = GameServerItemListActivity.getSelectedItem();
         if (position == selectedItem) {
             GameServerItemListActivity.setSelectedItem(NO_ITEM);
@@ -117,7 +119,7 @@ public class GameServerItemListFragment extends Fragment {
                     .add(R.id.gameserveritem_detail_container, fragment)
                     .commit();
         }
-        if (position < selectedItem) {
+        if (position < selectedItem) { // TODO: restoring proper value for dismiss undo
             GameServerItemListActivity.setSelectedItem(selectedItem - 1);
             Log.d(TAG, "Position < selectedItem : " + GameServerItemListActivity.getSelectedItem());
         }
@@ -141,7 +143,8 @@ public class GameServerItemListFragment extends Fragment {
                 confirmationRemoved.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         confirmationRemoved.append(getActivity().getResources().getString(R.string.confirmation_server_removed));
 
-        Snackbar.make(getView(), confirmationRemoved, Snackbar.LENGTH_LONG)
+        //noinspection ResourceType
+        Snackbar.make(getView(), confirmationRemoved, UNDO_TIME)
                 .setAction(R.string.confirmation_server_removed_undo, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
