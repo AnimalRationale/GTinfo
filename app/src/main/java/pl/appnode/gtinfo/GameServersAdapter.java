@@ -107,7 +107,7 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
         final View itemView = LayoutInflater.
                 from(viewGroup.getContext()).
                 inflate(cardLayout, viewGroup, false);
-        GameServersAdapter.ServerViewHolder viewHolder = new ServerViewHolder
+        final GameServersAdapter.ServerViewHolder viewHolder = new ServerViewHolder
                 (itemView, new GameServersAdapter.ServerViewHolder.IViewHolderOnClicks() {
             public void onCardClick(View caller, int position) {
                 GameServerItem gameServer = sServersList.get(position);
@@ -116,7 +116,6 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
                     gameServer.mAlive = true;
                     Log.d(TAG, "UNDO: " + gameServer.mName + " position: " + position);
                     notifyItemChanged(position);
-                    notifyDataSetChanged();
                 } else {
                     int oldSelected = GameServerItemListActivity.getSelectedItem();
                     GameServerItemListActivity.setSelectedItem(position);
