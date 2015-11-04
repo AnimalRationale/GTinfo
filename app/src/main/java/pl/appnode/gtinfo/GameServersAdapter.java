@@ -14,12 +14,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import static pl.appnode.gtinfo.Constants.CARD_STATE_DEFAULT;
-import static pl.appnode.gtinfo.Constants.CARD_STATE_DELETED;
 import static pl.appnode.gtinfo.Constants.CARD_STATE_SELECTED;
 import static pl.appnode.gtinfo.Constants.NO_ITEM;
 import static pl.appnode.gtinfo.GameServerItemListFragment.sServersList;
@@ -43,26 +40,17 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
     @Override
     public void onBindViewHolder(final ServerViewHolder serverViewHolder, final int position) {
         final GameServerItem gameServer = sServersList.get(position);
-        if (gameServer.mAlive) {
-            serverViewHolder.vCardDismissUndo.setVisibility(View.GONE);
-            serverViewHolder.vCardNormal.setVisibility(View.VISIBLE);
-            serverViewHolder.vName.setText(gameServer.mName);
-            serverViewHolder.vAddress.setText(gameServer.mId);
-        } else {
-            serverViewHolder.vCardNormal.setVisibility(View.GONE);
-            serverViewHolder.vCardDismissUndo.setGravity(View.VISIBLE);
-            serverViewHolder.vDeletedServer.setText(gameServer.mName);
-        }
         serverViewHolder.vPosition = position;
+        serverViewHolder.vName.setText(gameServer.mName);
+        serverViewHolder.vAddress.setText(gameServer.mId);
         ((CardView)serverViewHolder.itemView)
-                    .setCardBackgroundColor(setCardColor(position, gameServer.mAlive));
+                    .setCardBackgroundColor(setCardColor(position));
     }
 
-    private int setCardColor(int position, boolean alive) {
+    private int setCardColor(int position) {
 
         int state = CARD_STATE_DEFAULT;
         if (GameServerItemListActivity.getSelectedItem() == position) {state = CARD_STATE_SELECTED;}
-        if (!alive) {state = CARD_STATE_DELETED;}
 
         if (isDarkTheme(mContext)) {
             if (GameServerItemListActivity.isTwoPaneMode()) {
@@ -71,8 +59,6 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
                         return ContextCompat.getColor(mContext, R.color.dark_gray);
                     case CARD_STATE_SELECTED:
                         return ContextCompat.getColor(mContext, R.color.black);
-                    case CARD_STATE_DELETED:
-                        return ContextCompat.getColor(mContext, R.color.dark_green);
                 }
             } else {
                 return ContextCompat.getColor(mContext, R.color.black);
@@ -86,8 +72,6 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
                         return ContextCompat.getColor(mContext, R.color.light_gray);
                     case CARD_STATE_SELECTED:
                         return ContextCompat.getColor(mContext, R.color.white);
-                    case CARD_STATE_DELETED:
-                        return ContextCompat.getColor(mContext, R.color.light_green);
                 }
             } else {
                 return ContextCompat.getColor(mContext, R.color.white);
@@ -112,35 +96,29 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
             public void onCardClick(View caller, int position) {
                 GameServerItem gameServer = sServersList.get(position);
                 Log.d(TAG, "Clicked: " + gameServer.mName + " position: " + position);
-                if (!gameServer.mAlive) {
-                    gameServer.mAlive = true;
-                    Log.d(TAG, "UNDO: " + gameServer.mName + " position: " + position);
-                    notifyItemChanged(position);
+                int oldSelected = GameServerItemListActivity.getSelectedItem();
+                GameServerItemListActivity.setSelectedItem(position);
+                GameServerItemListActivity.setScrollTo(position);
+                if (oldSelected != NO_ITEM) {
+                    notifyItemChanged(oldSelected);
+                }
+                notifyItemChanged(position);
+                if (!GameServerItemListActivity.isTwoPaneMode()) {
+                    Intent detailIntent = new Intent(mContext, GameServerItemDetailActivity.class);
+                    detailIntent.putExtra(GameServerItemDetailFragment.ARG_ITEM_ID,
+                            position);
+                    Log.d(TAG, "Address for detail activity: " + position);
+                    mContext.startActivity(detailIntent);
                 } else {
-                    int oldSelected = GameServerItemListActivity.getSelectedItem();
-                    GameServerItemListActivity.setSelectedItem(position);
-                    GameServerItemListActivity.setScrollTo(position);
-                    if (oldSelected != NO_ITEM) {
-                        notifyItemChanged(oldSelected);
-                    }
-                    notifyItemChanged(position);
-                    if (!GameServerItemListActivity.isTwoPaneMode()) {
-                        Intent detailIntent = new Intent(mContext, GameServerItemDetailActivity.class);
-                        detailIntent.putExtra(GameServerItemDetailFragment.ARG_ITEM_ID,
-                                position);
-                        Log.d(TAG, "Address for detail activity: " + position);
-                        mContext.startActivity(detailIntent);
-                    } else {
-                        Bundle arguments = new Bundle();
-                        arguments.putInt(GameServerItemDetailFragment.ARG_ITEM_ID, position);
-                        GameServerItemDetailFragment fragment = new GameServerItemDetailFragment();
-                        fragment.setArguments(arguments);
-                        FragmentActivity activity = (FragmentActivity) mContext;
-                        FragmentManager manager = activity.getSupportFragmentManager();
-                        manager.beginTransaction()
-                                .add(R.id.gameserveritem_detail_container, fragment)
-                                .commit();
-                    }
+                    Bundle arguments = new Bundle();
+                    arguments.putInt(GameServerItemDetailFragment.ARG_ITEM_ID, position);
+                    GameServerItemDetailFragment fragment = new GameServerItemDetailFragment();
+                    fragment.setArguments(arguments);
+                    FragmentActivity activity = (FragmentActivity) mContext;
+                    FragmentManager manager = activity.getSupportFragmentManager();
+                    manager.beginTransaction()
+                            .add(R.id.gameserveritem_detail_container, fragment)
+                            .commit();
                 }
             }
         });
@@ -157,20 +135,12 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
         protected int vPosition;
         protected TextView vName;
         protected TextView vAddress;
-        protected TextView vDeletedServer;
-        protected ProgressBar vDismissTimer;
-        protected RelativeLayout vCardNormal;
-        protected RelativeLayout vCardDismissUndo;
 
         public ServerViewHolder(View itemCardView, IViewHolderOnClicks listener) {
             super(itemCardView);
             mClickListener = listener;
             vName = (TextView) itemCardView.findViewById(R.id.server_name);
             vAddress = (TextView) itemCardView.findViewById(R.id.server_address);
-            vDeletedServer = (TextView) itemCardView.findViewById(R.id.deleted_server);
-            vCardNormal = (RelativeLayout) itemCardView.findViewById(R.id.card_view_normal);
-            vCardDismissUndo = (RelativeLayout) itemCardView.findViewById(R.id.card_view_undo);
-            vDismissTimer = (ProgressBar) itemCardView.findViewById(R.id.undo_progress_bar);
             itemCardView.setOnClickListener(this);
         }
 

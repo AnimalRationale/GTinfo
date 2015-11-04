@@ -29,7 +29,8 @@
     <string name="error_network_access">Check Internet connection</string>
     <string name="error_network_access_info">No Internet connection.</string>
 
-    <string name="confirmation_server_removed">Deleted server:</string>
+    <string name="confirmation_server_removed">\u0020removed.</string>
     <string name="confirmation_server_removed_undo">Undo</string>
+    <string name="confirmation_server_restored">\u0020restored.</string>
 
 </resources>

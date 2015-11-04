@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -14,6 +15,10 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -76,11 +81,8 @@ public class GameServerItemListFragment extends Fragment {
                 return true;
             }
             @Override
-            public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
-                GameServerItem gameServer = sServersList.get(viewHolder.getAdapterPosition());
-                if (gameServer.mAlive) {
-                    dismissCard(viewHolder.getAdapterPosition());
-                } else removeGameServer(viewHolder.getAdapterPosition());
+            public void onSwiped(final RecyclerView.ViewHolder viewHolder, int swipeDir) {
+                removeGameServer(viewHolder.getAdapterPosition());
             }
         };
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
@@ -99,15 +101,7 @@ public class GameServerItemListFragment extends Fragment {
         Log.d(TAG, "onResume finish.");
     }
 
-    private void dismissCard(int position){
-        GameServerItem gameServer = sServersList.get(position);
-        if (gameServer.mAlive) {
-            gameServer.mAlive = false;
-            sServersAdapter.notifyItemChanged(position);
-        }
-    }
-
-    private void removeGameServer(int position) { //TODO: Undo
+    private void removeGameServer(final int position) { //TODO: Undo
         int selectedItem = GameServerItemListActivity.getSelectedItem();
         if (position == selectedItem) {
             GameServerItemListActivity.setSelectedItem(NO_ITEM);
@@ -127,21 +121,38 @@ public class GameServerItemListFragment extends Fragment {
             GameServerItemListActivity.setSelectedItem(selectedItem - 1);
             Log.d(TAG, "Position < selectedItem : " + GameServerItemListActivity.getSelectedItem());
         }
-        GameServerItem gameServer = sServersList.get(position);
+        final GameServerItem gameServer = sServersList.get(position);
         sServersList.remove(position);
-        sServersAdapter.notifyDataSetChanged();
-        SharedPreferences gameServersPrefs = AppContextHelper.getContext()
+        sServersAdapter.notifyItemRemoved(position);
+        final SharedPreferences gameServersPrefs = AppContextHelper.getContext()
                 .getSharedPreferences(SERVERS_PREFS_FILE, 0);
+        final SharedPreferences.Editor editor = gameServersPrefs.edit();
         if (gameServersPrefs.contains(gameServer.mId)) {
-            SharedPreferences.Editor editor = gameServersPrefs.edit();
             editor.remove(gameServer.mId);
             editor.apply();
         }
-        String confirmation = gameServer.mName + getActivity().getResources()
-                .getString(R.string.confirmation_server_removed);
-        Toast toast = Toast.makeText(getActivity(),
-                confirmation, Toast.LENGTH_SHORT);
-        toast.show();
+
+        SpannableStringBuilder confirmationRemoved = new SpannableStringBuilder();
+        int boldStart = confirmationRemoved.length();
+        confirmationRemoved.append(gameServer.mName);
+        confirmationRemoved.setSpan(new ForegroundColorSpan(ContextCompat.getColor(getActivity(), R.color.light_green)),
+                boldStart, confirmationRemoved.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        confirmationRemoved.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), boldStart,
+                confirmationRemoved.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        confirmationRemoved.append(getActivity().getResources().getString(R.string.confirmation_server_removed));
+
+        Snackbar.make(getView(), confirmationRemoved, Snackbar.LENGTH_LONG)
+                .setAction(R.string.confirmation_server_removed_undo, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        editor.putString(gameServer.mId, gameServer.mName);
+                        editor.apply();
+                        sServersList.add(position, gameServer);
+                        sServersAdapter.notifyItemInserted(position);
+                    }
+                })
+                .setActionTextColor(ContextCompat.getColor(getActivity(), R.color.icon_orange))
+                .show();
     }
 
     private void initServerList() {
