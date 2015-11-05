@@ -11,6 +11,9 @@ public final class Constants {
     /** Intent request code for add server activity  */
     public static final int ADD_SERVER_INTENT_REQUEST = 501;
 
+    /** Intent request code for edit server activity  */
+    public static final int EDIT_SERVER_INTENT_REQUEST = 502;
+
     /** Extra keys for result intent in add server activity s*/
     public static final String ADDED_SERVER_ADDRESS = "AddedServerAddress";
     public static final String ADDED_SERVER_NAME = "AddedServerName";

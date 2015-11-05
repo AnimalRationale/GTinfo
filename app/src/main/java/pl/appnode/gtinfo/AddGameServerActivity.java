@@ -53,8 +53,6 @@ public class AddGameServerActivity extends Activity implements View.OnClickListe
         String name = mEditServerName.getText().toString();
         if (!address.equals("")) {
             if (validateServerAddress(address)) {
-                Log.d(TAG, "Saving: " + address + " " + name);
-                saveAddedServer(address, name);
                 resultOk(address, name);
             }
         }
@@ -80,14 +78,6 @@ public class AddGameServerActivity extends Activity implements View.OnClickListe
         Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
         Log.d(TAG, "Invalid address.");
         return false;
-    }
-
-    private void saveAddedServer(String address, String name) {
-        SharedPreferences serversPrefs = AppContextHelper.getContext().getSharedPreferences(SERVERS_PREFS_FILE, MODE_PRIVATE);
-        SharedPreferences.Editor editor = serversPrefs.edit();
-        editor.putString(address, name);
-        editor.apply();
-        Log.d(TAG, "Saved server: " + address + " with name: " + name);
     }
 
     private void resultOk(String address, String name) {

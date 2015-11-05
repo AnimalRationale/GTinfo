@@ -20,6 +20,7 @@ import java.util.Map;
 import static pl.appnode.gtinfo.Constants.ADD_SERVER_INTENT_REQUEST;
 import static pl.appnode.gtinfo.Constants.ADDED_SERVER_ADDRESS;
 import static pl.appnode.gtinfo.Constants.ADDED_SERVER_NAME;
+import static pl.appnode.gtinfo.Constants.EDIT_SERVER_INTENT_REQUEST;
 import static pl.appnode.gtinfo.Constants.NO_ITEM;
 import static pl.appnode.gtinfo.Constants.SELECTED_ITEM_POSITION;
 import static pl.appnode.gtinfo.Constants.SERVERS_PREFS_FILE;
@@ -187,6 +188,11 @@ public class GameServerItemListActivity extends AppCompatActivity {
         this.startActivityForResult(settingsIntent, ADD_SERVER_INTENT_REQUEST);
     }
 
+    public void  editServerDialog(int position) {
+        Intent settingsIntent = new Intent(this, AddGameServerActivity.class);
+        this.startActivityForResult(settingsIntent, EDIT_SERVER_INTENT_REQUEST);
+    }
+
     public void refreshWebView(View fab) {
         if (sSelected != NO_ITEM) {
             restoreDetailPane(sSelected);
@@ -206,6 +212,7 @@ public class GameServerItemListActivity extends AppCompatActivity {
                 put("109.236.89.182:2402", "PvE Cranky Exile Altis");
                 put("31.186.251.213:2302", "Hostile Takeover EU#1");
                 put("100.200.300.400:5555","Test 2");
+                put("184.88.43.167:2302", "Alpha1Alpha PvE Exile Altis");
 
             }
         };
@@ -242,16 +249,27 @@ public class GameServerItemListActivity extends AppCompatActivity {
         if (requestCode == ADD_SERVER_INTENT_REQUEST && resultCode == RESULT_OK
                 && resultIntent.getExtras() != null) {
             Log.d(TAG, "Proper ResultIntent.");
-            GameServerItem gameServer = new GameServerItem();
-            gameServer.mId = resultIntent.getStringExtra(ADDED_SERVER_ADDRESS);
-            gameServer.mName = resultIntent.getStringExtra(ADDED_SERVER_NAME);
-            sServersList.add(gameServer);
-            sServersAdapter.notifyDataSetChanged();
+            String serverAddress = resultIntent.getStringExtra(ADDED_SERVER_ADDRESS);
+            String serverName = resultIntent.getStringExtra(ADDED_SERVER_NAME);
+            saveServer(serverAddress, serverName);
         }
     }
 
+    private void saveServer(String address, String name) {
+        SharedPreferences serversPrefs = AppContextHelper.getContext().getSharedPreferences(SERVERS_PREFS_FILE, MODE_PRIVATE);
+        SharedPreferences.Editor editor = serversPrefs.edit();
+        editor.putString(address, name);
+        editor.apply();
+        GameServerItem gameServer = new GameServerItem();
+        gameServer.mId = address;
+        gameServer.mName = name;
+        sServersList.add(gameServer);
+        sServersAdapter.notifyDataSetChanged();
+        Log.d(TAG, "Saved server: " + address + " with name: " + name);
+    }
+
     @Override
-    protected void onSaveInstanceState (Bundle outState) {
+    protected void onSaveInstanceState(Bundle outState) {
         outState.putInt(SELECTED_ITEM_POSITION, sSelected);
         super.onSaveInstanceState(outState);
         Log.d(TAG, "onSaveInstanceState in activity : " + sSelected);
