@@ -10,6 +10,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.regex.Matcher;
@@ -18,8 +19,10 @@ import java.util.regex.Pattern;
 import static pl.appnode.gtinfo.Constants.ADDED_SERVER_ADDRESS;
 import static pl.appnode.gtinfo.Constants.ADDED_SERVER_NAME;
 import static pl.appnode.gtinfo.Constants.EDIT_SERVER_ADDRESS;
+import static pl.appnode.gtinfo.Constants.EDIT_SERVER_LIST_POSITION;
 import static pl.appnode.gtinfo.Constants.EDIT_SERVER_NAME;
 import static pl.appnode.gtinfo.Constants.IP_ADDRESS_PORT_PATTERN;
+import static pl.appnode.gtinfo.Constants.NO_ITEM;
 import static pl.appnode.gtinfo.PreferencesSetupHelper.themeSetup;
 
 public class AddGameServerActivity extends Activity implements View.OnClickListener {
@@ -27,6 +30,8 @@ public class AddGameServerActivity extends Activity implements View.OnClickListe
     private static final String TAG = "AddServer";
     private EditText mEditServerAddress;
     private EditText mEditServerName;
+    private boolean mIsEdit = false;
+    private int mPosition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +58,10 @@ public class AddGameServerActivity extends Activity implements View.OnClickListe
         if (intent.getExtras() != null && intent.hasExtra(EDIT_SERVER_ADDRESS)) {
             mEditServerAddress.setText(intent.getStringExtra(EDIT_SERVER_ADDRESS));
             mEditServerName.setText(intent.getStringExtra(EDIT_SERVER_NAME));
+            mPosition = intent.getIntExtra(EDIT_SERVER_LIST_POSITION, NO_ITEM);
+            TextView editServerTitle = (TextView) findViewById(R.id.serverEditTitle);
+            editServerTitle.setVisibility(View.VISIBLE);
+            mIsEdit = true;
         }
     }
 
@@ -89,11 +98,20 @@ public class AddGameServerActivity extends Activity implements View.OnClickListe
     }
 
     private void resultOk(String address, String name) {
-        Intent resultIntent = getIntent();
-        resultIntent.putExtra(ADDED_SERVER_ADDRESS, address);
-        resultIntent.putExtra(ADDED_SERVER_NAME, name);
-        setResult(RESULT_OK, resultIntent);
-        finish();
+        if (!mIsEdit) {
+            Intent resultIntent = getIntent();
+            resultIntent.putExtra(ADDED_SERVER_ADDRESS, address);
+            resultIntent.putExtra(ADDED_SERVER_NAME, name);
+            setResult(RESULT_OK, resultIntent);
+            finish();
+        } else {
+            Intent resultIntent = getIntent();
+            resultIntent.putExtra(EDIT_SERVER_ADDRESS, address);
+            resultIntent.putExtra(EDIT_SERVER_NAME, name);
+            resultIntent.putExtra(EDIT_SERVER_LIST_POSITION, mPosition);
+            setResult(RESULT_OK, resultIntent);
+            finish();
+        }
     }
 
     private void resultCancel() {

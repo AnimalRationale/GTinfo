@@ -249,21 +249,36 @@ public class GameServerItemListActivity extends AppCompatActivity {
             Log.d(TAG, "Proper AddServerResultIntent.");
             String serverAddress = resultIntent.getStringExtra(ADDED_SERVER_ADDRESS);
             String serverName = resultIntent.getStringExtra(ADDED_SERVER_NAME);
-            saveServerData(serverAddress, serverName);
+            saveServerData(serverAddress, serverName, NO_ITEM);
+        } else if (requestCode == EDIT_SERVER_INTENT_REQUEST && resultCode == RESULT_OK
+                && resultIntent.getExtras() != null) {
+            Log.d(TAG, "Proper EditServerResultIntent.");
+            String serverAddress = resultIntent.getStringExtra(EDIT_SERVER_ADDRESS);
+            String serverName = resultIntent.getStringExtra(EDIT_SERVER_NAME);
+            int position = resultIntent.getIntExtra(EDIT_SERVER_LIST_POSITION, NO_ITEM);
+            if (position != NO_ITEM) {saveServerData(serverAddress, serverName, position);}
         }
     }
 
-    private void saveServerData(String address, String name) {
+    private void saveServerData(String address, String name, int position) {
         SharedPreferences serversPrefs = AppContextHelper.getContext().getSharedPreferences(SERVERS_PREFS_FILE, MODE_PRIVATE);
         SharedPreferences.Editor editor = serversPrefs.edit();
         editor.putString(address, name);
-        editor.apply();
-        GameServerItem gameServer = new GameServerItem();
-        gameServer.mId = address;
-        gameServer.mName = name;
-        sServersList.add(gameServer);
-        sServersAdapter.notifyDataSetChanged();
-        Log.d(TAG, "Saved server: " + address + " with name: " + name);
+        editor.apply(); // TODO: check if edited IP, if yes delete old key/value
+        if (position == NO_ITEM) {
+            GameServerItem gameServer = new GameServerItem();
+            gameServer.mId = address;
+            gameServer.mName = name;
+            sServersList.add(gameServer);
+            sServersAdapter.notifyDataSetChanged();
+            Log.d(TAG, "Saved server: " + address + " with name: " + name);
+        } else {
+            GameServerItem gameServer = sServersList.get(position);
+            gameServer.mId = address;
+            gameServer.mName = name;
+            sServersAdapter.notifyItemChanged(position);
+            Log.d(TAG, "Edited server: " + address + " with name: " + name);
+        }
     }
 
     @Override

@@ -4,6 +4,15 @@
     android:layout_width="fill_parent"
     android:layout_height="match_parent">
     <TextView
+        android:id="@+id/serverEditTitle"
+        android:visibility="gone"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:gravity="center"
+        android:text="@string/server_edit_title"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+    <TextView
         android:id="@+id/serverAddressTitle"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
