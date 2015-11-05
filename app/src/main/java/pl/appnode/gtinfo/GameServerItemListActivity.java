@@ -20,7 +20,10 @@ import java.util.Map;
 import static pl.appnode.gtinfo.Constants.ADD_SERVER_INTENT_REQUEST;
 import static pl.appnode.gtinfo.Constants.ADDED_SERVER_ADDRESS;
 import static pl.appnode.gtinfo.Constants.ADDED_SERVER_NAME;
+import static pl.appnode.gtinfo.Constants.EDIT_SERVER_ADDRESS;
 import static pl.appnode.gtinfo.Constants.EDIT_SERVER_INTENT_REQUEST;
+import static pl.appnode.gtinfo.Constants.EDIT_SERVER_LIST_POSITION;
+import static pl.appnode.gtinfo.Constants.EDIT_SERVER_NAME;
 import static pl.appnode.gtinfo.Constants.NO_ITEM;
 import static pl.appnode.gtinfo.Constants.SELECTED_ITEM_POSITION;
 import static pl.appnode.gtinfo.Constants.SERVERS_PREFS_FILE;
@@ -188,11 +191,6 @@ public class GameServerItemListActivity extends AppCompatActivity {
         this.startActivityForResult(settingsIntent, ADD_SERVER_INTENT_REQUEST);
     }
 
-    public void  editServerDialog(int position) {
-        Intent settingsIntent = new Intent(this, AddGameServerActivity.class);
-        this.startActivityForResult(settingsIntent, EDIT_SERVER_INTENT_REQUEST);
-    }
-
     public void refreshWebView(View fab) {
         if (sSelected != NO_ITEM) {
             restoreDetailPane(sSelected);
@@ -248,14 +246,14 @@ public class GameServerItemListActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent resultIntent) {
         if (requestCode == ADD_SERVER_INTENT_REQUEST && resultCode == RESULT_OK
                 && resultIntent.getExtras() != null) {
-            Log.d(TAG, "Proper ResultIntent.");
+            Log.d(TAG, "Proper AddServerResultIntent.");
             String serverAddress = resultIntent.getStringExtra(ADDED_SERVER_ADDRESS);
             String serverName = resultIntent.getStringExtra(ADDED_SERVER_NAME);
-            saveServer(serverAddress, serverName);
+            saveServerData(serverAddress, serverName);
         }
     }
 
-    private void saveServer(String address, String name) {
+    private void saveServerData(String address, String name) {
         SharedPreferences serversPrefs = AppContextHelper.getContext().getSharedPreferences(SERVERS_PREFS_FILE, MODE_PRIVATE);
         SharedPreferences.Editor editor = serversPrefs.edit();
         editor.putString(address, name);

@@ -19,6 +19,10 @@ import android.widget.Toast;
 
 import static pl.appnode.gtinfo.Constants.CARD_STATE_DEFAULT;
 import static pl.appnode.gtinfo.Constants.CARD_STATE_SELECTED;
+import static pl.appnode.gtinfo.Constants.EDIT_SERVER_ADDRESS;
+import static pl.appnode.gtinfo.Constants.EDIT_SERVER_INTENT_REQUEST;
+import static pl.appnode.gtinfo.Constants.EDIT_SERVER_LIST_POSITION;
+import static pl.appnode.gtinfo.Constants.EDIT_SERVER_NAME;
 import static pl.appnode.gtinfo.Constants.NO_ITEM;
 import static pl.appnode.gtinfo.GameServerItemListFragment.sServersList;
 import static pl.appnode.gtinfo.PreferencesSetupHelper.isDarkTheme;
@@ -125,8 +129,15 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
             public void onCardLongClick(View caller, int position) {
                 Toast.makeText(AppContextHelper.getContext(), "LongClick", Toast.LENGTH_SHORT).show();
                 Log.d(TAG, "LongClick.");
+                GameServerItem gameServer = sServersList.get(position);
+                Intent settingsIntent = new Intent(mContext, AddGameServerActivity.class);
+                settingsIntent.putExtra(EDIT_SERVER_ADDRESS, gameServer.mId);
+                settingsIntent.putExtra(EDIT_SERVER_NAME, gameServer.mName);
+                settingsIntent.putExtra(EDIT_SERVER_LIST_POSITION, position);
+                ((GameServerItemListActivity)mContext).startActivityForResult(settingsIntent, EDIT_SERVER_INTENT_REQUEST);
             }
         });
+
         CardView card = (CardView) itemView;
         if (isDarkTheme(mContext)) {
             card.setCardBackgroundColor(ContextCompat.getColor(mContext, R.color.dark_gray));

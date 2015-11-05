@@ -2,7 +2,6 @@ package pl.appnode.gtinfo;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -18,9 +17,10 @@ import java.util.regex.Pattern;
 
 import static pl.appnode.gtinfo.Constants.ADDED_SERVER_ADDRESS;
 import static pl.appnode.gtinfo.Constants.ADDED_SERVER_NAME;
+import static pl.appnode.gtinfo.Constants.EDIT_SERVER_ADDRESS;
+import static pl.appnode.gtinfo.Constants.EDIT_SERVER_NAME;
 import static pl.appnode.gtinfo.Constants.IP_ADDRESS_PORT_PATTERN;
 import static pl.appnode.gtinfo.PreferencesSetupHelper.themeSetup;
-import static pl.appnode.gtinfo.Constants.SERVERS_PREFS_FILE;
 
 public class AddGameServerActivity extends Activity implements View.OnClickListener {
 
@@ -46,6 +46,14 @@ public class AddGameServerActivity extends Activity implements View.OnClickListe
         buttonCancel.setOnClickListener(this);
         mEditServerAddress = (EditText) findViewById(R.id.serverAddress);
         mEditServerName = (EditText) findViewById(R.id.serverNameText);
+        getIntentData(getIntent());
+    }
+
+    private void getIntentData(Intent intent) {
+        if (intent.getExtras() != null && intent.hasExtra(EDIT_SERVER_ADDRESS)) {
+            mEditServerAddress.setText(intent.getStringExtra(EDIT_SERVER_ADDRESS));
+            mEditServerName.setText(intent.getStringExtra(EDIT_SERVER_NAME));
+        }
     }
 
     private void pressedOk() {

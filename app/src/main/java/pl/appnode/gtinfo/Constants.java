@@ -14,9 +14,14 @@ public final class Constants {
     /** Intent request code for edit server activity  */
     public static final int EDIT_SERVER_INTENT_REQUEST = 502;
 
-    /** Extra keys for result intent in add server activity s*/
+    /** Extra keys for result intent in add server activity */
     public static final String ADDED_SERVER_ADDRESS = "AddedServerAddress";
     public static final String ADDED_SERVER_NAME = "AddedServerName";
+
+    /** Extra keys for edit server activity intent */
+    public static final String EDIT_SERVER_ADDRESS = "ServerAddress";
+    public static final String EDIT_SERVER_NAME = "ServerName";
+    public static final String EDIT_SERVER_LIST_POSITION = "ServerPosition";
 
     /** SharedPreferences file for storing serves IP and custom name */
     public static final String SERVERS_PREFS_FILE = "ServersPrefsFile";
