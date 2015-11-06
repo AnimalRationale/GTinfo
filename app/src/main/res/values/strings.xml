@@ -15,6 +15,7 @@
     <string name="menu_action_about">About</string>
     <string name="menu_action_add_server">Add server</string>
     <string name="menu_action_populate">Add servers</string>
+    <string name="menu_action_clear_list">Clear list</string>
 
     <string name="server_add_title">Game server data</string>
     <string name="server_add_address_title">Server address and port:</string>

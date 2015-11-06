@@ -2,6 +2,8 @@ package pl.appnode.gtinfo;
 
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
@@ -9,6 +11,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,6 +33,7 @@ import static pl.appnode.gtinfo.Constants.EDIT_SERVER_NAME;
 import static pl.appnode.gtinfo.Constants.NO_ITEM;
 import static pl.appnode.gtinfo.Constants.SELECTED_ITEM_POSITION;
 import static pl.appnode.gtinfo.Constants.SERVERS_PREFS_FILE;
+import static pl.appnode.gtinfo.Constants.UNDO_TIME;
 import static pl.appnode.gtinfo.GameServerItemListFragment.sServersAdapter;
 import static pl.appnode.gtinfo.GameServerItemListFragment.sServersList;
 import static pl.appnode.gtinfo.PreferencesSetupHelper.isDarkTheme;
@@ -169,6 +176,9 @@ public class GameServerItemListActivity extends AppCompatActivity {
         if (id == R.id.action_add_server) {
             addServerDialog();
         }
+        if (id == R.id.action_clear_list) {
+            clearServersList();
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -229,6 +239,15 @@ public class GameServerItemListActivity extends AppCompatActivity {
 
         sServersAdapter.notifyDataSetChanged();
     }
+
+   private void clearServersList() { // TODO: confirmation dialog
+       SharedPreferences gameServersPrefs = getSharedPreferences(SERVERS_PREFS_FILE, 0);
+       SharedPreferences.Editor editor = gameServersPrefs.edit();
+       editor.clear();
+       editor.apply();
+       sServersList.clear();
+       sServersAdapter.notifyDataSetChanged();
+   }
 
     private void restoreDetailPane(int position) {
         Log.d(TAG, "Restoring detail pane.");
