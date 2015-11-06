@@ -2,8 +2,6 @@ package pl.appnode.gtinfo;
 
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
@@ -11,10 +9,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Spannable;
-import android.text.SpannableStringBuilder;
-import android.text.style.ForegroundColorSpan;
-import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -33,7 +27,6 @@ import static pl.appnode.gtinfo.Constants.EDIT_SERVER_NAME;
 import static pl.appnode.gtinfo.Constants.NO_ITEM;
 import static pl.appnode.gtinfo.Constants.SELECTED_ITEM_POSITION;
 import static pl.appnode.gtinfo.Constants.SERVERS_PREFS_FILE;
-import static pl.appnode.gtinfo.Constants.UNDO_TIME;
 import static pl.appnode.gtinfo.GameServerItemListFragment.sServersAdapter;
 import static pl.appnode.gtinfo.GameServerItemListFragment.sServersList;
 import static pl.appnode.gtinfo.PreferencesSetupHelper.isDarkTheme;
@@ -84,11 +77,9 @@ public class GameServerItemListActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.d(TAG, "Start.");
         super.onCreate(savedInstanceState);
         if (savedInstanceState != null) {
             sSelected = savedInstanceState.getInt(SELECTED_ITEM_POSITION);
-            Log.d(TAG, "SavedInstanceState Selected : " + sSelected);
         }
         themeSetup(this);
         sThemeChangeFlag = isDarkTheme(this);
@@ -137,14 +128,12 @@ public class GameServerItemListActivity extends AppCompatActivity {
         super.onResume();
         orientationSetup(this);
         checkThemeChange();
-        Log.d(TAG, "Activity onResume Selected : " + sSelected);
     }
 
     @Override
     public void onPostResume() {
         super.onPostResume();
         if (isTwoPaneMode() && sSelected != NO_ITEM) {
-            Log.d(TAG, "Restoring detail view, Selected = " + sSelected);
             restoreDetailPane(sSelected);
         }
     }
@@ -166,7 +155,6 @@ public class GameServerItemListActivity extends AppCompatActivity {
             AboutDialog.showDialog(GameServerItemListActivity.this);
         }
         if (id == R.id.action_settings) {
-            Log.d(TAG, "Selected before settings start : " + sSelected);
             Intent settingsIntent = new Intent(this, PreferencesActivity.class);
             this.startActivity(settingsIntent);
         }
@@ -224,7 +212,6 @@ public class GameServerItemListActivity extends AppCompatActivity {
 
             }
         };
-        Log.d(TAG, "Created servers example list");
         SharedPreferences serversPrefs = getSharedPreferences(SERVERS_PREFS_FILE, MODE_PRIVATE);
         SharedPreferences.Editor editor = serversPrefs.edit();
         for (Map.Entry<String, String> entry : SERVERS_EXAMPLE.entrySet()) {
@@ -232,11 +219,9 @@ public class GameServerItemListActivity extends AppCompatActivity {
             gameServer.mId = entry.getKey();
             gameServer.mName = entry.getValue();
             sServersList.add(gameServer);
-            Log.d(TAG, "Added: " + entry.getKey() + "#" + entry.getValue());
             editor.putString(entry.getKey(), entry.getValue());
         }
         editor.apply();
-
         sServersAdapter.notifyDataSetChanged();
     }
 
@@ -250,7 +235,6 @@ public class GameServerItemListActivity extends AppCompatActivity {
    }
 
     private void restoreDetailPane(int position) {
-        Log.d(TAG, "Restoring detail pane.");
         Bundle arguments = new Bundle();
         arguments.putInt(GameServerItemDetailFragment.ARG_ITEM_ID, position);
         GameServerItemDetailFragment fragment = new GameServerItemDetailFragment();
@@ -265,13 +249,11 @@ public class GameServerItemListActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent resultIntent) {
         if (requestCode == ADD_SERVER_INTENT_REQUEST && resultCode == RESULT_OK
                 && resultIntent.getExtras() != null) {
-            Log.d(TAG, "Proper AddServerResultIntent.");
             String serverAddress = resultIntent.getStringExtra(ADDED_SERVER_ADDRESS);
             String serverName = resultIntent.getStringExtra(ADDED_SERVER_NAME);
             saveServerData(serverAddress, serverName, NO_ITEM);
         } else if (requestCode == EDIT_SERVER_INTENT_REQUEST && resultCode == RESULT_OK
                 && resultIntent.getExtras() != null) {
-            Log.d(TAG, "Proper EditServerResultIntent.");
             String serverAddress = resultIntent.getStringExtra(EDIT_SERVER_ADDRESS);
             String serverName = resultIntent.getStringExtra(EDIT_SERVER_NAME);
             int position = resultIntent.getIntExtra(EDIT_SERVER_LIST_POSITION, NO_ITEM);
@@ -310,6 +292,5 @@ public class GameServerItemListActivity extends AppCompatActivity {
     protected void onSaveInstanceState(Bundle outState) {
         outState.putInt(SELECTED_ITEM_POSITION, sSelected);
         super.onSaveInstanceState(outState);
-        Log.d(TAG, "onSaveInstanceState in activity : " + sSelected);
     }
 }
