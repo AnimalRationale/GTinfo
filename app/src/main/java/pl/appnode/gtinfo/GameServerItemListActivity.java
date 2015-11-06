@@ -283,7 +283,6 @@ public class GameServerItemListActivity extends AppCompatActivity {
         SharedPreferences serversPrefs = AppContextHelper.getContext().getSharedPreferences(SERVERS_PREFS_FILE, MODE_PRIVATE);
         SharedPreferences.Editor editor = serversPrefs.edit();
         editor.putString(address, name);
-        editor.apply(); // TODO: check if edited IP, if yes delete old key/value
         if (position == NO_ITEM) {
             GameServerItem gameServer = new GameServerItem();
             gameServer.mId = address;
@@ -293,11 +292,18 @@ public class GameServerItemListActivity extends AppCompatActivity {
             Log.d(TAG, "Saved server: " + address + " with name: " + name);
         } else {
             GameServerItem gameServer = sServersList.get(position);
-            gameServer.mId = address;
+            if (gameServer.mId != address) {
+                Log.d(TAG, "Editing server address - old: " + gameServer.mId + " / new: " + address);
+                if (serversPrefs.contains(gameServer.mId)) {
+                    editor.remove(gameServer.mId);
+                }
+                gameServer.mId = address;
+            }
             gameServer.mName = name;
             sServersAdapter.notifyItemChanged(position);
             Log.d(TAG, "Edited server: " + address + " with name: " + name);
         }
+        editor.apply();
     }
 
     @Override
