@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import static pl.appnode.gtinfo.Constants.HINT_TIME;
 import static pl.appnode.gtinfo.Constants.NO_ITEM;
 import static pl.appnode.gtinfo.Constants.SERVERS_PREFS_FILE;
 import static pl.appnode.gtinfo.Constants.UNDO_TIME;
@@ -96,10 +97,10 @@ public class GameServerItemListFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        Log.d(TAG, "onResume start.");
         if (GameServerItemListActivity.getScrollTo() != NO_ITEM) {
             mLinearLayoutManager.scrollToPositionWithOffset(GameServerItemListActivity.getScrollTo(), 0);
         }
+        if (sServersList.isEmpty()) showEmptyListHint();
         Log.d(TAG, "onResume finish.");
     }
 
@@ -175,6 +176,36 @@ public class GameServerItemListFragment extends Fragment {
         manager.beginTransaction()
                 .add(R.id.gameserveritem_detail_container, fragment)
                 .commit();
+    }
+
+    private void checkFirstRun() {
+        if (PreferencesSetupHelper.isFirstRun(getActivity())) {
+            showEmptyListHint();
+        }
+    }
+
+    private void showEmptyListHint() {
+        View snackView;
+        String hintText;
+        if (GameServerItemListActivity.isTwoPaneMode()) {
+            snackView = getView();
+            hintText = getActivity().getResources().getString(R.string.hint_add_servers_menu);
+        } else {
+            snackView = mFabCoordinator;
+            hintText = getActivity().getResources().getString(R.string.hint_add_servers_fab);
+        }
+        if (snackView != null) {
+            //noinspection ResourceType
+            Snackbar.make(snackView, hintText, HINT_TIME)
+                    // Workaround for using custom int values in duration without false warnings
+                    .setAction(R.string.hint_add_servers_action, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                        }
+                    })
+                    .setActionTextColor(ContextCompat.getColor(getActivity(), R.color.light_green))
+                    .show();
+        }
     }
 
     private void initServerList() {
