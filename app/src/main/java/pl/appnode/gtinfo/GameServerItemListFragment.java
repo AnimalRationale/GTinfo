@@ -45,13 +45,11 @@ public class GameServerItemListFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initServerList();
-        Log.d(TAG, "OnCreate finish.");
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Log.d(TAG, "OnCreateView start.");
         View rootView = inflater.inflate(R.layout.fragment_gameserveritem_list, container, false);
         rootView.setTag(TAG_V);
         if (GameServerItemListActivity.isTwoPaneMode()) {
@@ -90,7 +88,6 @@ public class GameServerItemListFragment extends Fragment {
         };
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
         itemTouchHelper.attachToRecyclerView(recyclerServersList);
-        Log.d(TAG, "OnCreateView finish.");
         return rootView;
     }
 
@@ -101,7 +98,6 @@ public class GameServerItemListFragment extends Fragment {
             mLinearLayoutManager.scrollToPositionWithOffset(GameServerItemListActivity.getScrollTo(), 0);
         }
         if (sServersList.isEmpty()) showEmptyListHint();
-        Log.d(TAG, "onResume finish.");
     }
 
     private void removeGameServer(final int position) {
@@ -110,14 +106,12 @@ public class GameServerItemListFragment extends Fragment {
         if (position == selectedItem && GameServerItemListActivity.isTwoPaneMode()) {
             isFragmentUndo = true;
             GameServerItemListActivity.setSelectedItem(NO_ITEM);
-            Log.d(TAG, "Selected NO_ITEM : " + GameServerItemListActivity.getSelectedItem());
             showDetailFragment(NO_ITEM);
         } else {
             isFragmentUndo = false;
         }
         if (position < selectedItem) {
             GameServerItemListActivity.setSelectedItem(selectedItem - 1);
-            Log.d(TAG, "Position < selectedItem : " + GameServerItemListActivity.getSelectedItem());
         }
         final GameServerItem gameServer = sServersList.get(position);
         sServersList.remove(position);
@@ -176,12 +170,6 @@ public class GameServerItemListFragment extends Fragment {
         manager.beginTransaction()
                 .add(R.id.gameserveritem_detail_container, fragment)
                 .commit();
-    }
-
-    private void checkFirstRun() {
-        if (PreferencesSetupHelper.isFirstRun(getActivity())) {
-            showEmptyListHint();
-        }
     }
 
     private void showEmptyListHint() {
