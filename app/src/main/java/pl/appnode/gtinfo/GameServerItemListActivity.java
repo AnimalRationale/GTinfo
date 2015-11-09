@@ -2,6 +2,7 @@ package pl.appnode.gtinfo;
 
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
@@ -48,7 +49,8 @@ import static pl.appnode.gtinfo.PreferencesSetupHelper.themeSetup;
  * <p/>
  */
 
-public class GameServerItemListActivity extends AppCompatActivity {
+public class GameServerItemListActivity extends AppCompatActivity
+        implements ConfirmationDialogFragment.ConfirmationDialogListener{
 
     private static final String TAG = "GameServerListAct";
     private static boolean sTwoPane;
@@ -165,7 +167,7 @@ public class GameServerItemListActivity extends AppCompatActivity {
             addServerDialog();
         }
         if (id == R.id.action_clear_list) {
-            clearServersList();
+            showConfirmationDialog();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -231,8 +233,25 @@ public class GameServerItemListActivity extends AppCompatActivity {
        editor.clear();
        editor.apply();
        sServersList.clear();
+       sSelected = NO_ITEM;
+       sSelected = NO_ITEM;
        sServersAdapter.notifyDataSetChanged();
    }
+
+    public void showConfirmationDialog() {
+        DialogFragment dialog = new ConfirmationDialogFragment();
+        dialog.show(getSupportFragmentManager(), "ConfirmationDialogFragment");
+    }
+
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog) {
+        clearServersList();
+        Log.d(TAG, "Cleared list.");
+    }
+
+    @Override
+    public void onDialogNegativeClick(DialogFragment dialog) {
+    }
 
     private void restoreDetailPane(int position) {
         Bundle arguments = new Bundle();
