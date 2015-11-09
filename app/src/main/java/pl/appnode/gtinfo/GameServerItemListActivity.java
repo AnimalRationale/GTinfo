@@ -167,7 +167,9 @@ public class GameServerItemListActivity extends AppCompatActivity
             addServerDialog();
         }
         if (id == R.id.action_clear_list) {
-            showConfirmationDialog();
+            if (!sServersList.isEmpty()) {
+                showConfirmationDialog();
+            }
         }
         return super.onOptionsItemSelected(item);
     }
@@ -227,7 +229,7 @@ public class GameServerItemListActivity extends AppCompatActivity
         sServersAdapter.notifyDataSetChanged();
     }
 
-   private void clearServersList() { // TODO: confirmation dialog
+   private void clearServersList() {
        SharedPreferences gameServersPrefs = getSharedPreferences(SERVERS_PREFS_FILE, 0);
        SharedPreferences.Editor editor = gameServersPrefs.edit();
        editor.clear();
