@@ -127,8 +127,6 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
                 }
             }
             public void onCardLongClick(View caller, int position) {
-                Toast.makeText(AppContextHelper.getContext(), "LongClick", Toast.LENGTH_SHORT).show();
-                Log.d(TAG, "LongClick.");
                 GameServerItem gameServer = sServersList.get(position);
                 Intent settingsIntent = new Intent(mContext, AddGameServerActivity.class);
                 settingsIntent.putExtra(EDIT_SERVER_ADDRESS, gameServer.mId);

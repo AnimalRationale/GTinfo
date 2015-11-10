@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -119,23 +120,24 @@ public class GameServerItemListActivity extends AppCompatActivity
         // TODO: If exposing deep links into your app, handle intents here.
     }
 
-    @Override
-    public void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        sSelected = savedInstanceState.getInt(SELECTED_ITEM_POSITION, NO_ITEM);
-    }
+//    @Override
+//    public void onRestoreInstanceState(Bundle savedInstanceState) {
+//        super.onRestoreInstanceState(savedInstanceState);
+//        sSelected = savedInstanceState.getInt(SELECTED_ITEM_POSITION, NO_ITEM);
+//    }
 
     @Override
     public void onResume() {
         super.onResume();
         orientationSetup(this);
         checkThemeChange();
+        Log.d(TAG, "sSelected: " + sSelected + " / ScrollTo: " + sScrollTo);
     }
 
     @Override
     public void onPostResume() {
         super.onPostResume();
-        if (isTwoPaneMode() && sSelected != NO_ITEM) {
+        if (isTwoPaneMode() && sSelected != NO_ITEM && sServersList.size() >= sSelected) {
             restoreDetailPane(sSelected);
         }
     }
@@ -164,11 +166,13 @@ public class GameServerItemListActivity extends AppCompatActivity
             populateServerList();
         }
         if (id == R.id.action_add_server) {
-            addServerDialog();
+            showAddServerDialog();
         }
         if (id == R.id.action_clear_list) {
             if (!sServersList.isEmpty()) {
                 showConfirmationDialog();
+            } else {
+                Toast.makeText(this, "Servers list is empty", Toast.LENGTH_SHORT).show();
             }
         }
         return super.onOptionsItemSelected(item);
@@ -185,16 +189,16 @@ public class GameServerItemListActivity extends AppCompatActivity
     }
 
     public void addServer(View fab) {
-        addServerDialog();
+        showAddServerDialog();
     }
 
-    private void addServerDialog() {
+    private void showAddServerDialog() {
         Intent settingsIntent = new Intent(this, AddGameServerActivity.class);
         this.startActivityForResult(settingsIntent, ADD_SERVER_INTENT_REQUEST);
     }
 
     public void refreshWebView(View fab) {
-        if (sSelected != NO_ITEM) {
+        if (sSelected != NO_ITEM && !sServersList.isEmpty()) {
             restoreDetailPane(sSelected);
         }
     }
@@ -230,14 +234,15 @@ public class GameServerItemListActivity extends AppCompatActivity
     }
 
    private void clearServersList() {
+       sServersList.clear();
+       sServersAdapter.notifyDataSetChanged();
+       sSelected = NO_ITEM;
+       sScrollTo= NO_ITEM;
        SharedPreferences gameServersPrefs = getSharedPreferences(SERVERS_PREFS_FILE, 0);
        SharedPreferences.Editor editor = gameServersPrefs.edit();
        editor.clear();
        editor.apply();
-       sServersList.clear();
-       sSelected = NO_ITEM;
-       sSelected = NO_ITEM;
-       sServersAdapter.notifyDataSetChanged();
+       if (isTwoPaneMode() ) {restoreDetailPane(NO_ITEM);}
    }
 
     public void showConfirmationDialog() {
