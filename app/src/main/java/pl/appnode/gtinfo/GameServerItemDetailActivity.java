@@ -71,6 +71,8 @@ public class GameServerItemDetailActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         if (!GameServerItemListActivity.isTwoPaneMode()) {
+            MenuItem searchView = menu.findItem(R.id.action_search);
+            searchView.setVisible(false);
             MenuItem menuAddServer = menu.findItem(R.id.action_add_server);
             menuAddServer.setVisible(false);
             MenuItem menuClearList = menu.findItem(R.id.action_clear_list);
