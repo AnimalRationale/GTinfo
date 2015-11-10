@@ -15,7 +15,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import static pl.appnode.gtinfo.Constants.CARD_STATE_DEFAULT;
 import static pl.appnode.gtinfo.Constants.CARD_STATE_SELECTED;
@@ -44,6 +43,7 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
 
     @Override
     public void onBindViewHolder(final ServerViewHolder serverViewHolder, final int position) {
+        Log.d(TAG, "BindViewHolder position: " + position);
         final GameServerItem gameServer = sServersList.get(position);
         serverViewHolder.vPosition = position;
         serverViewHolder.vName.setText(gameServer.mName);

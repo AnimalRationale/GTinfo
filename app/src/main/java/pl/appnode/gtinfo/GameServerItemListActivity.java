@@ -5,18 +5,22 @@ import android.content.res.Configuration;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static pl.appnode.gtinfo.Constants.ADD_SERVER_INTENT_REQUEST;
@@ -51,7 +55,8 @@ import static pl.appnode.gtinfo.PreferencesSetupHelper.themeSetup;
  */
 
 public class GameServerItemListActivity extends AppCompatActivity
-        implements ConfirmationDialogFragment.ConfirmationDialogListener{
+        implements ConfirmationDialogFragment.ConfirmationDialogListener,
+        SearchView.OnQueryTextListener, SearchView.OnCloseListener {
 
     private static final String TAG = "GameServerListAct";
     private static boolean sTwoPane;
@@ -145,12 +150,40 @@ public class GameServerItemListActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        final MenuItem item = menu.findItem(R.id.action_search);
+        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(item);
+        searchView.setOnQueryTextListener(this);
+        searchView.setOnCloseListener(this);
         if (!sTwoPane) {
             MenuItem menuAddServer = menu.findItem(R.id.action_add_server);
             menuAddServer.setVisible(false);
         }
         return true;
     }
+
+    @Override
+    public boolean onQueryTextChange(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        List<GameServerItem> filteredServersList = new ArrayList<>();
+        GameServersAdapter filteredAdapter = new GameServersAdapter(this);
+        for (GameServerItem gameServer: sServersList) {
+            if (gameServer.mName.toLowerCase().contains(query.toLowerCase()))
+                filteredServersList.add(gameServer);
+        }
+        GameServerItemListFragment.recyclerServersList.setAdapter(filteredAdapter);
+        return true;
+    }
+
+    @Override
+    public boolean onClose() {
+        return false;
+    }
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -234,8 +267,9 @@ public class GameServerItemListActivity extends AppCompatActivity
     }
 
    private void clearServersList() {
+       int range = sServersList.size();
        sServersList.clear();
-       sServersAdapter.notifyDataSetChanged();
+       sServersAdapter.notifyItemRangeRemoved(0, range);
        sSelected = NO_ITEM;
        sScrollTo= NO_ITEM;
        SharedPreferences gameServersPrefs = getSharedPreferences(SERVERS_PREFS_FILE, 0);

@@ -38,6 +38,7 @@ public class GameServerItemListFragment extends Fragment {
     private static final String TAG_V = "GameServerItemListFragment";
     protected static List<GameServerItem> sServersList = new ArrayList<>();
     protected static GameServersAdapter sServersAdapter;
+    protected static RecyclerView recyclerServersList;
     protected LinearLayoutManager mLinearLayoutManager;
     private CoordinatorLayout mFabCoordinator;
 
@@ -45,11 +46,13 @@ public class GameServerItemListFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initServerList();
+        Log.d(TAG, "sSelected: " + GameServerItemListActivity.getSelectedItem() + " / ScrollTo: " + GameServerItemListActivity.getScrollTo());
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.d(TAG, "Before RootView");
         View rootView = inflater.inflate(R.layout.fragment_gameserveritem_list, container, false);
         rootView.setTag(TAG_V);
         if (GameServerItemListActivity.isTwoPaneMode()) {
@@ -58,7 +61,8 @@ public class GameServerItemListFragment extends Fragment {
             addServerFab.setVisibility(View.GONE);
         }
         mFabCoordinator = (CoordinatorLayout) rootView.findViewById(R.id.fab_coordinator);
-        final RecyclerView recyclerServersList = (RecyclerView) rootView.findViewById(R.id.serversList);
+        Log.d(TAG, "Before RecView");
+        recyclerServersList = (RecyclerView) rootView.findViewById(R.id.serversList);
         recyclerServersList.setItemAnimator(null);
         mLinearLayoutManager = new LinearLayoutManager(getActivity());
         mLinearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -69,6 +73,7 @@ public class GameServerItemListFragment extends Fragment {
             recyclerServersList.addItemDecoration(itemDecoration);
         }
         recyclerServersList.setItemAnimator(new DefaultItemAnimator());
+        Log.d(TAG, "Before adapter");
         sServersAdapter = new GameServersAdapter(getActivity());
         recyclerServersList.setHasFixedSize(true);
         recyclerServersList.setAdapter(sServersAdapter);
