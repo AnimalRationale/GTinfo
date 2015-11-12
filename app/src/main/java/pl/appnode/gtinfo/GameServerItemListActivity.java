@@ -173,13 +173,22 @@ public class GameServerItemListActivity extends AppCompatActivity
 
     @Override
     public boolean onQueryTextSubmit(String query) {
+        int j = 0;
         for (int i = 0; i < sServersList.size(); i++) {
             GameServerItem gameServer = sServersList.get(i);
             if (gameServer.mName.toLowerCase().contains(query.toLowerCase())) {
                 sFilteredServersList.add(i);
+                j++;
             }
         }
-        sServersAdapter.notifyDataSetChanged();
+
+        if (j > 0) {
+            sServersAdapter.notifyDataSetChanged();
+            String info = getResources().getString(R.string.search_action_positive) + j;
+            Toast.makeText(this, info, Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        Toast.makeText(this, R.string.search_action_negative, Toast.LENGTH_SHORT).show();
         return true;
     }
 

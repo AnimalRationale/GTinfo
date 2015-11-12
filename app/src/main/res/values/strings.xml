@@ -26,6 +26,9 @@
     <string name="menu_action_populate">Add servers</string>
     <string name="menu_action_clear_list">Clear list</string>
 
+    <string name="search_action_positive">Matching servers:\u0020</string>
+    <string name="search_action_negative">No matching server found</string>
+
     <string name="server_add_title">Game server data</string>
     <string name="server_add_address_title">Server address and port:</string>
     <string name="server_add_name_title">Server name (max 30 characters):</string>
