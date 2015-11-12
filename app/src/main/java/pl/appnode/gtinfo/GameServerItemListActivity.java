@@ -155,6 +155,10 @@ public class GameServerItemListActivity extends AppCompatActivity
         final SearchView searchView = (SearchView) MenuItemCompat.getActionView(item);
         searchView.setOnQueryTextListener(this);
         searchView.setOnCloseListener(this);
+        if (!sFilteredServersList.isEmpty()) {
+            searchView.setIconified(false);
+            searchView.clearFocus();
+        }
         if (!sTwoPane) {
             MenuItem menuAddServer = menu.findItem(R.id.action_add_server);
             menuAddServer.setVisible(false);
