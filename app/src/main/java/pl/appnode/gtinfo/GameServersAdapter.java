@@ -57,6 +57,10 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
         int state = CARD_STATE_DEFAULT;
         if (GameServerItemListActivity.getSelectedItem() == position) {state = CARD_STATE_SELECTED;}
 
+        if (GameServerItemListActivity.sFilteredServersList.contains(position)) {
+            return ContextCompat.getColor(mContext, R.color.light_green);
+        }
+
         if (isDarkTheme(mContext)) {
             if (GameServerItemListActivity.isTwoPaneMode()) {
                 switch (state) {

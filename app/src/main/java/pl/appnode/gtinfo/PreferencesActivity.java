@@ -33,6 +33,7 @@ public class PreferencesActivity extends PreferenceActivity
                 .replace(android.R.id.content, new GTinfoPreferenceFragment()).commit();
     }
 
+    @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
                                           String key) {
         if (key.equals(KEY_SETTINGS_THEME)) {

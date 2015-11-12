@@ -64,6 +64,7 @@ public class GameServerItemListActivity extends AppCompatActivity
     private static boolean sThemeChangeFlag;
     private static int sSelected = NO_ITEM;
     private static int sScrollTo = NO_ITEM;
+    static List sFilteredServersList = new ArrayList();
 
     public static boolean isTwoPaneMode() {
         return sTwoPane;
@@ -168,22 +169,22 @@ public class GameServerItemListActivity extends AppCompatActivity
 
     @Override
     public boolean onQueryTextSubmit(String query) {
-        List<GameServerItem> filteredServersList = new ArrayList<>();
-        GameServersAdapter filteredAdapter = new GameServersAdapter(this);
-        for (GameServerItem gameServer: sServersList) {
-            if (gameServer.mName.toLowerCase().contains(query.toLowerCase()))
-                filteredServersList.add(gameServer);
+        for (int i = 0; i < sServersList.size(); i++) {
+            GameServerItem gameServer = sServersList.get(i);
+            if (gameServer.mName.toLowerCase().contains(query.toLowerCase())) {
+                sFilteredServersList.add(i);
+            }
         }
-        GameServerItemListFragment.recyclerServersList.setAdapter(filteredAdapter);
+        sServersAdapter.notifyDataSetChanged();
         return true;
     }
 
     @Override
     public boolean onClose() {
+        sFilteredServersList.clear();
+        sServersAdapter.notifyDataSetChanged();
         return false;
     }
-
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
