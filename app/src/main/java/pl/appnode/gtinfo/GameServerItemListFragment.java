@@ -107,6 +107,7 @@ public class GameServerItemListFragment extends Fragment {
 
     private void removeGameServer(final int position) {
         final boolean isFragmentUndo;
+        final boolean isFilteredUndo;
         final int selectedItem = GameServerItemListActivity.getSelectedItem();
         if (position == selectedItem && GameServerItemListActivity.isTwoPaneMode()) {
             isFragmentUndo = true;
@@ -119,6 +120,11 @@ public class GameServerItemListFragment extends Fragment {
             GameServerItemListActivity.setSelectedItem(selectedItem - 1);
         }
         final GameServerItem gameServer = sServersList.get(position);
+        if (GameServerItemListActivity.sFilteredServersList.contains(position)) {
+            GameServerItemListActivity.sFilteredServersList
+                    .remove(GameServerItemListActivity.sFilteredServersList.indexOf(position));
+            isFilteredUndo = true;
+        } else isFilteredUndo = false;
         sServersList.remove(position);
         sServersAdapter.notifyItemRemoved(position);
         final SharedPreferences gameServersPrefs = AppContextHelper.getContext()
@@ -155,6 +161,9 @@ public class GameServerItemListFragment extends Fragment {
                                 GameServerItemListActivity.setSelectedItem(selectedItem);
                                 sServersList.add(position, gameServer);
                                 sServersAdapter.notifyItemInserted(position);
+                                if (isFilteredUndo) {
+                                    GameServerItemListActivity.sFilteredServersList.add(position);
+                                }
                                 if (isFragmentUndo) {
                                     showDetailFragment(selectedItem);
                                 }
