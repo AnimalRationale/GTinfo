@@ -203,20 +203,18 @@ public class GameServerItemListActivity extends AppCompatActivity
     public boolean onQueryTextChange(String query) {
         ImageView searchCloseButton = (ImageView) mSearchView.findViewById(R.id.search_close_btn);
         if (searchCloseButton != null) {
-            Log.d(TAG, "searchCloseButton Listener.");
             searchCloseButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.d(TAG, "searchCloseButton clicked.");
                     sFilteredServersList.clear();
                     sServersAdapter.notifyDataSetChanged();
-                    hideKeyboard();
                     mSearchView.setBackgroundColor(ContextCompat
                             .getColor(AppContextHelper.getContext(), R.color.dark_action_bar));
                     mSearchView.setQuery("", false);
                     mActionBar.setBackgroundDrawable(new ColorDrawable(ContextCompat
                             .getColor(AppContextHelper.getContext(), R.color.dark_action_bar)));
                     sScrollTo = NO_ITEM;
+                    mSearchView.requestFocus();
                 }
             });
         }

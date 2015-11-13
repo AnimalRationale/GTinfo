@@ -43,7 +43,6 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
 
     @Override
     public void onBindViewHolder(final ServerViewHolder serverViewHolder, final int position) {
-        Log.d(TAG, "BindViewHolder position: " + position);
         final GameServerItem gameServer = sServersList.get(position);
         serverViewHolder.vPosition = position;
         serverViewHolder.vName.setText(gameServer.mName);
