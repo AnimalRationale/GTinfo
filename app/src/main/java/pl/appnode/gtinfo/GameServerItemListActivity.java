@@ -160,13 +160,13 @@ public class GameServerItemListActivity extends AppCompatActivity
             mSearchView.setIconified(false);
             mSearchView.setQuery(sFilteredServersList.get(0).toString(), false);
             mSearchView.clearFocus();
-            mSearchView.setBackgroundColor(ContextCompat.getColor(this, R.color.light_green));
+            mSearchView.setBackgroundColor(ContextCompat.getColor(this, R.color.filtered_list));
             mActionBar.setBackgroundDrawable(new ColorDrawable(ContextCompat
-                    .getColor(this, R.color.light_green)));
+                    .getColor(this, R.color.filtered_list)));
         } else {
-            mSearchView.setBackgroundColor(ContextCompat.getColor(this, R.color.dark_gray));
+            mSearchView.setBackgroundColor(ContextCompat.getColor(this, R.color.dark_action_bar));
             mActionBar.setBackgroundDrawable(new ColorDrawable(ContextCompat
-                    .getColor(this, R.color.dark_gray)));
+                    .getColor(this, R.color.dark_action_bar)));
         }
         if (!sTwoPane) {
             MenuItem menuAddServer = menu.findItem(R.id.action_add_server);
@@ -196,9 +196,9 @@ public class GameServerItemListActivity extends AppCompatActivity
             sServersAdapter.notifyDataSetChanged();
             String info = getResources().getString(R.string.search_action_positive) + j;
             Toast.makeText(this, info, Toast.LENGTH_SHORT).show();
-            mSearchView.setBackgroundColor(ContextCompat.getColor(this, R.color.light_green));
+            mSearchView.setBackgroundColor(ContextCompat.getColor(this, R.color.filtered_list));
             mActionBar.setBackgroundDrawable(new ColorDrawable(ContextCompat
-                    .getColor(this, R.color.light_green)));
+                    .getColor(this, R.color.filtered_list)));
             return true;
         }
         sFilteredServersList.clear();
@@ -210,9 +210,9 @@ public class GameServerItemListActivity extends AppCompatActivity
     public boolean onClose() {
         sFilteredServersList.clear();
         sServersAdapter.notifyDataSetChanged();
-        mSearchView.setBackgroundColor(ContextCompat.getColor(this, R.color.dark_gray));
+        mSearchView.setBackgroundColor(ContextCompat.getColor(this, R.color.dark_action_bar));
         mActionBar.setBackgroundDrawable(new ColorDrawable(ContextCompat
-                .getColor(this, R.color.dark_gray)));
+                .getColor(this, R.color.dark_action_bar)));
         hideKeyboard();
         return true;
     }
