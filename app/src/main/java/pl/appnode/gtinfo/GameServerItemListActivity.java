@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ActionMenuView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -59,7 +60,7 @@ import static pl.appnode.gtinfo.PreferencesSetupHelper.themeSetup;
 
 public class GameServerItemListActivity extends AppCompatActivity
         implements ConfirmationDialogFragment.ConfirmationDialogListener,
-        SearchView.OnQueryTextListener, SearchView.OnCloseListener {
+        SearchView.OnQueryTextListener {
 
     private static final String TAG = "GameServerListAct";
     private static boolean sTwoPane;
@@ -152,12 +153,34 @@ public class GameServerItemListActivity extends AppCompatActivity
         getMenuInflater().inflate(R.menu.menu_main, menu);
         final MenuItem item = menu.findItem(R.id.action_search);
         mSearchView = (SearchView) MenuItemCompat.getActionView(item);
+        MenuItemCompat.setOnActionExpandListener(menu.findItem(R.id.action_search), new MenuItemCompat.OnActionExpandListener() {
+            @Override
+            public boolean onMenuItemActionExpand(MenuItem item) {
+                return true;
+            }
+
+            @Override
+            public boolean onMenuItemActionCollapse(MenuItem item) {
+                sFilteredServersList.clear();
+                sServersAdapter.notifyDataSetChanged();
+                hideKeyboard();
+                mSearchView.setBackgroundColor(ContextCompat
+                        .getColor(AppContextHelper.getContext(), R.color.dark_action_bar));
+                mSearchView.setQuery("", false);
+                Log.d(TAG, "Closing search widget.");
+                mActionBar.setBackgroundDrawable(new ColorDrawable(ContextCompat
+                        .getColor(AppContextHelper.getContext(), R.color.dark_action_bar)));
+                sScrollTo = NO_ITEM;
+                return true;
+            }
+        });
+        mSearchView.setIconifiedByDefault(true);
         mSearchView.setOnQueryTextListener(this);
-        mSearchView.setOnCloseListener(this);
         mSearchView.setImeOptions(EditorInfo.IME_FLAG_NO_EXTRACT_UI);
         mSearchView.setSubmitButtonEnabled(true);
         if (!sFilteredServersList.isEmpty()) {
             mSearchView.setIconified(false);
+            MenuItemCompat.expandActionView(item);
             mSearchView.setQuery(sFilteredServersList.get(0).toString(), false);
             mSearchView.clearFocus();
             mSearchView.setBackgroundColor(ContextCompat.getColor(this, R.color.filtered_list));
@@ -207,18 +230,7 @@ public class GameServerItemListActivity extends AppCompatActivity
         return true;
     }
 
-    @Override
-    public boolean onClose() {
-        sFilteredServersList.clear();
-        sServersAdapter.notifyDataSetChanged();
-        mSearchView.setBackgroundColor(ContextCompat.getColor(this, R.color.dark_action_bar));
-        mActionBar.setBackgroundDrawable(new ColorDrawable(ContextCompat
-                .getColor(this, R.color.dark_action_bar)));
-        hideKeyboard();
-        return true;
-    }
-
-    public void hideKeyboard() {
+    private void hideKeyboard() {
         if (getCurrentFocus() != null) {
             InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
             inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);

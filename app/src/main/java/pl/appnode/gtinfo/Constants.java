@@ -55,7 +55,7 @@ public final class Constants {
     public static final int UNDO_TIME = 5000;
 
     /** Swipe to dismiss confirmation and undo snackbar display time in milliseconds */
-    public static final int HINT_TIME = 15000;
+    public static final int HINT_TIME = 5000;
 
     /** Regexp pattern for server IP:port validation
      * (allowing addresses starting with 0 and port value in range 0..99999) */
