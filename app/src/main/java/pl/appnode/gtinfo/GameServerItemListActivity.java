@@ -2,7 +2,6 @@ package pl.appnode.gtinfo;
 
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
@@ -19,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -155,6 +155,7 @@ public class GameServerItemListActivity extends AppCompatActivity
         mSearchView.setOnQueryTextListener(this);
         mSearchView.setOnCloseListener(this);
         mSearchView.setImeOptions(EditorInfo.IME_FLAG_NO_EXTRACT_UI);
+        mSearchView.setSubmitButtonEnabled(true);
         if (!sFilteredServersList.isEmpty()) {
             mSearchView.setIconified(false);
             mSearchView.setQuery(sFilteredServersList.get(0).toString(), false);
@@ -181,6 +182,7 @@ public class GameServerItemListActivity extends AppCompatActivity
 
     @Override
     public boolean onQueryTextSubmit(String query) {
+        hideKeyboard();
         int j = 0;
         sFilteredServersList.add(0, query);
         for (int i = 1; i < sServersList.size(); i++) {
@@ -211,7 +213,15 @@ public class GameServerItemListActivity extends AppCompatActivity
         mSearchView.setBackgroundColor(ContextCompat.getColor(this, R.color.dark_gray));
         mActionBar.setBackgroundDrawable(new ColorDrawable(ContextCompat
                 .getColor(this, R.color.dark_gray)));
+        hideKeyboard();
         return true;
+    }
+
+    public void hideKeyboard() {
+        if (getCurrentFocus() != null) {
+            InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        }
     }
 
     @Override
