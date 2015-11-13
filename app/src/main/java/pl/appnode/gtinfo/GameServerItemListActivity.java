@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ActionMenuView;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -200,6 +201,25 @@ public class GameServerItemListActivity extends AppCompatActivity
 
     @Override
     public boolean onQueryTextChange(String query) {
+        ImageView searchCloseButton = (ImageView) mSearchView.findViewById(R.id.search_close_btn);
+        if (searchCloseButton != null) {
+            Log.d(TAG, "searchCloseButton Listener.");
+            searchCloseButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.d(TAG, "searchCloseButton clicked.");
+                    sFilteredServersList.clear();
+                    sServersAdapter.notifyDataSetChanged();
+                    hideKeyboard();
+                    mSearchView.setBackgroundColor(ContextCompat
+                            .getColor(AppContextHelper.getContext(), R.color.dark_action_bar));
+                    mSearchView.setQuery("", false);
+                    mActionBar.setBackgroundDrawable(new ColorDrawable(ContextCompat
+                            .getColor(AppContextHelper.getContext(), R.color.dark_action_bar)));
+                    sScrollTo = NO_ITEM;
+                }
+            });
+        }
         return false;
     }
 
@@ -208,7 +228,7 @@ public class GameServerItemListActivity extends AppCompatActivity
         hideKeyboard();
         int j = 0;
         sFilteredServersList.add(0, query);
-        for (int i = 1; i < sServersList.size(); i++) {
+        for (int i = 0; i < sServersList.size(); i++) {
             GameServerItem gameServer = sServersList.get(i);
             if (gameServer.mName.toLowerCase().contains(query.toLowerCase())) {
                 sFilteredServersList.add(i);
