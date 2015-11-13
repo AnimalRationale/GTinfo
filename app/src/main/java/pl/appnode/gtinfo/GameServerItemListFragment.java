@@ -46,7 +46,8 @@ public class GameServerItemListFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initServerList();
-        Log.d(TAG, "sSelected: " + GameServerItemListActivity.getSelectedItem() + " / ScrollTo: " + GameServerItemListActivity.getScrollTo());
+        Log.d(TAG, "sSelected: " + GameServerItemListActivity.getSelectedItem()
+                + " / ScrollTo: " + GameServerItemListActivity.getScrollTo());
     }
 
     @Override

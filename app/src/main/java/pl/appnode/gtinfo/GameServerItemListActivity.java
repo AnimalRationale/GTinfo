@@ -189,6 +189,7 @@ public class GameServerItemListActivity extends AppCompatActivity
             GameServerItem gameServer = sServersList.get(i);
             if (gameServer.mName.toLowerCase().contains(query.toLowerCase())) {
                 sFilteredServersList.add(i);
+                if (j == 0) {sScrollTo = i;}
                 j++;
             }
         }
