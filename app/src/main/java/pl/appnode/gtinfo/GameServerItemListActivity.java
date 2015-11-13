@@ -157,6 +157,7 @@ public class GameServerItemListActivity extends AppCompatActivity
         mSearchView.setImeOptions(EditorInfo.IME_FLAG_NO_EXTRACT_UI);
         if (!sFilteredServersList.isEmpty()) {
             mSearchView.setIconified(false);
+            mSearchView.setQuery(sFilteredServersList.get(0).toString(), false);
             mSearchView.clearFocus();
             mSearchView.setBackgroundColor(ContextCompat.getColor(this, R.color.light_green));
             mActionBar.setBackgroundDrawable(new ColorDrawable(ContextCompat
@@ -181,7 +182,8 @@ public class GameServerItemListActivity extends AppCompatActivity
     @Override
     public boolean onQueryTextSubmit(String query) {
         int j = 0;
-        for (int i = 0; i < sServersList.size(); i++) {
+        sFilteredServersList.add(0, query);
+        for (int i = 1; i < sServersList.size(); i++) {
             GameServerItem gameServer = sServersList.get(i);
             if (gameServer.mName.toLowerCase().contains(query.toLowerCase())) {
                 sFilteredServersList.add(i);
@@ -197,6 +199,7 @@ public class GameServerItemListActivity extends AppCompatActivity
                     .getColor(this, R.color.light_green)));
             return true;
         }
+        sFilteredServersList.clear();
         Toast.makeText(this, R.string.search_action_negative, Toast.LENGTH_SHORT).show();
         return true;
     }
