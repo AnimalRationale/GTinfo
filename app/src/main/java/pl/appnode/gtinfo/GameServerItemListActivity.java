@@ -2,6 +2,8 @@ package pl.appnode.gtinfo;
 
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
@@ -16,6 +18,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -65,6 +68,8 @@ public class GameServerItemListActivity extends AppCompatActivity
     private static int sSelected = NO_ITEM;
     private static int sScrollTo = NO_ITEM;
     static List sFilteredServersList = new ArrayList();
+    private ActionBar mActionBar;
+    private SearchView mSearchView;
 
     public static boolean isTwoPaneMode() {
         return sTwoPane;
@@ -101,10 +106,10 @@ public class GameServerItemListActivity extends AppCompatActivity
         if (isDarkTheme(this)) {
             getWindow().getDecorView().setBackgroundColor(ContextCompat.getColor(this, R.color.black));
         } else {getWindow().getDecorView().setBackgroundColor(ContextCompat.getColor(this, R.color.white));}
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayShowHomeEnabled(true);
-            actionBar.setIcon(R.mipmap.ic_launcher);
+        mActionBar = getSupportActionBar();
+        if (mActionBar != null) {
+            mActionBar.setDisplayShowHomeEnabled(true);
+            mActionBar.setIcon(R.mipmap.ic_launcher);
         }
         if (savedInstanceState == null) {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -126,12 +131,6 @@ public class GameServerItemListActivity extends AppCompatActivity
         // TODO: If exposing deep links into your app, handle intents here.
     }
 
-//    @Override
-//    public void onRestoreInstanceState(Bundle savedInstanceState) {
-//        super.onRestoreInstanceState(savedInstanceState);
-//        sSelected = savedInstanceState.getInt(SELECTED_ITEM_POSITION, NO_ITEM);
-//    }
-
     @Override
     public void onResume() {
         super.onResume();
@@ -152,12 +151,20 @@ public class GameServerItemListActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         final MenuItem item = menu.findItem(R.id.action_search);
-        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(item);
-        searchView.setOnQueryTextListener(this);
-        searchView.setOnCloseListener(this);
+        mSearchView = (SearchView) MenuItemCompat.getActionView(item);
+        mSearchView.setOnQueryTextListener(this);
+        mSearchView.setOnCloseListener(this);
+        mSearchView.setImeOptions(EditorInfo.IME_FLAG_NO_EXTRACT_UI);
         if (!sFilteredServersList.isEmpty()) {
-            searchView.setIconified(false);
-            searchView.clearFocus();
+            mSearchView.setIconified(false);
+            mSearchView.clearFocus();
+            mSearchView.setBackgroundColor(ContextCompat.getColor(this, R.color.light_green));
+            mActionBar.setBackgroundDrawable(new ColorDrawable(ContextCompat
+                    .getColor(this, R.color.light_green)));
+        } else {
+            mSearchView.setBackgroundColor(ContextCompat.getColor(this, R.color.dark_gray));
+            mActionBar.setBackgroundDrawable(new ColorDrawable(ContextCompat
+                    .getColor(this, R.color.dark_gray)));
         }
         if (!sTwoPane) {
             MenuItem menuAddServer = menu.findItem(R.id.action_add_server);
@@ -181,11 +188,13 @@ public class GameServerItemListActivity extends AppCompatActivity
                 j++;
             }
         }
-
         if (j > 0) {
             sServersAdapter.notifyDataSetChanged();
             String info = getResources().getString(R.string.search_action_positive) + j;
             Toast.makeText(this, info, Toast.LENGTH_SHORT).show();
+            mSearchView.setBackgroundColor(ContextCompat.getColor(this, R.color.light_green));
+            mActionBar.setBackgroundDrawable(new ColorDrawable(ContextCompat
+                    .getColor(this, R.color.light_green)));
             return true;
         }
         Toast.makeText(this, R.string.search_action_negative, Toast.LENGTH_SHORT).show();
@@ -196,7 +205,10 @@ public class GameServerItemListActivity extends AppCompatActivity
     public boolean onClose() {
         sFilteredServersList.clear();
         sServersAdapter.notifyDataSetChanged();
-        return false;
+        mSearchView.setBackgroundColor(ContextCompat.getColor(this, R.color.dark_gray));
+        mActionBar.setBackgroundDrawable(new ColorDrawable(ContextCompat
+                .getColor(this, R.color.dark_gray)));
+        return true;
     }
 
     @Override
