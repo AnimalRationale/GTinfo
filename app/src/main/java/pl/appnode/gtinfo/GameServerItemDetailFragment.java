@@ -52,12 +52,12 @@ public class GameServerItemDetailFragment extends Fragment {
 
     public static final String TAG = "GameServerDetail";
 
-    TextView mServerName;
-    TextView mErrorInfoText;
-    ProgressBar mProgressBar;
-    String mKeyPrefix;
-    WebView mGameServerWebView;
-    FloatingActionButton mRefreshButton;
+    private TextView mServerName;
+    private TextView mErrorInfoText;
+    private ProgressBar mProgressBar;
+    private String mKeyPrefix;
+    private WebView mGameServerWebView;
+    private FloatingActionButton mRefreshButton;
     boolean mWebError = false;
 
     /**
@@ -148,12 +148,15 @@ public class GameServerItemDetailFragment extends Fragment {
                     return true;
                 }
 
+                // TODO: more robust error handling with new API 23+ method
+                // onReceivedError is deprecated in API 23; but new method will be called
+                // on every resource (web page element), implementation of new method require more attention
                 @Override
                 public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
                     mProgressBar.setVisibility(View.GONE);
                     mErrorInfoText.setVisibility(View.VISIBLE);
                     mWebError = true;
-                    String errorToastInfo = "Problem accessing game server data";
+                    String errorToastInfo = getActivity().getResources().getString(R.string.error_webview_default_info);
                     if (description != null) {errorToastInfo = description;}
                     mGameServerWebView.loadUrl("about:blank");
                     Toast.makeText(AppContextHelper.getContext(), errorToastInfo, Toast.LENGTH_LONG).show();
@@ -238,7 +241,7 @@ public class GameServerItemDetailFragment extends Fragment {
         return scale.intValue();
     }
 
-    public boolean isConnection() {
+    private boolean isConnection() {
         ConnectivityManager connectivityManager = (ConnectivityManager) getActivity()
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();

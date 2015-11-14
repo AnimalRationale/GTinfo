@@ -349,7 +349,7 @@ public class GameServerItemListActivity extends AppCompatActivity
        if (isTwoPaneMode() ) {restoreDetailPane(NO_ITEM);}
    }
 
-    public void showConfirmationDialog() {
+    private void showConfirmationDialog() {
         DialogFragment dialog = new ConfirmationDialogFragment();
         dialog.show(getSupportFragmentManager(), "ConfirmationDialogFragment");
     }

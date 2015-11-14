@@ -5,7 +5,7 @@ import java.util.Map;
 
 /** Set of constants  */
 
-public final class Constants {
+final class Constants {
     private Constants() {} /** Private constructor of final class to prevent instantiating. */
 
     /** Intent request code for add server activity  */

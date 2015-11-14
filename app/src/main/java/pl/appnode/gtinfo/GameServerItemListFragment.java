@@ -36,10 +36,10 @@ public class GameServerItemListFragment extends Fragment {
 
     private static final String TAG = "GSI-List-fragment";
     private static final String TAG_V = "GameServerItemListFragment";
-    protected static List<GameServerItem> sServersList = new ArrayList<>();
-    protected static GameServersAdapter sServersAdapter;
-    protected static RecyclerView recyclerServersList;
-    protected LinearLayoutManager mLinearLayoutManager;
+    static List<GameServerItem> sServersList = new ArrayList<>();
+    static GameServersAdapter sServersAdapter;
+    private static RecyclerView recyclerServersList;
+    private LinearLayoutManager mLinearLayoutManager;
     private CoordinatorLayout mFabCoordinator;
 
     @Override
