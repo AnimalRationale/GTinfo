@@ -19,7 +19,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.ActionMenuView;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -275,7 +274,9 @@ public class GameServerItemListActivity extends AppCompatActivity
             if (!sServersList.isEmpty()) {
                 showConfirmationDialog();
             } else {
-                Toast.makeText(this, "Servers list is empty", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getResources()
+                        .getString(R.string.menu_action_clear_list_empty_info), Toast.LENGTH_SHORT)
+                        .show();
             }
         }
         return super.onOptionsItemSelected(item);
@@ -404,7 +405,7 @@ public class GameServerItemListActivity extends AppCompatActivity
             Log.d(TAG, "Saved server: " + address + " with name: " + name);
         } else {
             GameServerItem gameServer = sServersList.get(position);
-            if (gameServer.mId != address) {
+            if (!gameServer.mId.equals(address)) {
                 Log.d(TAG, "Editing server address - old: " + gameServer.mId + " / new: " + address);
                 if (serversPrefs.contains(gameServer.mId)) {
                     editor.remove(gameServer.mId);

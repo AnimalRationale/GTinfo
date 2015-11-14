@@ -25,6 +25,7 @@
     <string name="menu_action_add_server">Add server</string>
     <string name="menu_action_populate">Populate list</string>
     <string name="menu_action_clear_list">Clear list</string>
+    <string name="menu_action_clear_list_empty_info">Servers list is empty</string>
 
     <string name="search_action_positive">Matching servers:\u0020</string>
     <string name="search_action_negative">No matching server found</string>
