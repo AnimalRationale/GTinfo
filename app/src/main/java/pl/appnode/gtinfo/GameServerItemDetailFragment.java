@@ -82,7 +82,7 @@ public class GameServerItemDetailFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments().containsKey(ARG_ITEM_ID)) {
-            if (getArguments().getInt(ARG_ITEM_ID) > NO_ITEM) {
+            if (getArguments().getInt(ARG_ITEM_ID) > NO_ITEM && !sServersList.isEmpty()) {
                 mItem = sServersList.get(getArguments().getInt(ARG_ITEM_ID));
             } else {
                 mItem = new GameServerItem();
