@@ -11,7 +11,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,14 +44,13 @@ import static pl.appnode.gtinfo.PreferencesSetupHelper.isShowTopPlayers;
 /**
  * A fragment representing a single GameServerItem detail screen.
  * This fragment is either contained in a {@link GameServerItemListActivity}
- * in two-pane mode (on tablets) or a {@link GameServerItemDetailActivity}
- * on handsets.
+ * in two-pane mode (devices in landscape orientation) or a {@link GameServerItemDetailActivity}
+ * on handsets (in portrait orientation).
  */
 public class GameServerItemDetailFragment extends Fragment {
 
-    public static final String TAG = "GameServerDetail";
+    public static final String LOGTAG = "GameServerDetail";
 
-    private TextView mServerName;
     private TextView mErrorInfoText;
     private ProgressBar mProgressBar;
     private String mKeyPrefix;
@@ -62,12 +60,12 @@ public class GameServerItemDetailFragment extends Fragment {
 
     /**
      * The fragment argument representing the item ID that this fragment
-     * represents.
+     * displays.
      */
     public static final String ARG_ITEM_ID = "item_id";
 
     /**
-     * Content this fragment is presenting.
+     * Content this fragment is displaying.
      */
     private GameServerItem mItem;
 
@@ -82,9 +80,11 @@ public class GameServerItemDetailFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments().containsKey(ARG_ITEM_ID)) {
+            // If there is any chosen item and if item list is not empty get item data to display
             if (getArguments().getInt(ARG_ITEM_ID) > NO_ITEM && !sServersList.isEmpty()) {
                 mItem = sServersList.get(getArguments().getInt(ARG_ITEM_ID));
             } else {
+                // If no item is selected or list of items is empty display blank fragment
                 mItem = new GameServerItem();
                 mItem.mId = BLANK_ITEM_ID;
                 mItem.mName = BLANK_ITEM_NAME;
@@ -95,20 +95,21 @@ public class GameServerItemDetailFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        // Prepares structure for detail fragment view
         View rootView = inflater.inflate(R.layout.fragment_gameserveritem_detail, container, false);
-        mServerName = (TextView) rootView.findViewById(R.id.detail_server_name);
+        TextView serverName = (TextView) rootView.findViewById(R.id.detail_server_name);
         mProgressBar = (ProgressBar) rootView.findViewById(R.id.webview_progress_bar);
         mRefreshButton = (FloatingActionButton) rootView.findViewById(R.id.fab_refresh_webview);
         mRefreshButton.setVisibility(View.GONE);
         mErrorInfoText = (TextView) rootView.findViewById(R.id.detail_error_information);
         mErrorInfoText.setVisibility(View.GONE);
         LinearLayout detailBackground = (LinearLayout) rootView.findViewById(R.id.detail_background);
-
+        // Prepares data for detail view, depending on device configuration and user settings
         if (!GameServerItemListActivity.isTwoPaneMode()) {
-            mServerName.setText(mItem.mName);
-            mServerName.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.icon_orange));
+            serverName.setText(mItem.mName);
+            serverName.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.icon_orange));
         } else {
-            mServerName.setVisibility(View.GONE);
+            serverName.setVisibility(View.GONE);
         }
         if (isDarkTheme(getActivity())) {
             detailBackground.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.black));
@@ -122,19 +123,23 @@ public class GameServerItemDetailFragment extends Fragment {
         return rootView;
     }
 
+    /** Shows webview with item details, styled accordingly to user defined settings, handles connection errors */
     private boolean showServerInfo() {
+        // Checks network connection
         if (!isConnection()) {
             mProgressBar.setVisibility(View.GONE);
             mErrorInfoText.setText(R.string.error_network_access_info);
             mErrorInfoText.setVisibility(View.VISIBLE);
             return false;
         }
+        // If no details available to display (eg. landscape mode without selected item) hides view elements
         if (mItem.mId.equals(BLANK_ITEM_ID)) {
             mProgressBar.setVisibility(View.GONE);
             mGameServerWebView.setVisibility(View.GONE);
             return false;
         }
         if (mItem != null) {
+            // Shows webview, redirects links to system browser, handles http problems
             mGameServerWebView.setWebViewClient(new WebViewClient() {
                 public void onPageFinished(WebView view, String url) {
                     mProgressBar.setVisibility(View.GONE);
@@ -163,6 +168,7 @@ public class GameServerItemDetailFragment extends Fragment {
                     super.onReceivedError(view, errorCode, description, failingUrl);
                 }
             });
+            // Scales webview content display to current screen size
             Double factor = SCALING_FACTOR_PHONE;
             if (!GameServerItemListActivity.isPhone() && GameServerItemListActivity.isTwoPaneMode()) {
                 factor = SCALING_FACTOR_TABLET;
@@ -175,6 +181,7 @@ public class GameServerItemDetailFragment extends Fragment {
             }
             mGameServerWebView.setBackgroundColor(Color.TRANSPARENT);
             mGameServerWebView.setInitialScale(getWebViewScale(factor));
+            // Prepares request for HTML component, depending on user defined settings
             String showMap = "0";
             if (isShowMap(getActivity())) {
                 showMap = "1";
@@ -203,6 +210,7 @@ public class GameServerItemDetailFragment extends Fragment {
         } else {return false;}
     }
 
+    /** Returns current screen metrics used for proper webview content scaling */
     private DisplayMetrics getDisplay() {
         WindowManager wm = (WindowManager) getActivity().getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
@@ -211,6 +219,7 @@ public class GameServerItemDetailFragment extends Fragment {
         return metrics;
     }
 
+    /** Returns scaled height for main list of HTML component */
     private int getScaledCurrentPlayersListHeight() {
         int height = getDisplay().heightPixels;
         if (isShowMap(getActivity())) {
@@ -232,15 +241,15 @@ public class GameServerItemDetailFragment extends Fragment {
         return (height / listFactor);
     }
 
+    /** Calculates and returns scale for webview, based on current display metrics */
     private int getWebViewScale(Double factor) {
         Double width = getDisplay().widthPixels / factor;
-        int height = getDisplay().heightPixels;
-        Log.d(TAG, "Metrics: width=" + width + " height=" + height);
         Double scale = width / GT_HTML_INFO_COMPONENT_WIDTH;
         scale = scale * 100d;
         return scale.intValue();
     }
 
+    /** Returns true if device has available network connection, otherwise false */
     private boolean isConnection() {
         ConnectivityManager connectivityManager = (ConnectivityManager) getActivity()
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
