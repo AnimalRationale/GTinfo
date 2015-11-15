@@ -10,7 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
-public class AboutDialog {
+/** Shows information dialog with application's icon, name, version and code version */
+class AboutDialog {
 
     private static String sVersionName;
     private static String sVersionCode;
