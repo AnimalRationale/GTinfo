@@ -7,11 +7,13 @@
         <CheckBoxPreference
             android:key="settings_checkbox_show_map"
             android:title="@string/preferences_checkbox_show_map"
+            android:icon="@drawable/ic_image_image"
             android:summary="@string/preferences_checkbox_show_map_description"
             android:defaultValue="false" />
         <CheckBoxPreference
             android:key="settings_checkbox_show_top_players"
             android:title="@string/preferences_checkbox_show_top_players"
+            android:icon="@drawable/ic_list_numbered"
             android:summary="@string/preferences_checkbox_show_top_players_description"
             android:defaultValue="false" />
     </PreferenceCategory>
@@ -22,11 +24,13 @@
         <CheckBoxPreference
             android:key="settings_checkbox_theme"
             android:title="@string/preferences_checkbox_theme"
+            android:icon="@drawable/ic_image_palette"
             android:summary="@string/preferences_checkbox_theme_description"
             android:defaultValue="false" />
         <CheckBoxPreference
             android:key="settings_checkbox_orientation"
             android:title="@string/preferences_checkbox_orientation"
+            android:icon="@drawable/ic_device_screen_rotation"
             android:summary="@string/preferences_checkbox_orientation_description"
             android:defaultValue="false" />
     </PreferenceCategory>
