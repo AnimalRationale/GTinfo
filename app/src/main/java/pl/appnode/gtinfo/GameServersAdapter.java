@@ -22,6 +22,7 @@ import static pl.appnode.gtinfo.Constants.EDIT_SERVER_ADDRESS;
 import static pl.appnode.gtinfo.Constants.EDIT_SERVER_INTENT_REQUEST;
 import static pl.appnode.gtinfo.Constants.EDIT_SERVER_LIST_POSITION;
 import static pl.appnode.gtinfo.Constants.EDIT_SERVER_NAME;
+import static pl.appnode.gtinfo.Constants.FRAGMENT_ARG_ITEM_ID;
 import static pl.appnode.gtinfo.Constants.NO_ITEM;
 import static pl.appnode.gtinfo.GameServerItemListFragment.sServersList;
 import static pl.appnode.gtinfo.PreferencesSetupHelper.isDarkTheme;
@@ -113,13 +114,13 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
                 notifyItemChanged(position);
                 if (!GameServerItemListActivity.isTwoPaneMode()) {
                     Intent detailIntent = new Intent(mContext, GameServerItemDetailActivity.class);
-                    detailIntent.putExtra(GameServerItemDetailFragment.FRAGMENT_ARG_ITEM_ID,
+                    detailIntent.putExtra(FRAGMENT_ARG_ITEM_ID,
                             position);
                     Log.d(TAG, "Address for detail activity: " + position);
                     mContext.startActivity(detailIntent);
                 } else {
                     Bundle arguments = new Bundle();
-                    arguments.putInt(GameServerItemDetailFragment.FRAGMENT_ARG_ITEM_ID, position);
+                    arguments.putInt(FRAGMENT_ARG_ITEM_ID, position);
                     GameServerItemDetailFragment fragment = new GameServerItemDetailFragment();
                     fragment.setArguments(arguments);
                     FragmentActivity activity = (FragmentActivity) mContext;

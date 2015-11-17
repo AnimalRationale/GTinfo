@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import static pl.appnode.gtinfo.Constants.ADD_SERVER_INTENT_REQUEST;
+import static pl.appnode.gtinfo.Constants.FRAGMENT_ARG_ITEM_ID;
 import static pl.appnode.gtinfo.Constants.NO_ITEM;
 import static pl.appnode.gtinfo.PreferencesSetupHelper.isDarkTheme;
 import static pl.appnode.gtinfo.PreferencesSetupHelper.orientationSetup;
@@ -54,7 +55,7 @@ public class GameServerItemDetailActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             // Create the detail fragment and add it to the activity
             // using a fragment transaction.
-            showDetailFragment(getIntent().getIntExtra(GameServerItemDetailFragment.FRAGMENT_ARG_ITEM_ID, NO_ITEM));
+            showDetailFragment(getIntent().getIntExtra(FRAGMENT_ARG_ITEM_ID, NO_ITEM));
         }
     }
 
@@ -128,7 +129,7 @@ public class GameServerItemDetailActivity extends AppCompatActivity {
 
     private void showDetailFragment(int position) {
         Bundle arguments = new Bundle();
-        arguments.putInt(GameServerItemDetailFragment.FRAGMENT_ARG_ITEM_ID, position);
+        arguments.putInt(FRAGMENT_ARG_ITEM_ID, position);
         GameServerItemDetailFragment fragment = new GameServerItemDetailFragment();
         fragment.setArguments(arguments);
         getSupportFragmentManager().beginTransaction()

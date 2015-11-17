@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import static pl.appnode.gtinfo.Constants.FRAGMENT_ARG_ITEM_ID;
 import static pl.appnode.gtinfo.Constants.HINT_TIME;
 import static pl.appnode.gtinfo.Constants.NO_ITEM;
 import static pl.appnode.gtinfo.Constants.SERVERS_PREFS_FILE;
@@ -177,7 +178,7 @@ public class GameServerItemListFragment extends Fragment {
 
     private void showDetailFragment(int position) {
         Bundle arguments = new Bundle();
-        arguments.putInt(GameServerItemDetailFragment.FRAGMENT_ARG_ITEM_ID, position);
+        arguments.putInt(FRAGMENT_ARG_ITEM_ID, position);
         GameServerItemDetailFragment fragment = new GameServerItemDetailFragment();
         fragment.setArguments(arguments);
         FragmentActivity activity = getActivity();
