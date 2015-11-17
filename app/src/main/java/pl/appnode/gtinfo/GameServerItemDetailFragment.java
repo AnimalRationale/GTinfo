@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import static pl.appnode.gtinfo.Constants.BLANK_ITEM_ID;
 import static pl.appnode.gtinfo.Constants.BLANK_ITEM_NAME;
+import static pl.appnode.gtinfo.Constants.FRAGMENT_ARG_ITEM_ID;
 import static pl.appnode.gtinfo.Constants.GT_ORIGINAL_PLAYERS_LIST_HEIGHT;
 import static pl.appnode.gtinfo.Constants.NO_ITEM;
 import static pl.appnode.gtinfo.Constants.PLAYERS_LIST_HEIGHT_FACTOR_WITH_MAP_IMAGE_BIG;
@@ -62,7 +63,7 @@ public class GameServerItemDetailFragment extends Fragment {
      * The fragment argument representing the item ID that this fragment
      * displays.
      */
-    public static final String ARG_ITEM_ID = "item_id";
+    // public static final String FRAGMENT_ARG_ITEM_ID = "item_id";
 
     /**
      * Content this fragment is displaying.
@@ -79,10 +80,10 @@ public class GameServerItemDetailFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments().containsKey(ARG_ITEM_ID)) {
+        if (getArguments().containsKey(FRAGMENT_ARG_ITEM_ID)) {
             // If there is any chosen item and if item list is not empty get item data to display
-            if (getArguments().getInt(ARG_ITEM_ID) > NO_ITEM && !sServersList.isEmpty()) {
-                mItem = sServersList.get(getArguments().getInt(ARG_ITEM_ID));
+            if (getArguments().getInt(FRAGMENT_ARG_ITEM_ID) > NO_ITEM && !sServersList.isEmpty()) {
+                mItem = sServersList.get(getArguments().getInt(FRAGMENT_ARG_ITEM_ID));
             } else {
                 // If no item is selected or list of items is empty display blank fragment
                 mItem = new GameServerItem();

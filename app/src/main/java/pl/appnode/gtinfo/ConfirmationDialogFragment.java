@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 
+import static pl.appnode.gtinfo.Constants.SERVERS_ON_LIST;
 import static pl.appnode.gtinfo.PreferencesSetupHelper.isDarkTheme;
 
 public class ConfirmationDialogFragment extends DialogFragment {
@@ -23,7 +24,7 @@ public class ConfirmationDialogFragment extends DialogFragment {
     public static ConfirmationDialogFragment newInstance(int serversOnList) {
         ConfirmationDialogFragment fragment = new ConfirmationDialogFragment();
         Bundle args = new Bundle();
-        args.putInt("serversOnList", serversOnList);
+        args.putInt(SERVERS_ON_LIST, serversOnList);
         fragment.setArguments(args);
         return fragment;
     }
@@ -41,7 +42,7 @@ public class ConfirmationDialogFragment extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        int serversOnList = getArguments().getInt("serversOnList");
+        int serversOnList = getArguments().getInt(SERVERS_ON_LIST);
         int stringResourceId;
         if (serversOnList > 1) {
             stringResourceId = R.string.dialog_confirmation_title_02a;
@@ -57,7 +58,7 @@ public class ConfirmationDialogFragment extends DialogFragment {
                         mListener.onConfirmationDialogPositiveClick(ConfirmationDialogFragment.this);
                     }
                 })
-                .setNegativeButton(R.string.dialog_confiormation_cancel, new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.dialog_confirmation_cancel, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         mListener.onConfirmationDialogNegativeClick(ConfirmationDialogFragment.this);
                     }

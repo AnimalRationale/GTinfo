@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -55,7 +54,7 @@ public class GameServerItemDetailActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             // Create the detail fragment and add it to the activity
             // using a fragment transaction.
-            showDetailFragment(getIntent().getIntExtra(GameServerItemDetailFragment.ARG_ITEM_ID, NO_ITEM));
+            showDetailFragment(getIntent().getIntExtra(GameServerItemDetailFragment.FRAGMENT_ARG_ITEM_ID, NO_ITEM));
         }
     }
 
@@ -129,7 +128,7 @@ public class GameServerItemDetailActivity extends AppCompatActivity {
 
     private void showDetailFragment(int position) {
         Bundle arguments = new Bundle();
-        arguments.putInt(GameServerItemDetailFragment.ARG_ITEM_ID, position);
+        arguments.putInt(GameServerItemDetailFragment.FRAGMENT_ARG_ITEM_ID, position);
         GameServerItemDetailFragment fragment = new GameServerItemDetailFragment();
         fragment.setArguments(arguments);
         getSupportFragmentManager().beginTransaction()

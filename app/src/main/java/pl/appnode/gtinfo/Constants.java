@@ -35,6 +35,12 @@ final class Constants {
     /** Key for saving GT show server top players options in app preferences */
     public static final String KEY_SETTINGS_GT_SHOW_TOP_PLAYERS = "settings_checkbox_show_top_players";
 
+    /** Argument for detail view fragment representing the item ID that this fragment displays. */
+    public static final String FRAGMENT_ARG_ITEM_ID = "item_id";
+
+    /** Argument for list delete confirmation dialog with number of servers on this list. */
+    public static final String SERVERS_ON_LIST = "serversOnList";
+
     /** Key for saving value of selected server list item used in instance state save*/
     public static final String SELECTED_ITEM_POSITION = "mSelected";
 

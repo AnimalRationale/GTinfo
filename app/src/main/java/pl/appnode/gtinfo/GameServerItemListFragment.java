@@ -177,7 +177,7 @@ public class GameServerItemListFragment extends Fragment {
 
     private void showDetailFragment(int position) {
         Bundle arguments = new Bundle();
-        arguments.putInt(GameServerItemDetailFragment.ARG_ITEM_ID, position);
+        arguments.putInt(GameServerItemDetailFragment.FRAGMENT_ARG_ITEM_ID, position);
         GameServerItemDetailFragment fragment = new GameServerItemDetailFragment();
         fragment.setArguments(arguments);
         FragmentActivity activity = getActivity();

@@ -16,7 +16,7 @@
     <string name="dialog_confirmation_title_02b">\u0020server on this list</string>
     <string name="dialog_confirmation_message">Current list will be permanently deleted</string>
     <string name="dialog_confirmation_ok">OK</string>
-    <string name="dialog_confiormation_cancel">Cancel</string>
+    <string name="dialog_confirmation_cancel">Cancel</string>
 
     <string name="hint_add_servers_fab">Use orange button to add game server to your list</string>
     <string name="hint_add_servers_menu">Use +ADD SERVER to add game server to your list</string>

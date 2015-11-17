@@ -113,13 +113,13 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
                 notifyItemChanged(position);
                 if (!GameServerItemListActivity.isTwoPaneMode()) {
                     Intent detailIntent = new Intent(mContext, GameServerItemDetailActivity.class);
-                    detailIntent.putExtra(GameServerItemDetailFragment.ARG_ITEM_ID,
+                    detailIntent.putExtra(GameServerItemDetailFragment.FRAGMENT_ARG_ITEM_ID,
                             position);
                     Log.d(TAG, "Address for detail activity: " + position);
                     mContext.startActivity(detailIntent);
                 } else {
                     Bundle arguments = new Bundle();
-                    arguments.putInt(GameServerItemDetailFragment.ARG_ITEM_ID, position);
+                    arguments.putInt(GameServerItemDetailFragment.FRAGMENT_ARG_ITEM_ID, position);
                     GameServerItemDetailFragment fragment = new GameServerItemDetailFragment();
                     fragment.setArguments(arguments);
                     FragmentActivity activity = (FragmentActivity) mContext;

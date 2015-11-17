@@ -34,6 +34,7 @@ import static pl.appnode.gtinfo.Constants.EDIT_SERVER_ADDRESS;
 import static pl.appnode.gtinfo.Constants.EDIT_SERVER_INTENT_REQUEST;
 import static pl.appnode.gtinfo.Constants.EDIT_SERVER_LIST_POSITION;
 import static pl.appnode.gtinfo.Constants.EDIT_SERVER_NAME;
+import static pl.appnode.gtinfo.Constants.FRAGMENT_ARG_ITEM_ID;
 import static pl.appnode.gtinfo.Constants.NO_ITEM;
 import static pl.appnode.gtinfo.Constants.SELECTED_ITEM_POSITION;
 import static pl.appnode.gtinfo.Constants.SERVERS_PREFS_FILE;
@@ -367,7 +368,7 @@ public class GameServerItemListActivity extends AppCompatActivity
 
     private void restoreDetailPane(int position) {
         Bundle arguments = new Bundle();
-        arguments.putInt(GameServerItemDetailFragment.ARG_ITEM_ID, position);
+        arguments.putInt(FRAGMENT_ARG_ITEM_ID, position);
         GameServerItemDetailFragment fragment = new GameServerItemDetailFragment();
         fragment.setArguments(arguments);
         FragmentManager manager = this.getSupportFragmentManager();
