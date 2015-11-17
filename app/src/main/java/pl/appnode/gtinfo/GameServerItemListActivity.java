@@ -351,18 +351,18 @@ public class GameServerItemListActivity extends AppCompatActivity
    }
 
     private void showConfirmationDialog() {
-        DialogFragment dialog = new ConfirmationDialogFragment();
+        DialogFragment dialog = ConfirmationDialogFragment.newInstance(sServersList.size());
         dialog.show(getSupportFragmentManager(), "ConfirmationDialogFragment");
     }
 
     @Override
-    public void onDialogPositiveClick(DialogFragment dialog) {
+    public void onConfirmationDialogPositiveClick(DialogFragment dialog) {
         clearServersList();
         Log.d(TAG, "Cleared list.");
     }
 
     @Override
-    public void onDialogNegativeClick(DialogFragment dialog) {
+    public void onConfirmationDialogNegativeClick(DialogFragment dialog) {
     }
 
     private void restoreDetailPane(int position) {

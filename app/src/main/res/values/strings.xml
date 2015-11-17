@@ -11,7 +11,10 @@
     <string name="dialog_about_version_name_error">.</string>
     <string name="dialog_about_version_code_error">.</string>
 
-    <string name="dialog_confirmation_title">Servers list will be erased</string>
+    <string name="dialog_confirmation_title_01">You have\u0020</string>
+    <string name="dialog_confirmation_title_02a">\u0020servers on this list</string>
+    <string name="dialog_confirmation_title_02b">\u0020server on this list</string>
+    <string name="dialog_confirmation_message">Current list will be permanently deleted</string>
     <string name="dialog_confirmation_ok">OK</string>
     <string name="dialog_confiormation_cancel">Cancel</string>
 
@@ -24,7 +27,7 @@
     <string name="menu_action_about">About</string>
     <string name="menu_action_add_server">Add server</string>
     <string name="menu_action_populate">Populate list</string>
-    <string name="menu_action_clear_list">Clear list</string>
+    <string name="menu_action_clear_list">Clear current list</string>
     <string name="menu_action_clear_list_empty_info">Servers list is empty</string>
 
     <string name="search_action_positive">Matching servers:\u0020</string>
