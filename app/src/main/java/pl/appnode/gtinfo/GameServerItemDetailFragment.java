@@ -81,8 +81,10 @@ public class GameServerItemDetailFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments().containsKey(FRAGMENT_ARG_ITEM_ID)) {
-            // If there is any chosen item and if item list is not empty get item data to display
-            if (getArguments().getInt(FRAGMENT_ARG_ITEM_ID) > NO_ITEM && !sServersList.isEmpty()) {
+            int position = getArguments().getInt(FRAGMENT_ARG_ITEM_ID);
+            // If there is any chosen item, and if item list is not empty,
+            // and item index is in current list size then get item data to display
+            if (position > NO_ITEM && !sServersList.isEmpty() && position < sServersList.size()) {
                 mItem = sServersList.get(getArguments().getInt(FRAGMENT_ARG_ITEM_ID));
             } else {
                 // If no item is selected or list of items is empty display blank fragment
