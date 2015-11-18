@@ -129,6 +129,7 @@ public class GameServerItemListFragment extends Fragment {
         } else isFilteredUndo = false;
         sServersList.remove(position);
         sServersAdapter.notifyItemRemoved(position);
+        sServersAdapter.notifyItemRangeChanged(position, sServersList.size());
         final SharedPreferences gameServersPrefs = AppContextHelper.getContext()
                 .getSharedPreferences(SERVERS_PREFS_FILE, 0);
         final SharedPreferences.Editor editor = gameServersPrefs.edit();
