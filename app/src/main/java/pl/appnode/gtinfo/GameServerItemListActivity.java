@@ -47,13 +47,16 @@ import static pl.appnode.gtinfo.PreferencesSetupHelper.themeSetup;
 
 /**
  * An activity representing a list of GameIServersItems. This activity
- * has different presentations for handset and tablet-size devices. On
- * handsets, the activity presents a list of items, which when touched,
+ * has different presentations for handset in portrait orientation
+ * and tablet-size devices. On handsets in portrait orientation, the activity
+ * presents a list of items, which when touched,
  * lead to a {@link GameServerItemDetailActivity} representing
- * item details. On tablets, the activity presents the list of items and
+ * item details.
+ * On tablets and handsets in landscape orientation (when landscape
+ * is enabled in settings), activity presents the list of items and
  * item details side-by-side using two vertical panes.
  * <p/>
- * The activity makes heavy use of fragments. The list of items is a
+ * The activity makes use of fragments. The list of items is a
  * {@link GameServerItemListFragment} and the item details
  * (if present) is a {@link GameServerItemDetailFragment}.
  * <p/>
@@ -64,12 +67,12 @@ public class GameServerItemListActivity extends AppCompatActivity
         SearchView.OnQueryTextListener {
 
     private static final String TAG = "GameServerListAct";
-    private static boolean sTwoPane;
-    private static boolean sPhone;
+    private static boolean sTwoPane; // Flag for using two pane mode
+    private static boolean sPhone; // Flag indicating handset (portrait: list, landscape 2 panes)
     private static boolean sThemeChangeFlag;
-    private static int sSelected = NO_ITEM;
-    private static int sScrollTo = NO_ITEM;
-    static List sFilteredServersList = new ArrayList();
+    private static int sSelected = NO_ITEM; // Last selected item from list, NO_ITEM if not available
+    private static int sScrollTo = NO_ITEM; // desired position of list, NO_ITEM if not available
+    static List sFilteredServersList = new ArrayList(); // Helper collection for keeping search results
     private ActionBar mActionBar;
     private SearchView mSearchView;
 
@@ -99,12 +102,14 @@ public class GameServerItemListActivity extends AppCompatActivity
         }
         themeSetup(this);
         sThemeChangeFlag = isDarkTheme(this);
+        // Check for handset in landscape
         Configuration configuration = getResources().getConfiguration();
         if (configuration.smallestScreenWidthDp < 600
                 && configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
             setContentView(R.layout.activity_gameserveritem_list_landscape);
             sPhone = true;
         } else setContentView(R.layout.activity_gameserveritem_list);
+        // Setting window background color accordingly to settings
         if (isDarkTheme(this)) {
             getWindow().getDecorView().setBackgroundColor(ContextCompat.getColor(this, R.color.black));
         } else {getWindow().getDecorView().setBackgroundColor(ContextCompat.getColor(this, R.color.white));}
@@ -144,7 +149,8 @@ public class GameServerItemListActivity extends AppCompatActivity
     @Override
     public void onPostResume() {
         super.onPostResume();
-        if (isTwoPaneMode() && sSelected != NO_ITEM && sServersList.size() >= sSelected) {
+        // In two pane mode restore detail view if available
+        if (isTwoPaneMode() && sSelected != NO_ITEM && sSelected < sServersList.size()) {
             restoreDetailPane(sSelected);
         }
     }
@@ -153,6 +159,7 @@ public class GameServerItemListActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         final MenuItem item = menu.findItem(R.id.action_search);
+        // Init for showing and handling search widget in action bar
         mSearchView = (SearchView) MenuItemCompat.getActionView(item);
         MenuItemCompat.setOnActionExpandListener(menu.findItem(R.id.action_search), new MenuItemCompat.OnActionExpandListener() {
             @Override
@@ -180,6 +187,7 @@ public class GameServerItemListActivity extends AppCompatActivity
         mSearchView.setImeOptions(EditorInfo.IME_FLAG_NO_EXTRACT_UI);
         mSearchView.setSubmitButtonEnabled(true);
         if (!sFilteredServersList.isEmpty()) {
+            // Configuring search widget if it is currently in use (filtered list)
             mSearchView.setIconified(false);
             MenuItemCompat.expandActionView(item);
             mSearchView.setQuery(sFilteredServersList.get(0).toString(), false);
@@ -193,12 +201,14 @@ public class GameServerItemListActivity extends AppCompatActivity
                     .getColor(this, R.color.dark_action_bar)));
         }
         if (!sTwoPane) {
+            // Hiding action button for adding server in portrait mode (using FAB instead)
             MenuItem menuAddServer = menu.findItem(R.id.action_add_server);
             menuAddServer.setVisible(false);
         }
         return true;
     }
 
+    /** Handles use of close button in active search widget */
     @Override
     public boolean onQueryTextChange(String query) {
         ImageView searchCloseButton = (ImageView) mSearchView.findViewById(R.id.search_close_btn);
@@ -221,6 +231,7 @@ public class GameServerItemListActivity extends AppCompatActivity
         return false;
     }
 
+    /** Handles success and fail of search for entered string in servers list */
     @Override
     public boolean onQueryTextSubmit(String query) {
         hideKeyboard();
@@ -283,7 +294,7 @@ public class GameServerItemListActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    private void checkThemeChange() {
+    private void checkThemeChange() { // Restarts activity if user changed theme
         if (sThemeChangeFlag != isDarkTheme(this)) {
             finish();
             Intent intent = new Intent(this, GameServerItemListActivity.class);
@@ -293,6 +304,7 @@ public class GameServerItemListActivity extends AppCompatActivity
         }
     }
 
+    /** Handles main menu action for adding servers to list */
     public void addServer(View fab) {
         showAddServerDialog();
     }
@@ -302,13 +314,14 @@ public class GameServerItemListActivity extends AppCompatActivity
         this.startActivityForResult(settingsIntent, ADD_SERVER_INTENT_REQUEST);
     }
 
+    /** Refreshes detail view pane */
     public void refreshWebView(View fab) {
         if (sSelected != NO_ITEM && !sServersList.isEmpty()) {
             restoreDetailPane(sSelected);
         }
     }
 
-    private void populateServerList() {
+    private void populateServerList() { // Helper/debug tool to populate app data set with example data
         final Map<String, String> SERVERS_EXAMPLE = new HashMap<String, String>() {
             {
                 put("1.2.3.4:2000", "Test");
@@ -338,7 +351,7 @@ public class GameServerItemListActivity extends AppCompatActivity
         sServersAdapter.notifyDataSetChanged();
     }
 
-   private void clearServersList() {
+   private void clearServersList() { // Erasing app's data set
        int range = sServersList.size();
        sServersList.clear();
        sServersAdapter.notifyItemRangeRemoved(0, range);
@@ -356,6 +369,7 @@ public class GameServerItemListActivity extends AppCompatActivity
         dialog.show(getSupportFragmentManager(), "ConfirmationDialogFragment");
     }
 
+    /** Handles click of positive button in confirmation dialog */
     @Override
     public void onConfirmationDialogPositiveClick(DialogFragment dialog) {
         clearServersList();
@@ -366,7 +380,7 @@ public class GameServerItemListActivity extends AppCompatActivity
     public void onConfirmationDialogNegativeClick(DialogFragment dialog) {
     }
 
-    private void restoreDetailPane(int position) {
+    private void restoreDetailPane(int position) { // Sets up arguments and starts detail fragment
         Bundle arguments = new Bundle();
         arguments.putInt(FRAGMENT_ARG_ITEM_ID, position);
         GameServerItemDetailFragment fragment = new GameServerItemDetailFragment();
@@ -377,6 +391,8 @@ public class GameServerItemListActivity extends AppCompatActivity
                 .commit();
     }
 
+    /** Handles results from AddGameServerActivity - initiates adding server to data set
+     *  or editing current data */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent resultIntent) {
         if (requestCode == ADD_SERVER_INTENT_REQUEST && resultCode == RESULT_OK
@@ -393,6 +409,8 @@ public class GameServerItemListActivity extends AppCompatActivity
         }
     }
 
+    // Saves new item in data set or modifies existing data (if server address is edited
+    // then removes old item and saves new one; server IP:PORT address is ID key for data set)
     private void saveServerData(String address, String name, int position) {
         SharedPreferences serversPrefs = AppContextHelper.getContext().getSharedPreferences(SERVERS_PREFS_FILE, MODE_PRIVATE);
         SharedPreferences.Editor editor = serversPrefs.edit();
