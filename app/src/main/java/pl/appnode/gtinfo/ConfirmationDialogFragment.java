@@ -12,6 +12,8 @@ import android.support.v7.app.AlertDialog;
 import static pl.appnode.gtinfo.Constants.SERVERS_ON_LIST;
 import static pl.appnode.gtinfo.PreferencesSetupHelper.isDarkTheme;
 
+
+/** Shows dialog with confirmation for deleting whole data set */
 public class ConfirmationDialogFragment extends DialogFragment {
 
     public interface ConfirmationDialogListener {
@@ -21,6 +23,7 @@ public class ConfirmationDialogFragment extends DialogFragment {
 
     ConfirmationDialogListener mListener;
 
+    /** Allows passing arguments (items list size) to confirmation dialog */
     public static ConfirmationDialogFragment newInstance(int serversOnList) {
         ConfirmationDialogFragment fragment = new ConfirmationDialogFragment();
         Bundle args = new Bundle();
@@ -66,6 +69,7 @@ public class ConfirmationDialogFragment extends DialogFragment {
         return builder.create();
     }
 
+    // Sets dialog theme accordingly to user settings for app
     private int setTheme() {
         if (isDarkTheme(getActivity())) {
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {

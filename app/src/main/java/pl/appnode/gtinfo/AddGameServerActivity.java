@@ -3,7 +3,6 @@ package pl.appnode.gtinfo;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -25,9 +24,11 @@ import static pl.appnode.gtinfo.Constants.IP_ADDRESS_PORT_PATTERN;
 import static pl.appnode.gtinfo.Constants.NO_ITEM;
 import static pl.appnode.gtinfo.PreferencesSetupHelper.themeSetup;
 
+/** Activity shows dialog for adding new server to data set
+ * or editing data of existing in data set server (IPaddress:port and server name)*/
 public class AddGameServerActivity extends Activity implements View.OnClickListener {
 
-    private static final String TAG = "AddServer";
+    private static final String LOGTAG = "AddServer";
     private EditText mEditServerAddress;
     private EditText mEditServerName;
     private boolean mIsEdit = false;
@@ -55,6 +56,7 @@ public class AddGameServerActivity extends Activity implements View.OnClickListe
     }
 
     private void getIntentData(Intent intent) {
+        // Checks required action, sets up view and flag for edit if needed
         if (intent.getExtras() != null && intent.hasExtra(EDIT_SERVER_ADDRESS)) {
             mEditServerAddress.setText(intent.getStringExtra(EDIT_SERVER_ADDRESS));
             mEditServerName.setText(intent.getStringExtra(EDIT_SERVER_NAME));
@@ -66,6 +68,7 @@ public class AddGameServerActivity extends Activity implements View.OnClickListe
     }
 
     private void pressedOk() {
+        // Handles pressing of positive button and calls validation on entered server IP:port
         String address = mEditServerAddress.getText().toString();
         String name = mEditServerName.getText().toString();
         if (!address.equals("")) {
@@ -80,24 +83,22 @@ public class AddGameServerActivity extends Activity implements View.OnClickListe
     }
 
     private boolean validateServerAddress(String address) {
+        // Validates entered server IP:port, using regular expression from Constants
         Pattern validationPattern = Pattern.compile(IP_ADDRESS_PORT_PATTERN);
         String errorMessage = this.getResources().getString(R.string.server_add_invalid_address);
         Matcher matcher = validationPattern.matcher(address);
         if (matcher.matches()) {
             int port = Integer.parseInt(matcher.group(5));
             if (port > 1023 && port <= 65535) {
-                Log.d(TAG, "Validated address: " + matcher.group(1) + "." + matcher.group(2)
-                        + "." + matcher.group(3) + "." + matcher.group(4)
-                        + " port: " + port);
                 return true;
             } else errorMessage = this.getResources().getString(R.string.server_add_invalid_port);
         }
         Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
-        Log.d(TAG, "Invalid address.");
         return false;
     }
 
     private void resultOk(String address, String name) {
+        // Prepares and executes intent with positive result of performed action
         if (!mIsEdit) {
             Intent resultIntent = getIntent();
             resultIntent.putExtra(ADDED_SERVER_ADDRESS, address);
