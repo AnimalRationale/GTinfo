@@ -335,7 +335,7 @@ public class GameServerItemListActivity extends AppCompatActivity
                 put("31.186.251.213:2302", "Hostile Takeover EU#1");
                 put("100.200.300.400:5555","Test 2");
                 put("184.88.43.167:2302", "Alpha1Alpha PvE Exile Altis");
-
+                put("185.38.151.161:2442", "UK CiC PvE Exile Altis");
             }
         };
         SharedPreferences serversPrefs = getSharedPreferences(SERVERS_PREFS_FILE, MODE_PRIVATE);

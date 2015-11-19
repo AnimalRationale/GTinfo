@@ -22,8 +22,8 @@ import static pl.appnode.gtinfo.PreferencesSetupHelper.themeSetup;
  * item details are presented side-by-side with a list of items
  * in a {@link GameServerItemListActivity}.
  * <p/>
- * This activity is mostly just a 'shell' activity containing nothing
- * more than a {@link GameServerItemDetailFragment}.
+ * This activity is mostly just a 'shell' activity containing
+ * {@link GameServerItemDetailFragment}.
  */
 public class GameServerItemDetailActivity extends AppCompatActivity {
 

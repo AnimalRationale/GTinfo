@@ -60,12 +60,6 @@ public class GameServerItemDetailFragment extends Fragment {
     boolean mWebError = false;
 
     /**
-     * The fragment argument representing the item ID that this fragment
-     * displays.
-     */
-    // public static final String FRAGMENT_ARG_ITEM_ID = "item_id";
-
-    /**
      * Content this fragment is displaying.
      */
     private GameServerItem mItem;

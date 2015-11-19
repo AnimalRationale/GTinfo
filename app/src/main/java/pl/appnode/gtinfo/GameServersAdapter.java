@@ -27,6 +27,7 @@ import static pl.appnode.gtinfo.Constants.NO_ITEM;
 import static pl.appnode.gtinfo.GameServerItemListFragment.sServersList;
 import static pl.appnode.gtinfo.PreferencesSetupHelper.isDarkTheme;
 
+/** Adapts items from data set into views grouped in list */
 public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.ServerViewHolder>{
 
     private static final String TAG = "GameServersAdapter";
@@ -53,7 +54,7 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
     }
 
     private int setCardColor(int position) {
-
+        // Returns proper background color, depending user theme settings and results of search
         int state = CARD_STATE_DEFAULT;
         if (GameServerItemListActivity.getSelectedItem() == position) {state = CARD_STATE_SELECTED;}
 
@@ -92,6 +93,7 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
     @Override
     public ServerViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         int cardLayout;
+        // Sets up layout accordingly for device and orientation
         Configuration configuration = mContext.getResources().getConfiguration();
         if (GameServerItemListActivity.isPhone()
                 && configuration.orientation == Configuration.ORIENTATION_LANDSCAPE ) {
@@ -100,6 +102,7 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
         final View itemView = LayoutInflater.
                 from(viewGroup.getContext()).
                 inflate(cardLayout, viewGroup, false);
+        // Creates view holder for items, handles clicks and long clicks on each view
         final GameServersAdapter.ServerViewHolder viewHolder = new ServerViewHolder
                 (itemView, new GameServersAdapter.ServerViewHolder.IViewHolderOnClicks(){
             public void onCardClick(View caller, int position) {
@@ -139,11 +142,6 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
                 ((GameServerItemListActivity)mContext).startActivityForResult(settingsIntent, EDIT_SERVER_INTENT_REQUEST);
             }
         });
-
-        CardView card = (CardView) itemView;
-        if (isDarkTheme(mContext)) {
-            card.setCardBackgroundColor(ContextCompat.getColor(mContext, R.color.dark_gray));
-        } else card.setCardBackgroundColor(ContextCompat.getColor(mContext, R.color.light_gray));
         return viewHolder;
     }
 
@@ -171,18 +169,15 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
             switch (v.getId()) {
                 case R.id.server_name:
                     mClickListener.onCardClick(v, vPosition);
-                    Log.d(TAG, "Server name clicked.");
                     break;
                 default:
                     mClickListener.onCardClick(v, vPosition);
-                    Log.d(TAG, "Card clicked: " + vPosition);
             }
         }
 
         @Override
         public boolean onLongClick(View v) {
             mLongClickListener.onCardLongClick(v, vPosition);
-            Log.d(TAG, "Card longclicked: " + vPosition);
             return true;
         }
 
