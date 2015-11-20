@@ -3,7 +3,9 @@ package pl.appnode.gtinfo;
 import java.util.HashMap;
 import java.util.Map;
 
-/** Set of constants  */
+/**
+ *  Set of constants
+ */
 
 final class Constants {
     private Constants() {} /** Private constructor of final class to prevent instantiating. */

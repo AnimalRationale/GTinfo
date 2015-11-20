@@ -4,7 +4,7 @@ import android.app.Application;
 import android.content.Context;
 
 /**
- * Gets application context
+ * Provides application context
  */
 public class AppContextHelper extends Application {
     private static Context sContext;

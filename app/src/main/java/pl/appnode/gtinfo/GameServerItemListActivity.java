@@ -208,7 +208,9 @@ public class GameServerItemListActivity extends AppCompatActivity
         return true;
     }
 
-    /** Handles use of close button in active search widget */
+    /**
+     *  Handles use of close button in active search widget
+     */
     @Override
     public boolean onQueryTextChange(String query) {
         ImageView searchCloseButton = (ImageView) mSearchView.findViewById(R.id.search_close_btn);
@@ -231,7 +233,9 @@ public class GameServerItemListActivity extends AppCompatActivity
         return false;
     }
 
-    /** Handles success and fail of search for entered string in servers list */
+    /**
+     * Handles success and fail of search for entered string in servers list
+     */
     @Override
     public boolean onQueryTextSubmit(String query) {
         hideKeyboard();
@@ -304,7 +308,9 @@ public class GameServerItemListActivity extends AppCompatActivity
         }
     }
 
-    /** Handles main menu action for adding servers to list */
+    /**
+     *  Handles main menu action for adding servers to list
+     */
     public void addServer(View fab) {
         showAddServerDialog();
     }
@@ -314,7 +320,9 @@ public class GameServerItemListActivity extends AppCompatActivity
         this.startActivityForResult(settingsIntent, ADD_SERVER_INTENT_REQUEST);
     }
 
-    /** Refreshes detail view pane */
+    /**
+     * Refreshes detail view pane
+     */
     public void refreshWebView(View fab) {
         if (sSelected != NO_ITEM && !sServersList.isEmpty()) {
             restoreDetailPane(sSelected);
@@ -369,7 +377,9 @@ public class GameServerItemListActivity extends AppCompatActivity
         dialog.show(getSupportFragmentManager(), "ConfirmationDialogFragment");
     }
 
-    /** Handles click of positive button in confirmation dialog */
+    /**
+     * Handles click of positive button in confirmation dialog
+     */
     @Override
     public void onConfirmationDialogPositiveClick(DialogFragment dialog) {
         clearServersList();
@@ -391,8 +401,10 @@ public class GameServerItemListActivity extends AppCompatActivity
                 .commit();
     }
 
-    /** Handles results from AddGameServerActivity - initiates adding server to data set
-     *  or editing current data */
+    /**
+     * Handles results from AddGameServerActivity - initiates adding server to data set
+     * or editing current data
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent resultIntent) {
         if (requestCode == ADD_SERVER_INTENT_REQUEST && resultCode == RESULT_OK

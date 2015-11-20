@@ -27,7 +27,9 @@ import static pl.appnode.gtinfo.Constants.NO_ITEM;
 import static pl.appnode.gtinfo.GameServerItemListFragment.sServersList;
 import static pl.appnode.gtinfo.PreferencesSetupHelper.isDarkTheme;
 
-/** Adapts items from data set into views grouped in list */
+/**
+ * Adapts items from data set into views grouped in list
+ */
 public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.ServerViewHolder>{
 
     private static final String TAG = "GameServersAdapter";

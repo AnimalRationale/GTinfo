@@ -120,7 +120,9 @@ public class GameServerItemDetailFragment extends Fragment {
         return rootView;
     }
 
-    /** Shows webview with item details, styled accordingly to user defined settings, handles connection errors */
+    /**
+     * Shows webview with item details, styled accordingly to user defined settings, handles connection errors
+     */
     private boolean showServerInfo() {
         // Checks network connection
         if (!isConnection()) {
@@ -207,7 +209,9 @@ public class GameServerItemDetailFragment extends Fragment {
         } else {return false;}
     }
 
-    /** Returns current screen metrics used for proper webview content scaling */
+    /**
+     * Returns current screen metrics used for proper webview content scaling
+     */
     private DisplayMetrics getDisplay() {
         WindowManager wm = (WindowManager) getActivity().getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
@@ -216,7 +220,9 @@ public class GameServerItemDetailFragment extends Fragment {
         return metrics;
     }
 
-    /** Returns scaled height for main list of HTML component */
+    /**
+     * Returns scaled height for main list of HTML component
+     */
     private int getScaledCurrentPlayersListHeight() {
         int height = getDisplay().heightPixels;
         if (isShowMap(getActivity())) {
@@ -238,7 +244,9 @@ public class GameServerItemDetailFragment extends Fragment {
         return (height / listFactor);
     }
 
-    /** Calculates and returns scale for webview, based on current display metrics */
+    /**
+     * Calculates and returns scale for webview, based on current display metrics
+     */
     private int getWebViewScale(Double factor) {
         Double width = getDisplay().widthPixels / factor;
         Double scale = width / GT_HTML_INFO_COMPONENT_WIDTH;
@@ -246,7 +254,9 @@ public class GameServerItemDetailFragment extends Fragment {
         return scale.intValue();
     }
 
-    /** Returns true if device has available network connection, otherwise false */
+    /**
+     * Returns true if device has available network connection, otherwise false
+     */
     private boolean isConnection() {
         ConnectivityManager connectivityManager = (ConnectivityManager) getActivity()
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
