@@ -24,8 +24,10 @@ import static pl.appnode.gtinfo.Constants.IP_ADDRESS_PORT_PATTERN;
 import static pl.appnode.gtinfo.Constants.NO_ITEM;
 import static pl.appnode.gtinfo.PreferencesSetupHelper.themeSetup;
 
-/** Activity shows dialog for adding new server to data set
- * or editing data of existing in data set server (IPaddress:port and server name)*/
+/**
+ * Activity shows dialog for adding new server to data set
+ * or editing data of existing in data set server (IPaddress:port and server name).
+ */
 public class AddGameServerActivity extends Activity implements View.OnClickListener {
 
     private static final String LOGTAG = "AddServer";
@@ -55,8 +57,8 @@ public class AddGameServerActivity extends Activity implements View.OnClickListe
         getIntentData(getIntent());
     }
 
+    // Checks required action, sets up view and flag for edit if needed
     private void getIntentData(Intent intent) {
-        // Checks required action, sets up view and flag for edit if needed
         if (intent.getExtras() != null && intent.hasExtra(EDIT_SERVER_ADDRESS)) {
             mEditServerAddress.setText(intent.getStringExtra(EDIT_SERVER_ADDRESS));
             mEditServerName.setText(intent.getStringExtra(EDIT_SERVER_NAME));
@@ -67,8 +69,8 @@ public class AddGameServerActivity extends Activity implements View.OnClickListe
         }
     }
 
+    // Handles pressing of positive button and calls validation on entered server IP:port
     private void pressedOk() {
-        // Handles pressing of positive button and calls validation on entered server IP:port
         String address = mEditServerAddress.getText().toString();
         String name = mEditServerName.getText().toString();
         if (!address.equals("")) {
@@ -82,8 +84,8 @@ public class AddGameServerActivity extends Activity implements View.OnClickListe
         resultCancel();
     }
 
+    // Validates entered server IP:port, using regular expression from Constants
     private boolean validateServerAddress(String address) {
-        // Validates entered server IP:port, using regular expression from Constants
         Pattern validationPattern = Pattern.compile(IP_ADDRESS_PORT_PATTERN);
         String errorMessage = this.getResources().getString(R.string.server_add_invalid_address);
         Matcher matcher = validationPattern.matcher(address);
@@ -97,8 +99,8 @@ public class AddGameServerActivity extends Activity implements View.OnClickListe
         return false;
     }
 
+    // Prepares and executes intent with positive result of performed action
     private void resultOk(String address, String name) {
-        // Prepares and executes intent with positive result of performed action
         if (!mIsEdit) {
             Intent resultIntent = getIntent();
             resultIntent.putExtra(ADDED_SERVER_ADDRESS, address);

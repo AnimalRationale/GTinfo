@@ -14,7 +14,7 @@ import static pl.appnode.gtinfo.PreferencesSetupHelper.isDarkTheme;
 
 
 /**
- *  Shows dialog with confirmation for deleting whole data set *
+ *  Shows dialog with confirmation for deleting whole data set.
  */
 public class ConfirmationDialogFragment extends DialogFragment {
 
@@ -26,7 +26,7 @@ public class ConfirmationDialogFragment extends DialogFragment {
     ConfirmationDialogListener mListener;
 
     /**
-     *  Allows passing arguments (items list size) to confirmation dialog
+     *  Allows passing arguments (items list size) to confirmation dialog.
      */
     public static ConfirmationDialogFragment newInstance(int serversOnList) {
         ConfirmationDialogFragment fragment = new ConfirmationDialogFragment();

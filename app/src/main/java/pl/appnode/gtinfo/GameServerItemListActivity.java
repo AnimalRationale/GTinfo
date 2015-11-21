@@ -209,7 +209,7 @@ public class GameServerItemListActivity extends AppCompatActivity
     }
 
     /**
-     *  Handles use of close button in active search widget
+     *  Handles use of close button in active search widget.
      */
     @Override
     public boolean onQueryTextChange(String query) {
@@ -234,7 +234,7 @@ public class GameServerItemListActivity extends AppCompatActivity
     }
 
     /**
-     * Handles success and fail of search for entered string in servers list
+     * Handles success and fail of search for entered string in servers list.
      */
     @Override
     public boolean onQueryTextSubmit(String query) {
@@ -309,7 +309,9 @@ public class GameServerItemListActivity extends AppCompatActivity
     }
 
     /**
-     *  Handles main menu action for adding servers to list
+     *  Handles main menu action for adding servers to list.
+     *
+     *  @param fab clicked add server floating action button (visible on handsets in portrait mode)
      */
     public void addServer(View fab) {
         showAddServerDialog();
@@ -321,7 +323,10 @@ public class GameServerItemListActivity extends AppCompatActivity
     }
 
     /**
-     * Refreshes detail view pane
+     * Refreshes detail view pane.
+     *
+     * @param fab clicked floating action button for refresh HTML server info component (visible in
+     *            any two pane mode)
      */
     public void refreshWebView(View fab) {
         if (sSelected != NO_ITEM && !sServersList.isEmpty()) {
@@ -329,7 +334,8 @@ public class GameServerItemListActivity extends AppCompatActivity
         }
     }
 
-    private void populateServerList() { // Helper/debug tool to populate app data set with example data
+    // Helper/debug tool to populate app data set with example data
+    private void populateServerList() {
         final Map<String, String> SERVERS_EXAMPLE = new HashMap<String, String>() {
             {
                 put("1.2.3.4:2000", "Test");
@@ -359,7 +365,8 @@ public class GameServerItemListActivity extends AppCompatActivity
         sServersAdapter.notifyDataSetChanged();
     }
 
-   private void clearServersList() { // Erasing app's data set
+    // Erases app's data set
+   private void clearServersList() {
        int range = sServersList.size();
        sServersList.clear();
        sServersAdapter.notifyItemRangeRemoved(0, range);
@@ -378,7 +385,7 @@ public class GameServerItemListActivity extends AppCompatActivity
     }
 
     /**
-     * Handles click of positive button in confirmation dialog
+     * Handles click of positive button in confirmation dialog.
      */
     @Override
     public void onConfirmationDialogPositiveClick(DialogFragment dialog) {
@@ -390,7 +397,8 @@ public class GameServerItemListActivity extends AppCompatActivity
     public void onConfirmationDialogNegativeClick(DialogFragment dialog) {
     }
 
-    private void restoreDetailPane(int position) { // Sets up arguments and starts detail fragment
+    // Sets up arguments and starts detail fragment
+    private void restoreDetailPane(int position) {
         Bundle arguments = new Bundle();
         arguments.putInt(FRAGMENT_ARG_ITEM_ID, position);
         GameServerItemDetailFragment fragment = new GameServerItemDetailFragment();
@@ -403,7 +411,7 @@ public class GameServerItemListActivity extends AppCompatActivity
 
     /**
      * Handles results from AddGameServerActivity - initiates adding server to data set
-     * or editing current data
+     * or editing current data.
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent resultIntent) {

@@ -13,7 +13,7 @@ import static pl.appnode.gtinfo.PreferencesSetupHelper.orientationSetup;
 import static pl.appnode.gtinfo.PreferencesSetupHelper.themeSetup;
 
 /**
- * Displays application's preferences settings, handles changes in settings
+ * Displays application's preferences settings and handles changes in settings.
  */
 public class PreferencesActivity extends PreferenceActivity
         implements SharedPreferences.OnSharedPreferenceChangeListener {

@@ -1,11 +1,14 @@
 package pl.appnode.gtinfo;
 
 /**
- * Defines structure of every game server object
+ * Defines structure of items holding game servers information.
  */
 
 class GameServerItem {
 
-    public String mId; // game server IP address and port
-    public String mName; // user given game server short name
+    /** Game server IP address and port, should be in address:port format */
+    public String mId;
+
+    /** User given short name fo game server */
+    public String mName;
 }

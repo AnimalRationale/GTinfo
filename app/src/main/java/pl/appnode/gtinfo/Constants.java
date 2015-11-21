@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- *  Set of constants
+ *  Set of constants.
  */
 
 final class Constants {

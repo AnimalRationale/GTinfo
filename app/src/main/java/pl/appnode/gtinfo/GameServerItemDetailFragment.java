@@ -121,7 +121,8 @@ public class GameServerItemDetailFragment extends Fragment {
     }
 
     /**
-     * Shows webview with item details, styled accordingly to user defined settings, handles connection errors
+     * Shows webview with item details, styled accordingly to user defined settings,
+     * handles connection errors.
      */
     private boolean showServerInfo() {
         // Checks network connection
@@ -210,7 +211,9 @@ public class GameServerItemDetailFragment extends Fragment {
     }
 
     /**
-     * Returns current screen metrics used for proper webview content scaling
+     * Returns current screen metrics used for proper webview content scaling.
+     *
+     * @return object of DisplayMetrics class with display height and width in pixels
      */
     private DisplayMetrics getDisplay() {
         WindowManager wm = (WindowManager) getActivity().getSystemService(Context.WINDOW_SERVICE);
@@ -221,7 +224,9 @@ public class GameServerItemDetailFragment extends Fragment {
     }
 
     /**
-     * Returns scaled height for main list of HTML component
+     * Returns scaled height for main list of HTML component.
+     *
+     * @return height for list of players in HTML game server component
      */
     private int getScaledCurrentPlayersListHeight() {
         int height = getDisplay().heightPixels;
@@ -233,6 +238,7 @@ public class GameServerItemDetailFragment extends Fragment {
         if (isShowTopPlayers(getActivity())) {
             height = height - PLAYERS_LIST_HEIGHT_FACTOR_WITH_TOP_PLAYERS;
         }
+        // Factor for scaling list accordingly to display resolution
         int listFactor;
         if (height > 1300) {
             listFactor = 5;
@@ -245,7 +251,9 @@ public class GameServerItemDetailFragment extends Fragment {
     }
 
     /**
-     * Calculates and returns scale for webview, based on current display metrics
+     * Calculates and returns scale for whole webview, based on current display metrics.
+     *
+     * @return scale for proper webview content display on given viewport
      */
     private int getWebViewScale(Double factor) {
         Double width = getDisplay().widthPixels / factor;
@@ -255,7 +263,9 @@ public class GameServerItemDetailFragment extends Fragment {
     }
 
     /**
-     * Returns true if device has available network connection, otherwise false
+     * Checks if device has available network connection.
+     *
+     * @return true if device has available network connection
      */
     private boolean isConnection() {
         ConnectivityManager connectivityManager = (ConnectivityManager) getActivity()
