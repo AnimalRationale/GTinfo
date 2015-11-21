@@ -121,12 +121,17 @@ public class GameServerItemDetailActivity extends AppCompatActivity {
         }
     }
 
+    /** Refreshes detail view fragment if any item on servers list was selected.
+     *
+     * @param fab clicked refresh floating action button
+     */
     public void refreshWebView(View fab) {
         if (GameServerItemListActivity.getSelectedItem() != NO_ITEM) {
             showDetailFragment(GameServerItemListActivity.getSelectedItem());
         }
     }
 
+    // Recreates detail view fragment for chosen list item
     private void showDetailFragment(int position) {
         Bundle arguments = new Bundle();
         arguments.putInt(FRAGMENT_ARG_ITEM_ID, position);

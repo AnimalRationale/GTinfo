@@ -1,6 +1,5 @@
 package pl.appnode.gtinfo;
 
-
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
@@ -33,9 +32,13 @@ import static pl.appnode.gtinfo.Constants.NO_ITEM;
 import static pl.appnode.gtinfo.Constants.SERVERS_PREFS_FILE;
 import static pl.appnode.gtinfo.Constants.UNDO_TIME;
 
+/**
+ * A fragment representing list of all GameServersItems.
+ * This fragment is contained in a {@link GameServerItemListActivity}.
+ */
 public class GameServerItemListFragment extends Fragment {
 
-    private static final String TAG = "GSI-List-fragment";
+    private static final String LOGTAG = "GSI-List-fragment";
     private static final String TAG_V = "GameServerItemListFragment";
     static List<GameServerItem> sServersList = new ArrayList<>();
     static GameServersAdapter sServersAdapter;
@@ -47,14 +50,11 @@ public class GameServerItemListFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initServerList();
-        Log.d(TAG, "sSelected: " + GameServerItemListActivity.getSelectedItem()
-                + " / ScrollTo: " + GameServerItemListActivity.getScrollTo());
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Log.d(TAG, "Before RootView");
         View rootView = inflater.inflate(R.layout.fragment_gameserveritem_list, container, false);
         rootView.setTag(TAG_V);
         if (GameServerItemListActivity.isTwoPaneMode()) {
@@ -63,7 +63,6 @@ public class GameServerItemListFragment extends Fragment {
             addServerFab.setVisibility(View.GONE);
         }
         mFabCoordinator = (CoordinatorLayout) rootView.findViewById(R.id.fab_coordinator);
-        Log.d(TAG, "Before RecView");
         recyclerServersList = (RecyclerView) rootView.findViewById(R.id.serversList);
         recyclerServersList.setItemAnimator(null);
         mLinearLayoutManager = new LinearLayoutManager(getActivity());
@@ -75,7 +74,6 @@ public class GameServerItemListFragment extends Fragment {
             recyclerServersList.addItemDecoration(itemDecoration);
         }
         recyclerServersList.setItemAnimator(new DefaultItemAnimator());
-        Log.d(TAG, "Before adapter");
         sServersAdapter = new GameServersAdapter(getActivity());
         recyclerServersList.setHasFixedSize(true);
         recyclerServersList.setAdapter(sServersAdapter);
@@ -101,12 +99,14 @@ public class GameServerItemListFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        //Scrolls list to last clicked card if available
         if (GameServerItemListActivity.getScrollTo() != NO_ITEM) {
             mLinearLayoutManager.scrollToPositionWithOffset(GameServerItemListActivity.getScrollTo(), 0);
         }
         if (sServersList.isEmpty()) showEmptyListHint();
     }
 
+    // Removes position from list and persistent storage, handles undo action
     private void removeGameServer(final int position) {
         final boolean isFragmentUndo;
         final boolean isFilteredUndo;
@@ -137,7 +137,7 @@ public class GameServerItemListFragment extends Fragment {
             editor.remove(gameServer.mId);
             editor.apply();
         }
-
+        // Undo action - snack bar with information and undo button visible for limited time
         SpannableStringBuilder confirmationRemoved = new SpannableStringBuilder();
         int boldStart = confirmationRemoved.length();
         confirmationRemoved.append(gameServer.mName);
@@ -177,6 +177,7 @@ public class GameServerItemListFragment extends Fragment {
         }
     }
 
+    // Displays detail fragment with information about given game server
     private void showDetailFragment(int position) {
         Bundle arguments = new Bundle();
         arguments.putInt(FRAGMENT_ARG_ITEM_ID, position);
@@ -189,6 +190,7 @@ public class GameServerItemListFragment extends Fragment {
                 .commit();
     }
 
+    // Shows snack bar with hint for adding server to list if list is empty
     private void showEmptyListHint() {
         View snackView;
         String hintText;
@@ -213,6 +215,7 @@ public class GameServerItemListFragment extends Fragment {
         }
     }
 
+    // Initialises list with servers data from persistent storage (shared preferences)
     private void initServerList() {
         if (sServersList.isEmpty()) {
             SharedPreferences gameServersPrefs = AppContextHelper.getContext()
@@ -223,7 +226,7 @@ public class GameServerItemListFragment extends Fragment {
                 gameServer.mId = entry.getKey();
                 gameServer.mName = entry.getValue().toString();
                 sServersList.add(gameServer);
-                Log.d(TAG, gameServer.mId + " " + gameServer.mName);
+                Log.d(LOGTAG, gameServer.mId + " " + gameServer.mName);
             }
         }
     }
