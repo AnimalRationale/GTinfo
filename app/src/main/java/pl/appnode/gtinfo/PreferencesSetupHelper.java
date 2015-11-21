@@ -13,11 +13,14 @@ import static pl.appnode.gtinfo.Constants.KEY_SETTINGS_THEME;
 
 /**
  * Class with functions for reading and using application settings
+ * from app's default shared preferences.
  */
 public class PreferencesSetupHelper {
 
     /**
-     * Sets up proper (dark or light) system theme
+     * Sets up proper (dark or light) system theme.
+     *
+     * @param context the context of calling activity
      */
     public static void themeSetup(Context context) {
 
@@ -35,7 +38,10 @@ public class PreferencesSetupHelper {
     }
 
     /**
-     * Controls ability to change app display orientation accordingly to device state
+     * Controls ability to change app display orientation accordingly to device state.
+     *
+     * @param activity the activity which is to be allowed to be displayed in portrait/landscape or
+     *                 limited to only portrait orientation
      */
     public static void orientationSetup(Activity activity) {
         if (isRotationOn(activity)) {
@@ -44,7 +50,9 @@ public class PreferencesSetupHelper {
     }
 
     /**
-     * Returns state of dark theme setting in app preferences, used to set proper system theme
+     * Returns state of dark theme setting in app preferences, used to set proper system theme.
+     *
+     * @return true if dark theme is set in preferences
      */
     public static boolean isDarkTheme(Context context) {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
@@ -52,7 +60,11 @@ public class PreferencesSetupHelper {
     }
 
     /**
-     * Returns state of preference setting allowing app display orientation change
+     * Returns state of preference setting allowing app display orientation change.
+     *
+     * @param context the context of calling activity
+     *
+     * @return true if display orientation change is allowed in preferences
      */
     public static boolean isRotationOn(Context context) {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
@@ -60,7 +72,9 @@ public class PreferencesSetupHelper {
     }
 
     /**
-     * Checks if app is started first time after installation
+     * Checks if app is started first time after installation.
+     *
+     * @return true if application is started with no previously existing preferences
      */
     public static boolean isFirstRun(Context context) {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
@@ -71,7 +85,9 @@ public class PreferencesSetupHelper {
 
     /**
      * Returns state of user preference setting controlling showing image
-     * of current map in HTML game info component
+     * of current map in HTML game info component.
+     *
+     * @return true if in game server info component should be displayed image of current game map
      */
     public static boolean isShowMap(Context context) {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
@@ -80,7 +96,10 @@ public class PreferencesSetupHelper {
 
     /**
      * Returns state of user preference setting controlling showing list of server top players
-     * in HTML game info component
+     * in HTML game info component.
+     *
+     * @return true if in game server info component should be displayed list
+     *              of this server top players
      */
     public static boolean isShowTopPlayers(Context context) {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
