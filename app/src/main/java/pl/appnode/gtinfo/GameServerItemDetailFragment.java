@@ -57,7 +57,7 @@ public class GameServerItemDetailFragment extends Fragment {
     private String mKeyPrefix;
     private WebView mGameServerWebView;
     private FloatingActionButton mRefreshButton;
-    boolean mWebError = false;
+    private boolean mWebError = false;
 
     /**
      * Content this fragment is displaying.

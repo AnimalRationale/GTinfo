@@ -15,7 +15,7 @@ import static pl.appnode.gtinfo.Constants.KEY_SETTINGS_THEME;
  * Class with functions for reading and using application settings
  * from app's default shared preferences.
  */
-public class PreferencesSetupHelper {
+class PreferencesSetupHelper {
 
     /**
      * Sets up proper (dark or light) system theme.

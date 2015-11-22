@@ -23,7 +23,7 @@ public class ConfirmationDialogFragment extends DialogFragment {
         void onConfirmationDialogNegativeClick(DialogFragment dialog);
     }
 
-    ConfirmationDialogListener mListener;
+    private ConfirmationDialogListener mListener;
 
     /**
      *  Allows passing arguments (items list size) to confirmation dialog.

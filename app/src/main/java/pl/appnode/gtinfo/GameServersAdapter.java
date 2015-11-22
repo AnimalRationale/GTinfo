@@ -33,7 +33,7 @@ import static pl.appnode.gtinfo.PreferencesSetupHelper.isDarkTheme;
 public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.ServerViewHolder>{
 
     private static final String TAG = "GameServersAdapter";
-    private Context mContext;
+    private final Context mContext;
 
 
     public GameServersAdapter(Context context) {
@@ -150,11 +150,11 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
     static public class ServerViewHolder extends RecyclerView.ViewHolder
             implements View.OnClickListener, View.OnLongClickListener {
 
-        protected IViewHolderOnClicks mClickListener;
-        protected IViewHolderOnClicks mLongClickListener;
-        protected int vPosition;
-        protected TextView vName;
-        protected TextView vAddress;
+        IViewHolderOnClicks mClickListener;
+        IViewHolderOnClicks mLongClickListener;
+        int vPosition;
+        TextView vName;
+        TextView vAddress;
 
         public ServerViewHolder(View itemCardView, IViewHolderOnClicks listener) {
             super(itemCardView);
