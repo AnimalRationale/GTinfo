@@ -26,7 +26,8 @@ import static pl.appnode.gtinfo.PreferencesSetupHelper.themeSetup;
 
 /**
  * Activity shows dialog for adding new server to data set
- * or editing data of existing in data set server (IPaddress:port and server name).
+ * or editing data of existing in data set server (IP_address:port and server name),
+ * validates entered IP address and returns result intent with entered data.
  */
 public class AddGameServerActivity extends Activity implements View.OnClickListener {
 
@@ -57,7 +58,7 @@ public class AddGameServerActivity extends Activity implements View.OnClickListe
         getIntentData(getIntent());
     }
 
-    // Checks required action, sets up view and flag for edit if needed
+    // Checks required action, sets up view and flag indicating edit mode if needed
     private void getIntentData(Intent intent) {
         if (intent.getExtras() != null && intent.hasExtra(EDIT_SERVER_ADDRESS)) {
             mEditServerAddress.setText(intent.getStringExtra(EDIT_SERVER_ADDRESS));
