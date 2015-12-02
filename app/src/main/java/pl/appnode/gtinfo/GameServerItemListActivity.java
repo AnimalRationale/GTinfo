@@ -6,6 +6,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.util.ArrayMap;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.content.Intent;
@@ -336,7 +337,7 @@ public class GameServerItemListActivity extends AppCompatActivity
 
     // Helper/debug tool to populate app data set with example data
     private void populateServerList() {
-        final Map<String, String> SERVERS_EXAMPLE = new HashMap<String, String>() {
+        final Map<String, String> SERVERS_EXAMPLE = new ArrayMap<String, String>() {
             {
                 put("1.2.3.4:2000", "Test");
                 put ("185.49.14.11:27015", "Skillownia CS:GO PL");

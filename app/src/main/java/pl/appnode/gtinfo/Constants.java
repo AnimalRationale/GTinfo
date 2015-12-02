@@ -1,5 +1,7 @@
 package pl.appnode.gtinfo;
 
+import android.support.v4.util.ArrayMap;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -100,7 +102,7 @@ final class Constants {
     public static final int PLAYERS_LIST_HEIGHT_FACTOR_WITH_TOP_PLAYERS = 400;
 
     /** Dictionary of all colors 'themes' for GT HTML component */
-    public static final Map<String, String> GT_HTML_COLORS = new HashMap<String, String>() {
+    public static final Map<String, String> GT_HTML_COLORS = new ArrayMap<String, String>() {
         {
             // original GT colors
             put("original-bgColor", "373E28");
