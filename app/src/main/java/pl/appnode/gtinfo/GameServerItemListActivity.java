@@ -72,7 +72,7 @@ public class GameServerItemListActivity extends AppCompatActivity
     private static int sSelected = NO_ITEM; // Last selected item from list, NO_ITEM if not available
     private static int sScrollTo = NO_ITEM; // desired position of list, NO_ITEM if not available
     static List<GameServerItem> sServersList = new ArrayList<>();
-    static String sSearchQuery;
+    static String sSearchQuery = "";
     static List<GameServerItem> sFilteredServersList = new ArrayList<>(); // Helper collection for keeping search results
     private ActionBar mActionBar;
     private SearchView mSearchView;
@@ -163,35 +163,36 @@ public class GameServerItemListActivity extends AppCompatActivity
         final MenuItem item = menu.findItem(R.id.action_search);
         // Init for showing and handling search widget in action bar
         mSearchView = (SearchView) MenuItemCompat.getActionView(item);
-        MenuItemCompat.setOnActionExpandListener(menu.findItem(R.id.action_search), new MenuItemCompat.OnActionExpandListener() {
-            @Override
-            public boolean onMenuItemActionExpand(MenuItem item) {
-                return true;
-            }
+        MenuItemCompat.setOnActionExpandListener(menu.findItem(R.id.action_search),
+                new MenuItemCompat.OnActionExpandListener() {
+                    @Override
+                    public boolean onMenuItemActionExpand(MenuItem item) {
+                        return true;
+                    }
 
-            @Override
-            public boolean onMenuItemActionCollapse(MenuItem item) {
-                sFilteredServersList.clear();
-                sSearchQuery = "";
-                sServersList.clear();
-                initServerList();
-                sServersAdapter.notifyDataSetChanged();
-                hideKeyboard();
-                mSearchView.setBackgroundColor(ContextCompat
-                        .getColor(AppContextHelper.getContext(), R.color.dark_action_bar));
-                mSearchView.setQuery(sSearchQuery, false);
-                Log.d(LOGTAG, "Closing search widget.");
-                mActionBar.setBackgroundDrawable(new ColorDrawable(ContextCompat
-                        .getColor(AppContextHelper.getContext(), R.color.dark_action_bar)));
-                sScrollTo = NO_ITEM;
-                return true;
-            }
+                    @Override
+                    public boolean onMenuItemActionCollapse(MenuItem item) {
+                        sFilteredServersList.clear();
+                        sSearchQuery = "";
+                        sServersList.clear();
+                        initServerList();
+                        sServersAdapter.notifyDataSetChanged();
+                        hideKeyboard();
+                        mSearchView.setBackgroundColor(ContextCompat
+                                .getColor(AppContextHelper.getContext(), R.color.dark_action_bar));
+                        mSearchView.setQuery(sSearchQuery, false);
+                        Log.d(LOGTAG, "Closing search widget.");
+                        mActionBar.setBackgroundDrawable(new ColorDrawable(ContextCompat
+                                .getColor(AppContextHelper.getContext(), R.color.dark_action_bar)));
+                        sScrollTo = NO_ITEM;
+                        return true;
+                    }
         });
         mSearchView.setIconifiedByDefault(true);
         mSearchView.setOnQueryTextListener(this);
         mSearchView.setImeOptions(EditorInfo.IME_FLAG_NO_EXTRACT_UI);
         mSearchView.setSubmitButtonEnabled(true);
-        if (!sFilteredServersList.isEmpty()) {
+        if (!sSearchQuery.equals("")) {
             // Configuring search widget if it is currently in use (filtered list)
             mSearchView.setIconified(false);
             MenuItemCompat.expandActionView(item);
@@ -258,7 +259,8 @@ public class GameServerItemListActivity extends AppCompatActivity
             }
         }
         if (j > 0) {
-            sServersList = sFilteredServersList;
+            sServersList.clear();
+            sServersList.addAll(sFilteredServersList);
             sServersAdapter.notifyDataSetChanged();
             String info = getResources().getString(R.string.search_action_positive) + j;
             Toast.makeText(this, info, Toast.LENGTH_SHORT).show();
