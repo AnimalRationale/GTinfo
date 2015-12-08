@@ -24,7 +24,7 @@ import static pl.appnode.gtinfo.Constants.EDIT_SERVER_LIST_POSITION;
 import static pl.appnode.gtinfo.Constants.EDIT_SERVER_NAME;
 import static pl.appnode.gtinfo.Constants.FRAGMENT_ARG_ITEM_ID;
 import static pl.appnode.gtinfo.Constants.NO_ITEM;
-import static pl.appnode.gtinfo.GameServerItemListFragment.sServersList;
+import static pl.appnode.gtinfo.GameServerItemListActivity.sServersList;
 import static pl.appnode.gtinfo.PreferencesSetupHelper.isDarkTheme;
 
 /**
@@ -55,14 +55,10 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
                     .setCardBackgroundColor(setCardColor(position));
     }
 
-    // Returns proper background color, depending user theme settings and results of search
+    // Returns proper background color, depending user theme settings
     private int setCardColor(int position) {
         int state = CARD_STATE_DEFAULT;
         if (GameServerItemListActivity.getSelectedItem() == position) {state = CARD_STATE_SELECTED;}
-
-        if (state == CARD_STATE_DEFAULT && GameServerItemListActivity.sFilteredServersList.contains(position)) {
-            return ContextCompat.getColor(mContext, R.color.filtered_list);
-        }
 
         if (isDarkTheme(mContext)) {
             if (GameServerItemListActivity.isTwoPaneMode()) {

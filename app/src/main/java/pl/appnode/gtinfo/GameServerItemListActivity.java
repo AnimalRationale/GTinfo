@@ -24,7 +24,6 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -40,7 +39,6 @@ import static pl.appnode.gtinfo.Constants.NO_ITEM;
 import static pl.appnode.gtinfo.Constants.SELECTED_ITEM_POSITION;
 import static pl.appnode.gtinfo.Constants.SERVERS_PREFS_FILE;
 import static pl.appnode.gtinfo.GameServerItemListFragment.sServersAdapter;
-import static pl.appnode.gtinfo.GameServerItemListFragment.sServersList;
 import static pl.appnode.gtinfo.PreferencesSetupHelper.isDarkTheme;
 import static pl.appnode.gtinfo.PreferencesSetupHelper.orientationSetup;
 import static pl.appnode.gtinfo.PreferencesSetupHelper.themeSetup;
@@ -67,13 +65,15 @@ public class GameServerItemListActivity extends AppCompatActivity
         implements ConfirmationDialogFragment.ConfirmationDialogListener,
         SearchView.OnQueryTextListener {
 
-    private static final String TAG = "GameServerListAct";
+    private static final String LOGTAG = "GameServerListAct";
     private static boolean sTwoPane; // Flag for using two pane mode
     private static boolean sPhone; // Flag indicating handset (portrait: list, landscape 2 panes)
     private static boolean sThemeChangeFlag;
     private static int sSelected = NO_ITEM; // Last selected item from list, NO_ITEM if not available
     private static int sScrollTo = NO_ITEM; // desired position of list, NO_ITEM if not available
-    static List sFilteredServersList = new ArrayList(); // Helper collection for keeping search results
+    static List<GameServerItem> sServersList = new ArrayList<>();
+    static String sSearchQuery;
+    static List<GameServerItem> sFilteredServersList = new ArrayList<>(); // Helper collection for keeping search results
     private ActionBar mActionBar;
     private SearchView mSearchView;
 
@@ -135,6 +135,7 @@ public class GameServerItemListActivity extends AppCompatActivity
             sTwoPane = false;
             sSelected = NO_ITEM;
         }
+        initServerList();
 
         // TODO: If exposing deep links into your app, handle intents here.
     }
@@ -144,7 +145,7 @@ public class GameServerItemListActivity extends AppCompatActivity
         super.onResume();
         orientationSetup(this);
         checkThemeChange();
-        Log.d(TAG, "sSelected: " + sSelected + " / ScrollTo: " + sScrollTo);
+        Log.d(LOGTAG, "sSelected: " + sSelected + " / ScrollTo: " + sScrollTo);
     }
 
     @Override
@@ -171,12 +172,15 @@ public class GameServerItemListActivity extends AppCompatActivity
             @Override
             public boolean onMenuItemActionCollapse(MenuItem item) {
                 sFilteredServersList.clear();
+                sSearchQuery = "";
+                sServersList.clear();
+                initServerList();
                 sServersAdapter.notifyDataSetChanged();
                 hideKeyboard();
                 mSearchView.setBackgroundColor(ContextCompat
                         .getColor(AppContextHelper.getContext(), R.color.dark_action_bar));
-                mSearchView.setQuery("", false);
-                Log.d(TAG, "Closing search widget.");
+                mSearchView.setQuery(sSearchQuery, false);
+                Log.d(LOGTAG, "Closing search widget.");
                 mActionBar.setBackgroundDrawable(new ColorDrawable(ContextCompat
                         .getColor(AppContextHelper.getContext(), R.color.dark_action_bar)));
                 sScrollTo = NO_ITEM;
@@ -191,7 +195,7 @@ public class GameServerItemListActivity extends AppCompatActivity
             // Configuring search widget if it is currently in use (filtered list)
             mSearchView.setIconified(false);
             MenuItemCompat.expandActionView(item);
-            mSearchView.setQuery(sFilteredServersList.get(0).toString(), false);
+            mSearchView.setQuery(sSearchQuery, false);
             mSearchView.clearFocus();
             mSearchView.setBackgroundColor(ContextCompat.getColor(this, R.color.filtered_list));
             mActionBar.setBackgroundDrawable(new ColorDrawable(ContextCompat
@@ -220,10 +224,13 @@ public class GameServerItemListActivity extends AppCompatActivity
                 @Override
                 public void onClick(View v) {
                     sFilteredServersList.clear();
+                    sSearchQuery = "";
+                    sServersList.clear();
+                    initServerList();
                     sServersAdapter.notifyDataSetChanged();
                     mSearchView.setBackgroundColor(ContextCompat
                             .getColor(AppContextHelper.getContext(), R.color.dark_action_bar));
-                    mSearchView.setQuery("", false);
+                    mSearchView.setQuery(sSearchQuery, false);
                     mActionBar.setBackgroundDrawable(new ColorDrawable(ContextCompat
                             .getColor(AppContextHelper.getContext(), R.color.dark_action_bar)));
                     sScrollTo = NO_ITEM;
@@ -241,16 +248,17 @@ public class GameServerItemListActivity extends AppCompatActivity
     public boolean onQueryTextSubmit(String query) {
         hideKeyboard();
         int j = 0;
-        sFilteredServersList.add(0, query);
+        sSearchQuery = query;
         for (int i = 0; i < sServersList.size(); i++) {
             GameServerItem gameServer = sServersList.get(i);
             if (gameServer.mName.toLowerCase().contains(query.toLowerCase())) {
-                sFilteredServersList.add(i);
+                sFilteredServersList.add(gameServer);
                 if (j == 0) {sScrollTo = i;}
                 j++;
             }
         }
         if (j > 0) {
+            sServersList = sFilteredServersList;
             sServersAdapter.notifyDataSetChanged();
             String info = getResources().getString(R.string.search_action_positive) + j;
             Toast.makeText(this, info, Toast.LENGTH_SHORT).show();
@@ -335,7 +343,7 @@ public class GameServerItemListActivity extends AppCompatActivity
         }
     }
 
-    // Helper/debug tool to populate app data set with example data
+    // Helper/debug tool to populate app data set with example content
     private void populateServerList() {
         final Map<String, String> SERVERS_EXAMPLE = new ArrayMap<String, String>() {
             {
@@ -372,7 +380,7 @@ public class GameServerItemListActivity extends AppCompatActivity
        sServersList.clear();
        sServersAdapter.notifyItemRangeRemoved(0, range);
        sSelected = NO_ITEM;
-       sScrollTo= NO_ITEM;
+       sScrollTo = NO_ITEM;
        SharedPreferences gameServersPrefs = getSharedPreferences(SERVERS_PREFS_FILE, 0);
        SharedPreferences.Editor editor = gameServersPrefs.edit();
        editor.clear();
@@ -391,7 +399,7 @@ public class GameServerItemListActivity extends AppCompatActivity
     @Override
     public void onConfirmationDialogPositiveClick(DialogFragment dialog) {
         clearServersList();
-        Log.d(TAG, "Cleared list.");
+        Log.d(LOGTAG, "List cleared.");
     }
 
     @Override
@@ -442,11 +450,11 @@ public class GameServerItemListActivity extends AppCompatActivity
             gameServer.mName = name;
             sServersList.add(gameServer);
             sServersAdapter.notifyDataSetChanged();
-            Log.d(TAG, "Saved server: " + address + " with name: " + name);
+            Log.d(LOGTAG, "Saved server: " + address + " with name: " + name);
         } else {
             GameServerItem gameServer = sServersList.get(position);
             if (!gameServer.mId.equals(address)) {
-                Log.d(TAG, "Editing server address - old: " + gameServer.mId + " / new: " + address);
+                Log.d(LOGTAG, "Editing server address - old: " + gameServer.mId + " / new: " + address);
                 if (serversPrefs.contains(gameServer.mId)) {
                     editor.remove(gameServer.mId);
                 }
@@ -454,9 +462,25 @@ public class GameServerItemListActivity extends AppCompatActivity
             }
             gameServer.mName = name;
             sServersAdapter.notifyItemChanged(position);
-            Log.d(TAG, "Edited server: " + address + " with name: " + name);
+            Log.d(LOGTAG, "Edited server: " + address + " with name: " + name);
         }
         editor.apply();
+    }
+
+    // Initialises list with servers data from persistent storage (shared preferences)
+    private void initServerList() {
+        if (sServersList.isEmpty()) {
+            SharedPreferences gameServersPrefs = AppContextHelper.getContext()
+                    .getSharedPreferences(SERVERS_PREFS_FILE, 0);
+            Map<String, ?> keys = gameServersPrefs.getAll();
+            for (Map.Entry<String, ?> entry : keys.entrySet()) {
+                GameServerItem gameServer = new GameServerItem();
+                gameServer.mId = entry.getKey();
+                gameServer.mName = entry.getValue().toString();
+                sServersList.add(gameServer);
+                Log.d(LOGTAG, gameServer.mId + " " + gameServer.mName);
+            }
+        }
     }
 
     @Override

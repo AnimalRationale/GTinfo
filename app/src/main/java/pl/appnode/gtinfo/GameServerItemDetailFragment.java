@@ -37,7 +37,7 @@ import static pl.appnode.gtinfo.Constants.SCALING_FACTOR_TABLET;
 import static pl.appnode.gtinfo.Constants.GT_HTML_COLORS;
 import static pl.appnode.gtinfo.Constants.GT_HTML_INFO_COMPONENT_BASE_URL;
 import static pl.appnode.gtinfo.Constants.GT_HTML_INFO_COMPONENT_WIDTH;
-import static pl.appnode.gtinfo.GameServerItemListFragment.sServersList;
+import static pl.appnode.gtinfo.GameServerItemListActivity.sServersList;
 import static pl.appnode.gtinfo.PreferencesSetupHelper.isDarkTheme;
 import static pl.appnode.gtinfo.PreferencesSetupHelper.isShowMap;
 import static pl.appnode.gtinfo.PreferencesSetupHelper.isShowTopPlayers;

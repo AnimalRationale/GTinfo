@@ -22,8 +22,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import static pl.appnode.gtinfo.Constants.FRAGMENT_ARG_ITEM_ID;
@@ -31,6 +29,7 @@ import static pl.appnode.gtinfo.Constants.HINT_TIME;
 import static pl.appnode.gtinfo.Constants.NO_ITEM;
 import static pl.appnode.gtinfo.Constants.SERVERS_PREFS_FILE;
 import static pl.appnode.gtinfo.Constants.UNDO_TIME;
+import static pl.appnode.gtinfo.GameServerItemListActivity.sServersList;
 
 /**
  * A fragment representing list of all GameServersItems.
@@ -40,7 +39,7 @@ public class GameServerItemListFragment extends Fragment {
 
     private static final String LOGTAG = "GSI-List-fragment";
     private static final String TAG_V = "GameServerItemListFragment";
-    static List<GameServerItem> sServersList = new ArrayList<>();
+
     static GameServersAdapter sServersAdapter;
     private static RecyclerView recyclerServersList;
     private LinearLayoutManager mLinearLayoutManager;
@@ -49,7 +48,6 @@ public class GameServerItemListFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initServerList();
     }
 
     @Override
@@ -122,11 +120,11 @@ public class GameServerItemListFragment extends Fragment {
             GameServerItemListActivity.setSelectedItem(selectedItem - 1);
         }
         final GameServerItem gameServer = sServersList.get(position);
-        if (GameServerItemListActivity.sFilteredServersList.contains(position)) {
-            GameServerItemListActivity.sFilteredServersList
-                    .remove(GameServerItemListActivity.sFilteredServersList.indexOf(position));
-            isFilteredUndo = true;
-        } else isFilteredUndo = false;
+//        if (GameServerItemListActivity.sFilteredServersList.contains(position)) {
+//            GameServerItemListActivity.sFilteredServersList
+//                    .remove(GameServerItemListActivity.sFilteredServersList.indexOf(position));
+//            isFilteredUndo = true;
+//        } else isFilteredUndo = false;
         sServersList.remove(position);
         sServersAdapter.notifyItemRemoved(position);
         sServersAdapter.notifyItemRangeChanged(position, sServersList.size());
@@ -164,9 +162,9 @@ public class GameServerItemListFragment extends Fragment {
                                 GameServerItemListActivity.setSelectedItem(selectedItem);
                                 sServersList.add(position, gameServer);
                                 sServersAdapter.notifyItemInserted(position);
-                                if (isFilteredUndo) {
-                                    GameServerItemListActivity.sFilteredServersList.add(position);
-                                }
+//                                if (isFilteredUndo) {
+//                                    GameServerItemListActivity.sFilteredServersList.add(position);
+//                                }
                                 if (isFragmentUndo) {
                                     showDetailFragment(selectedItem);
                                 }
@@ -215,19 +213,4 @@ public class GameServerItemListFragment extends Fragment {
         }
     }
 
-    // Initialises list with servers data from persistent storage (shared preferences)
-    private void initServerList() {
-        if (sServersList.isEmpty()) {
-            SharedPreferences gameServersPrefs = AppContextHelper.getContext()
-                    .getSharedPreferences(SERVERS_PREFS_FILE, 0);
-            Map<String, ?> keys = gameServersPrefs.getAll();
-            for (Map.Entry<String, ?> entry : keys.entrySet()) {
-                GameServerItem gameServer = new GameServerItem();
-                gameServer.mId = entry.getKey();
-                gameServer.mName = entry.getValue().toString();
-                sServersList.add(gameServer);
-                Log.d(LOGTAG, gameServer.mId + " " + gameServer.mName);
-            }
-        }
-    }
 }
