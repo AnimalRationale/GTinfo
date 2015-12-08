@@ -135,7 +135,7 @@ public class GameServerItemListActivity extends AppCompatActivity
             sTwoPane = false;
             sSelected = NO_ITEM;
         }
-        initServerList();
+        if (sSearchQuery.equals("")) {initServerList();}
 
         // TODO: If exposing deep links into your app, handle intents here.
     }
