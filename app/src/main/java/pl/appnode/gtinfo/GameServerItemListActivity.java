@@ -245,10 +245,12 @@ public class GameServerItemListActivity extends AppCompatActivity
     /**
      * Handles success and fail of search for entered string in servers list.
      */
+    // TODO: search queries history indicator, getting back in search with up arrow
     @Override
     public boolean onQueryTextSubmit(String query) {
         hideKeyboard();
         int j = 0;
+        sFilteredServersList.clear();
         sSearchQuery = query;
         for (int i = 0; i < sServersList.size(); i++) {
             GameServerItem gameServer = sServersList.get(i);
