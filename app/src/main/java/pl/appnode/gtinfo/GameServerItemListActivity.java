@@ -73,6 +73,7 @@ public class GameServerItemListActivity extends AppCompatActivity
     private static int sScrollTo = NO_ITEM; // desired position of list, NO_ITEM if not available
     static List<GameServerItem> sServersList = new ArrayList<>();
     static String sSearchQuery = "";
+    static List<String> sQueryHistory = new ArrayList<>(); // List of queries entered in search widget
     static List<GameServerItem> sFilteredServersList = new ArrayList<>(); // Helper collection for keeping search results
     private ActionBar mActionBar;
     private SearchView mSearchView;
@@ -249,15 +250,21 @@ public class GameServerItemListActivity extends AppCompatActivity
     @Override
     public boolean onQueryTextSubmit(String query) {
         hideKeyboard();
-        int j = 0;
+        int j = 0; // Matching results counter
+        String[] queryWords = query.split(" ");
         sFilteredServersList.clear();
         sSearchQuery = query;
+        Log.d(LOGTAG, "Query words: " + queryWords[0]);
         for (int i = 0; i < sServersList.size(); i++) {
             GameServerItem gameServer = sServersList.get(i);
-            if (gameServer.mName.toLowerCase().contains(query.toLowerCase())) {
-                sFilteredServersList.add(gameServer);
-                if (j == 0) {sScrollTo = i;}
-                j++;
+            for (int q = 0; q < queryWords.length; q++) {
+                if (!gameServer.mName.toLowerCase().contains(queryWords[q].toLowerCase())) {
+                        q = queryWords.length;
+                } else
+                    if (q == queryWords.length - 1) {
+                        sFilteredServersList.add(gameServer);
+                        j++;
+                    }
             }
         }
         if (j > 0) {
@@ -269,6 +276,7 @@ public class GameServerItemListActivity extends AppCompatActivity
             mSearchView.setBackgroundColor(ContextCompat.getColor(this, R.color.filtered_list));
             mActionBar.setBackgroundDrawable(new ColorDrawable(ContextCompat
                     .getColor(this, R.color.filtered_list)));
+            sQueryHistory.add(query);
             return true;
         }
         sFilteredServersList.clear();
