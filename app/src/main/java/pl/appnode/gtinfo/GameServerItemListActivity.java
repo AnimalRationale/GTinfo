@@ -186,6 +186,7 @@ public class GameServerItemListActivity extends AppCompatActivity
                         mActionBar.setBackgroundDrawable(new ColorDrawable(ContextCompat
                                 .getColor(AppContextHelper.getContext(), R.color.dark_action_bar)));
                         sScrollTo = NO_ITEM;
+                        sSelected = NO_ITEM;
                         return true;
                     }
         });
@@ -246,7 +247,7 @@ public class GameServerItemListActivity extends AppCompatActivity
     /**
      * Handles success and fail of search for entered string in servers list.
      */
-    // TODO: search queries history indicator, getting back in search with up arrow
+    // TODO: search queries history indicator, getting back in search with up arrow?
     @Override
     public boolean onQueryTextSubmit(String query) {
         hideKeyboard();
@@ -254,7 +255,6 @@ public class GameServerItemListActivity extends AppCompatActivity
         String[] queryWords = query.split(" ");
         sFilteredServersList.clear();
         sSearchQuery = query;
-        Log.d(LOGTAG, "Query words: " + queryWords[0]);
         for (int i = 0; i < sServersList.size(); i++) {
             GameServerItem gameServer = sServersList.get(i);
             for (int q = 0; q < queryWords.length; q++) {
