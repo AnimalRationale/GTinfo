@@ -2,7 +2,7 @@
 
 App for checking if your favourite multiplayer game server has free slots (or if your sworn enemy from accounting department is already there).
 
- * Basic search functionality
+ * Multiword search
  * Swipe to dismiss, undo for list item delete
  * Light and dark theme
  * Compatible with Holo and Material themed devices 
