@@ -3,6 +3,7 @@ package pl.appnode.gtinfo;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
@@ -14,6 +15,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
+import android.transition.Fade;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -111,6 +113,7 @@ public class GameServerItemListActivity extends AppCompatActivity
             setContentView(R.layout.activity_gameserveritem_list_landscape);
             sPhone = true;
         } else setContentView(R.layout.activity_gameserveritem_list);
+        setupWindowAnimations();
         // Setting window background color accordingly to settings
         if (isDarkTheme(this)) {
             getWindow().getDecorView().setBackgroundColor(ContextCompat.getColor(this, R.color.black));
@@ -317,6 +320,14 @@ public class GameServerItemListActivity extends AppCompatActivity
             }
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void setupWindowAnimations() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Fade fade = new Fade();
+            fade.setDuration(1000);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {getWindow().setExitTransition(fade);}
+        }
     }
 
     private void checkThemeChange() { // Restarts activity if user changed theme

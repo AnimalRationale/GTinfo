@@ -1,10 +1,12 @@
 package pl.appnode.gtinfo;
 
+import android.os.Build;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
+import android.transition.Fade;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -35,7 +37,7 @@ public class GameServerItemDetailActivity extends AppCompatActivity {
         themeSetup(this);
         sThemeChangeFlag = isDarkTheme(this);
         setContentView(R.layout.activity_gameserveritem_detail);
-
+        setupWindowAnimations();
         // Show the Up button in the action bar.
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -109,6 +111,14 @@ public class GameServerItemDetailActivity extends AppCompatActivity {
             this.startActivityForResult(settingsIntent, ADD_SERVER_INTENT_REQUEST);
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void setupWindowAnimations() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Fade fade = new Fade();
+            fade.setDuration(1000);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {getWindow().setExitTransition(fade);}
+        }
     }
 
     private void checkThemeChange() {
