@@ -2,7 +2,6 @@ package pl.appnode.gtinfo;
 
 import android.support.v4.util.ArrayMap;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**

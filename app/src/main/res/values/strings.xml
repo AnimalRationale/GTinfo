@@ -2,7 +2,7 @@
     <string name="app_name">GTinfo</string>
     <string name="title_gameserveritem_detail">Server details</string>
 
-    <string name="card_server_name_default">...</string>
+    <string name="card_server_name_default">…</string>
     <string name="card_server_address_default">0.0.0.0:0000</string>
 
     <string name="dialog_about_title"></string>

@@ -116,7 +116,7 @@ public class GameServerItemDetailActivity extends AppCompatActivity {
     private void setupWindowAnimations() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             Fade fade = new Fade();
-            fade.setDuration(1000);
+            fade.setDuration(3000);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {getWindow().setExitTransition(fade);}
         }
     }
