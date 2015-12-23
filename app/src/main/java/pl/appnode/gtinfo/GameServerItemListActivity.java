@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
+import android.support.v7.widget.ShareActionProvider;
 import android.transition.Fade;
 import android.util.Log;
 import android.view.Menu;
@@ -79,6 +80,7 @@ public class GameServerItemListActivity extends AppCompatActivity
     static List<GameServerItem> sFilteredServersList = new ArrayList<>(); // Helper collection for keeping search results
     private ActionBar mActionBar;
     private SearchView mSearchView;
+    private ShareActionProvider mShareActionProvider;
 
     public static boolean isTwoPaneMode() {
         return sTwoPane;
@@ -211,10 +213,16 @@ public class GameServerItemListActivity extends AppCompatActivity
             mActionBar.setBackgroundDrawable(new ColorDrawable(ContextCompat
                     .getColor(this, R.color.dark_action_bar)));
         }
+        MenuItem menuShareServer = menu.findItem(R.id.action_share_server);
         if (!sTwoPane) {
             // Hiding action button for adding server in portrait mode (using FAB instead)
             MenuItem menuAddServer = menu.findItem(R.id.action_add_server);
             menuAddServer.setVisible(false);
+            // Hiding action button for sharing server in one pane mode
+            menuShareServer.setVisible(false);
+        } else {
+            // Fetch and store ShareActionProvider
+            mShareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(menuShareServer);
         }
         return true;
     }

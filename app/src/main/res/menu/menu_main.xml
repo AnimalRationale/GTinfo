@@ -14,6 +14,13 @@
         android:orderInCategory="85"
         app:showAsAction="always" />
     <item
+        android:id="@+id/action_share_server"
+        android:title="@string/menu_action_share_server"
+        android:orderInCategory="85"
+        app:showAsAction="always"
+        app:actionProviderClass=
+            "android.support.v7.widget.ShareActionProvider"/>
+    <item
         android:id="@+id/action_about"
         android:title="@string/menu_action_about"
         android:orderInCategory="95"
