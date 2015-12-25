@@ -17,9 +17,8 @@
         android:id="@+id/action_share_server"
         android:title="@string/menu_action_share_server"
         android:orderInCategory="85"
-        app:showAsAction="always"
-        app:actionProviderClass=
-            "android.support.v7.widget.ShareActionProvider"/>
+        android:icon="@drawable/ic_share_white_24dp"
+        app:showAsAction="always"/>
     <item
         android:id="@+id/action_about"
         android:title="@string/menu_action_about"
