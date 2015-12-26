@@ -322,6 +322,17 @@ public class GameServerItemListActivity extends AppCompatActivity
                         .show();
             }
         }
+        if (id == R.id.action_share_server) {
+            if (isTwoPaneMode() && sSelected != NO_ITEM && sSelected < sServersList.size()) {
+                GameServerItem gameServer = sServersList.get(sSelected);
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, gameServer.mName + " " + gameServer.mId);
+                sendIntent.setType("text/plain");
+                startActivity(Intent.createChooser(sendIntent,
+                        getResources().getText(R.string.share_server_chooser_title)));
+            }
+        }
         return super.onOptionsItemSelected(item);
     }
 
