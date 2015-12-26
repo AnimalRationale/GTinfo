@@ -110,6 +110,18 @@ public class GameServerItemDetailActivity extends AppCompatActivity {
             Intent settingsIntent = new Intent(this, AddGameServerActivity.class);
             this.startActivityForResult(settingsIntent, ADD_SERVER_INTENT_REQUEST);
         }
+        if (id == R.id.action_share_server) {
+            int position = getIntent().getIntExtra(FRAGMENT_ARG_ITEM_ID, NO_ITEM);
+            if (position != NO_ITEM) {
+                GameServerItem gameServer = GameServerItemListActivity.sServersList.get(position);
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, gameServer.mName + " " + gameServer.mId);
+                sendIntent.setType("text/plain");
+                startActivity(Intent.createChooser(sendIntent,
+                        getResources().getText(R.string.share_server_chooser_title)));
+            }
+        }
         return super.onOptionsItemSelected(item);
     }
 

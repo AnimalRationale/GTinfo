@@ -31,6 +31,8 @@
     <string name="menu_action_clear_list">Clear current list</string>
     <string name="menu_action_clear_list_empty_info">Servers list is empty</string>
 
+    <string name="share_server_chooser_title">Share server name and IP</string>
+
     <string name="search_action_positive">Matching servers:\u0020</string>
     <string name="search_action_negative">No matching server found</string>
 
