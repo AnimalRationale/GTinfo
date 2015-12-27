@@ -167,5 +167,7 @@ public class GameServerItemDetailActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.gameserveritem_detail_container, fragment)
                 .commitAllowingStateLoss();
+                // commitAllowingStateLoss workaround for IllegalStateException
+                // when getting back to activity (eg. from share app chooser)
     }
 }
