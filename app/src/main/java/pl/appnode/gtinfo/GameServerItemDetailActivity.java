@@ -166,6 +166,6 @@ public class GameServerItemDetailActivity extends AppCompatActivity {
         fragment.setArguments(arguments);
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.gameserveritem_detail_container, fragment)
-                .commit();
+                .commitAllowingStateLoss();
     }
 }
