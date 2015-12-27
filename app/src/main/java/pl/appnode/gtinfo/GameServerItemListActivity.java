@@ -323,15 +323,7 @@ public class GameServerItemListActivity extends AppCompatActivity
             }
         }
         if (id == R.id.action_share_server) {
-            if (isTwoPaneMode() && sSelected != NO_ITEM && sSelected < sServersList.size()) {
-                GameServerItem gameServer = sServersList.get(sSelected);
-                Intent sendIntent = new Intent();
-                sendIntent.setAction(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_TEXT, gameServer.mName + " " + gameServer.mId);
-                sendIntent.setType("text/plain");
-                startActivity(Intent.createChooser(sendIntent,
-                        getResources().getText(R.string.share_server_chooser_title)));
-            }
+            shareServer();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -377,6 +369,19 @@ public class GameServerItemListActivity extends AppCompatActivity
     public void refreshWebView(View fab) {
         if (sSelected != NO_ITEM && !sServersList.isEmpty()) {
             restoreDetailPane(sSelected);
+        }
+    }
+
+    // Shows app chooser for sharing game server text data (server name and IP:port) in 2 pane mode
+    private void shareServer() {
+        if (isTwoPaneMode() && sSelected != NO_ITEM && sSelected < sServersList.size()) {
+            GameServerItem gameServer = sServersList.get(sSelected);
+            Intent sendIntent = new Intent();
+            sendIntent.setAction(Intent.ACTION_SEND);
+            sendIntent.putExtra(Intent.EXTRA_TEXT, gameServer.mName + " " + gameServer.mId);
+            sendIntent.setType("text/plain");
+            startActivity(Intent.createChooser(sendIntent,
+                    getResources().getText(R.string.share_server_chooser_title)));
         }
     }
 

@@ -111,18 +111,23 @@ public class GameServerItemDetailActivity extends AppCompatActivity {
             this.startActivityForResult(settingsIntent, ADD_SERVER_INTENT_REQUEST);
         }
         if (id == R.id.action_share_server) {
-            int position = getIntent().getIntExtra(FRAGMENT_ARG_ITEM_ID, NO_ITEM);
-            if (position != NO_ITEM) {
-                GameServerItem gameServer = GameServerItemListActivity.sServersList.get(position);
-                Intent sendIntent = new Intent();
-                sendIntent.setAction(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_TEXT, gameServer.mName + " " + gameServer.mId);
-                sendIntent.setType("text/plain");
-                startActivity(Intent.createChooser(sendIntent,
-                        getResources().getText(R.string.share_server_chooser_title)));
-            }
+            shareServer();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    // Shows app chooser for sharing game server text data (server name and IP:port) in single pane mode
+    private void shareServer() {
+        int position = getIntent().getIntExtra(FRAGMENT_ARG_ITEM_ID, NO_ITEM);
+        if (position != NO_ITEM) {
+            GameServerItem gameServer = GameServerItemListActivity.sServersList.get(position);
+            Intent sendIntent = new Intent();
+            sendIntent.setAction(Intent.ACTION_SEND);
+            sendIntent.putExtra(Intent.EXTRA_TEXT, gameServer.mName + " " + gameServer.mId);
+            sendIntent.setType("text/plain");
+            startActivity(Intent.createChooser(sendIntent,
+                    getResources().getText(R.string.share_server_chooser_title)));
+        }
     }
 
     private void setupWindowAnimations() {
