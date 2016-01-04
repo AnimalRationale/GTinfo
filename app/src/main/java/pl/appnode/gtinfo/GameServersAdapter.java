@@ -33,6 +33,18 @@ import static pl.appnode.gtinfo.PreferencesSetupHelper.isDarkTheme;
 public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.ServerViewHolder>{
 
     private static final String TAG = "GameServersAdapter";
+    private final static int CARD_DEFAULT_DARK_TWO_PANE_BACKGROUND = ContextCompat
+            .getColor(AppContextHelper.getContext(), R.color.dark_gray);
+    private final static int CARD_DEFAULT_LIGHT_TWO_PANE_BACKGROUND = ContextCompat
+            .getColor(AppContextHelper.getContext(), R.color.light_gray);
+    private final static int CARD_SELECTED_DARK_TWO_PANE_BACKGROUND = ContextCompat
+            .getColor(AppContextHelper.getContext(), R.color.black);
+    private final static int CARD_SELECTED_LIGHT_TWO_PANE_BACKGROUND = ContextCompat
+            .getColor(AppContextHelper.getContext(), R.color.white);
+    private final static int CARD_DEFAULT_DARK_SINGLE_PANE_BACKGROUND = ContextCompat
+            .getColor(AppContextHelper.getContext(), R.color.black);
+    private final static int CARD_DEFAULT_LIGHT_SINGLE_PANE_BACKGROUND = ContextCompat
+            .getColor(AppContextHelper.getContext(), R.color.white);
     private final Context mContext;
 
 
@@ -55,7 +67,7 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
                     .setCardBackgroundColor(setCardColor(position));
     }
 
-    // Returns proper background color, depending user theme settings
+    // Returns proper background color, depending on user theme settings
     private int setCardColor(int position) {
         int state = CARD_STATE_DEFAULT;
         if (GameServerItemListActivity.getSelectedItem() == position) {state = CARD_STATE_SELECTED;}
@@ -64,12 +76,12 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
             if (GameServerItemListActivity.isTwoPaneMode()) {
                 switch (state) {
                     case CARD_STATE_DEFAULT:
-                        return ContextCompat.getColor(mContext, R.color.dark_gray);
+                        return CARD_DEFAULT_DARK_TWO_PANE_BACKGROUND;
                     case CARD_STATE_SELECTED:
-                        return ContextCompat.getColor(mContext, R.color.black);
+                        return CARD_SELECTED_DARK_TWO_PANE_BACKGROUND;
                 }
             } else {
-                return ContextCompat.getColor(mContext, R.color.black);
+                return CARD_DEFAULT_DARK_SINGLE_PANE_BACKGROUND;
             }
         }
 
@@ -77,12 +89,12 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
             if (GameServerItemListActivity.isTwoPaneMode()) {
                 switch (state) {
                     case CARD_STATE_DEFAULT:
-                        return ContextCompat.getColor(mContext, R.color.light_gray);
+                        return CARD_DEFAULT_LIGHT_TWO_PANE_BACKGROUND;
                     case CARD_STATE_SELECTED:
-                        return ContextCompat.getColor(mContext, R.color.white);
+                        return CARD_SELECTED_LIGHT_TWO_PANE_BACKGROUND;
                 }
             } else {
-                return ContextCompat.getColor(mContext, R.color.white);
+                return CARD_DEFAULT_LIGHT_SINGLE_PANE_BACKGROUND;
             }
         }
         return ContextCompat.getColor(mContext, R.color.white);
