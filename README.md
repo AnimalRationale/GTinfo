@@ -13,7 +13,7 @@ App for checking if your favourite multiplayer game server has free slots (or if
 Portrait mode, servers list and server detail view:
 
 ![GTinfo main list light theme](http://appnode.pl/screenshots/GTinfo/GTinfo-servers_list02.jpg)
-![GTinfo server details dark theme](http://appnode.pl/screenshots/GTinfo/GTinfo-server_details01.jpg)
+![GTinfo server details dark theme](http://appnode.pl/screenshots/GTinfo/GTinfo-server_details01b.jpg)
 
 ---
 Delete undo and settings:
@@ -25,22 +25,22 @@ Delete undo and settings:
 Basic search:
 
 ![GTinfo action bar search widget](http://appnode.pl/screenshots/GTinfo/GTinfo-search_empty01.jpg)
-![GTinfo search filter active](http://appnode.pl/screenshots/GTinfo/GTinfo-search_active01.jpg)
+![GTinfo search filter active](http://appnode.pl/screenshots/GTinfo/GTinfo-search_active02b.jpg)
 
 ---
-Landscape/two pane mode:
+Server data edit dialog in landscape/two pane mode:
 
-![GTinfo main list landscape dark theme](http://appnode.pl/screenshots/GTinfo/GTinfo-servers_list01.jpg)
+![GTinfo main list landscape dark theme](http://appnode.pl/screenshots/GTinfo/GTinfo-server_edit01.jpg)
 
 ---
 Landscape with light theme:
 
-![GTinfo main list landscape light theme](http://appnode.pl/screenshots/GTinfo/GTinfo-servers_list_landscape02.jpg)
+![GTinfo main list landscape light theme](http://appnode.pl/screenshots/GTinfo/GTinfo-servers_list_landscape02b.jpg)
 
 ---
 Swipe to dismiss:
 
-![GTinfo swipe to dismiss light theme theme](http://appnode.pl/screenshots/GTinfo/GTinfo-swipe_dismiss02.jpg)
+![GTinfo swipe to dismiss light theme theme](http://appnode.pl/screenshots/GTinfo/GTinfo-swipe_dismiss02c.jpg)
 
 
 
