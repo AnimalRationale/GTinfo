@@ -40,6 +40,7 @@
     <string name="server_add_address_title">Server address and port:</string>
     <string name="server_add_name_title">Server name (max 30 characters):</string>
     <string name="server_add_name_hint">Short name (max 40char) for game server</string>
+    <string name="server_add_rating_title">Server rating:</string>
     <string name="server_add_cancel">Cancel</string>
     <string name="server_add_ok">OK</string>
     <string name="server_add_invalid_address">Invalid server address</string>

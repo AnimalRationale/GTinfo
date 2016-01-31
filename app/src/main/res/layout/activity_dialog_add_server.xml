@@ -52,6 +52,29 @@
         android:maxLength="30"
         android:hint="" >
     </EditText>
+    <TextView
+        android:id="@+id/serverRatingTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:gravity="center"
+        android:text="@string/server_add_rating_title"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+    <FrameLayout
+        android:layout_marginTop="4dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+        <RatingBar
+            android:id="@+id/serverRatingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:gravity="center_vertical"
+            android:numStars="3"
+            android:stepSize="1.0"
+            android:rating="0.0" />
+    </FrameLayout>
     <FrameLayout
         android:layout_marginTop="16dp"
         android:layout_width="match_parent"

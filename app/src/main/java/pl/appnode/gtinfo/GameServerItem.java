@@ -7,8 +7,11 @@ package pl.appnode.gtinfo;
 class GameServerItem {
 
     /** Game server IP address and port, should be in address:port format */
-    public String mId;
+    String mId;
 
     /** User given short name fo game server */
-    public String mName;
+    String mName;
+
+    /** Server rating */
+    String mRating;
 }
