@@ -25,6 +25,10 @@ import static pl.appnode.gtinfo.Constants.EDIT_SERVER_NAME;
 import static pl.appnode.gtinfo.Constants.EDIT_SERVER_RATING;
 import static pl.appnode.gtinfo.Constants.IP_ADDRESS_PORT_PATTERN;
 import static pl.appnode.gtinfo.Constants.NO_ITEM;
+import static pl.appnode.gtinfo.Constants.RATING_0_STARS;
+import static pl.appnode.gtinfo.Constants.RATING_1_STAR;
+import static pl.appnode.gtinfo.Constants.RATING_2_STARS;
+import static pl.appnode.gtinfo.Constants.RATING_3_STARS;
 import static pl.appnode.gtinfo.PreferencesSetupHelper.themeSetup;
 
 /**
@@ -69,13 +73,13 @@ public class AddGameServerActivity extends Activity implements View.OnClickListe
             mEditServerAddress.setText(intent.getStringExtra(EDIT_SERVER_ADDRESS));
             mEditServerName.setText(intent.getStringExtra(EDIT_SERVER_NAME));
             switch(intent.getStringExtra(EDIT_SERVER_RATING)) {
-                case "A":
+                case RATING_3_STARS:
                     mEditServerRating.setRating(3.0f);
                     break;
-                case "B":
+                case RATING_2_STARS:
                     mEditServerRating.setRating(2.0f);
                     break;
-                case "C":
+                case RATING_1_STAR:
                     mEditServerRating.setRating(1.0f);
                     break;
                 default:
@@ -96,16 +100,16 @@ public class AddGameServerActivity extends Activity implements View.OnClickListe
         int ratingValue = (int) mEditServerRating.getRating();
         switch (ratingValue) {
             case 1:
-                rating = "C";
+                rating = RATING_1_STAR;
                 break;
             case 2:
-                rating = "B";
+                rating = RATING_2_STARS;
                 break;
             case 3:
-                rating = "A";
+                rating = RATING_3_STARS;
                 break;
             default:
-                rating = "Z";
+                rating = RATING_0_STARS;
         }
         if (!address.equals("")) {
             if (validateServerAddress(address)) {
