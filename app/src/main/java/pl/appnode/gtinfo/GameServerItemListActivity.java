@@ -396,10 +396,10 @@ public class GameServerItemListActivity extends AppCompatActivity
                 put ("94.23.247.102:2502", "XG Exile Altis");
                 put("109.230.249.148:2302", "PvE NL/UK Exile Altis");
                 put("37.152.48.105:2302", "DMR PvE");
-                put("94.250.209.13:2302", "PvE Der Rentner Exile Altis");
-                put("109.236.89.182:2402", "PvE Cranky Exile Altis");
-                put("31.186.251.213:2302", "Hostile Takeover EU#1");
-                put("100.200.300.400:5555","Test 2");
+                put("94.250.209.13:2302", "Z_PvE Der Rentner Exile Altis");
+                put("109.236.89.182:2402", "3_PvE Cranky Exile Altis");
+                put("31.186.251.213:2302", "2_Hostile Takeover EU#1");
+                put("100.200.300.400:5555","1_Test 2");
                 put("184.88.43.167:2302", "Alpha1Alpha PvE Exile Altis");
                 put("185.38.151.161:2442", "UK CiC PvE Exile Altis");
             }

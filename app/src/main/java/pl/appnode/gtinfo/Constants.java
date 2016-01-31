@@ -29,10 +29,10 @@ final class Constants {
     public static final String EDIT_SERVER_LIST_POSITION = "ServerPosition";
 
     /** Server ratings */
-    public static final String RATING_0_STARS = "Z";
-    public static final String RATING_1_STAR = "1";
-    public static final String RATING_2_STARS = "2";
-    public static final String RATING_3_STARS = "3";
+    public static final String RATING_0_STARS = "00";
+    public static final String RATING_1_STAR = "01";
+    public static final String RATING_2_STARS = "02";
+    public static final String RATING_3_STARS = "03";
 
     /** SharedPreferences file for storing serves IP and custom name */
     public static final String SERVERS_PREFS_FILE = "ServersPrefsFile";
