@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import static pl.appnode.gtinfo.Constants.ADDED_SERVER_RATING;
 import static pl.appnode.gtinfo.Constants.ADD_SERVER_INTENT_REQUEST;
 import static pl.appnode.gtinfo.Constants.ADDED_SERVER_ADDRESS;
 import static pl.appnode.gtinfo.Constants.ADDED_SERVER_NAME;
@@ -470,19 +471,21 @@ public class GameServerItemListActivity extends AppCompatActivity
                 && resultIntent.getExtras() != null) {
             String serverAddress = resultIntent.getStringExtra(ADDED_SERVER_ADDRESS);
             String serverName = resultIntent.getStringExtra(ADDED_SERVER_NAME);
-            saveServerData(serverAddress, serverName, NO_ITEM);
+            String serverRating = resultIntent.getStringExtra(ADDED_SERVER_RATING);
+            saveServerData(serverAddress, serverName, serverRating, NO_ITEM);
         } else if (requestCode == EDIT_SERVER_INTENT_REQUEST && resultCode == RESULT_OK
                 && resultIntent.getExtras() != null) {
             String serverAddress = resultIntent.getStringExtra(EDIT_SERVER_ADDRESS);
             String serverName = resultIntent.getStringExtra(EDIT_SERVER_NAME);
+            String serverRating = resultIntent.getStringExtra(ADDED_SERVER_RATING);
             int position = resultIntent.getIntExtra(EDIT_SERVER_LIST_POSITION, NO_ITEM);
-            if (position != NO_ITEM) {saveServerData(serverAddress, serverName, position);}
+            if (position != NO_ITEM) {saveServerData(serverAddress, serverName, serverRating, position);}
         }
     }
 
     // Saves new item in data set or modifies existing data (if server address is edited
     // then removes old item and saves new one; server IP:PORT address is ID key for data set)
-    private void saveServerData(String address, String name, int position) {
+    private void saveServerData(String address, String name, String rating, int position) {
         SharedPreferences serversPrefs = AppContextHelper.getContext().getSharedPreferences(SERVERS_PREFS_FILE, MODE_PRIVATE);
         SharedPreferences.Editor editor = serversPrefs.edit();
         editor.putString(address, name);
@@ -490,6 +493,7 @@ public class GameServerItemListActivity extends AppCompatActivity
             GameServerItem gameServer = new GameServerItem();
             gameServer.mId = address;
             gameServer.mName = name;
+            gameServer.mRating = rating;
             sServersList.add(gameServer);
             sServersAdapter.notifyDataSetChanged();
             Log.d(LOGTAG, "Saved server: " + address + " with name: " + name);
@@ -503,6 +507,7 @@ public class GameServerItemListActivity extends AppCompatActivity
                 gameServer.mId = address;
             }
             gameServer.mName = name;
+            gameServer.mRating = rating;
             sServersAdapter.notifyItemChanged(position);
             Log.d(LOGTAG, "Edited server: " + address + " with name: " + name);
         }
@@ -519,6 +524,7 @@ public class GameServerItemListActivity extends AppCompatActivity
                 GameServerItem gameServer = new GameServerItem();
                 gameServer.mId = entry.getKey();
                 gameServer.mName = entry.getValue().toString();
+                gameServer.mRating = "Z";
                 sServersList.add(gameServer);
                 Log.d(LOGTAG, gameServer.mId + " " + gameServer.mName);
             }

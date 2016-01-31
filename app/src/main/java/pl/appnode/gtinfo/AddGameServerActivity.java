@@ -9,6 +9,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,9 +18,11 @@ import java.util.regex.Pattern;
 
 import static pl.appnode.gtinfo.Constants.ADDED_SERVER_ADDRESS;
 import static pl.appnode.gtinfo.Constants.ADDED_SERVER_NAME;
+import static pl.appnode.gtinfo.Constants.ADDED_SERVER_RATING;
 import static pl.appnode.gtinfo.Constants.EDIT_SERVER_ADDRESS;
 import static pl.appnode.gtinfo.Constants.EDIT_SERVER_LIST_POSITION;
 import static pl.appnode.gtinfo.Constants.EDIT_SERVER_NAME;
+import static pl.appnode.gtinfo.Constants.EDIT_SERVER_RATING;
 import static pl.appnode.gtinfo.Constants.IP_ADDRESS_PORT_PATTERN;
 import static pl.appnode.gtinfo.Constants.NO_ITEM;
 import static pl.appnode.gtinfo.PreferencesSetupHelper.themeSetup;
@@ -34,6 +37,7 @@ public class AddGameServerActivity extends Activity implements View.OnClickListe
     private static final String LOGTAG = "AddServer";
     private EditText mEditServerAddress;
     private EditText mEditServerName;
+    private RatingBar mEditServerRating;
     private boolean mIsEdit = false;
     private int mPosition;
 
@@ -55,6 +59,7 @@ public class AddGameServerActivity extends Activity implements View.OnClickListe
         buttonCancel.setOnClickListener(this);
         mEditServerAddress = (EditText) findViewById(R.id.serverAddress);
         mEditServerName = (EditText) findViewById(R.id.serverNameText);
+        mEditServerRating = (RatingBar) findViewById(R.id.serverRatingBar);
         getIntentData(getIntent());
     }
 
@@ -63,6 +68,19 @@ public class AddGameServerActivity extends Activity implements View.OnClickListe
         if (intent.getExtras() != null && intent.hasExtra(EDIT_SERVER_ADDRESS)) {
             mEditServerAddress.setText(intent.getStringExtra(EDIT_SERVER_ADDRESS));
             mEditServerName.setText(intent.getStringExtra(EDIT_SERVER_NAME));
+            switch(intent.getStringExtra(EDIT_SERVER_RATING)) {
+                case "A":
+                    mEditServerRating.setRating(3.0f);
+                    break;
+                case "B":
+                    mEditServerRating.setRating(2.0f);
+                    break;
+                case "C":
+                    mEditServerRating.setRating(1.0f);
+                    break;
+                default:
+                    mEditServerRating.setRating(0.0f);
+            }
             mPosition = intent.getIntExtra(EDIT_SERVER_LIST_POSITION, NO_ITEM);
             TextView editServerTitle = (TextView) findViewById(R.id.serverEditTitle);
             editServerTitle.setVisibility(View.VISIBLE);
@@ -74,9 +92,24 @@ public class AddGameServerActivity extends Activity implements View.OnClickListe
     private void pressedOk() {
         String address = mEditServerAddress.getText().toString();
         String name = mEditServerName.getText().toString();
+        String rating;
+        int ratingValue = (int) mEditServerRating.getRating();
+        switch (ratingValue) {
+            case 1:
+                rating = "C";
+                break;
+            case 2:
+                rating = "B";
+                break;
+            case 3:
+                rating = "A";
+                break;
+            default:
+                rating = "Z";
+        }
         if (!address.equals("")) {
             if (validateServerAddress(address)) {
-                resultOk(address, name);
+                resultOk(address, name, rating);
             }
         }
     }
@@ -101,17 +134,19 @@ public class AddGameServerActivity extends Activity implements View.OnClickListe
     }
 
     // Prepares and executes intent with positive result of performed action
-    private void resultOk(String address, String name) {
+    private void resultOk(String address, String name, String rating) {
         if (!mIsEdit) {
             Intent resultIntent = getIntent();
             resultIntent.putExtra(ADDED_SERVER_ADDRESS, address);
             resultIntent.putExtra(ADDED_SERVER_NAME, name);
+            resultIntent.putExtra(ADDED_SERVER_RATING, rating);
             setResult(RESULT_OK, resultIntent);
             finish();
         } else {
             Intent resultIntent = getIntent();
             resultIntent.putExtra(EDIT_SERVER_ADDRESS, address);
             resultIntent.putExtra(EDIT_SERVER_NAME, name);
+            resultIntent.putExtra(ADDED_SERVER_RATING, rating);
             resultIntent.putExtra(EDIT_SERVER_LIST_POSITION, mPosition);
             setResult(RESULT_OK, resultIntent);
             finish();

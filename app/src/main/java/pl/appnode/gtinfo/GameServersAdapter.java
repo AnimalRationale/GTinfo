@@ -22,6 +22,7 @@ import static pl.appnode.gtinfo.Constants.EDIT_SERVER_ADDRESS;
 import static pl.appnode.gtinfo.Constants.EDIT_SERVER_INTENT_REQUEST;
 import static pl.appnode.gtinfo.Constants.EDIT_SERVER_LIST_POSITION;
 import static pl.appnode.gtinfo.Constants.EDIT_SERVER_NAME;
+import static pl.appnode.gtinfo.Constants.EDIT_SERVER_RATING;
 import static pl.appnode.gtinfo.Constants.FRAGMENT_ARG_ITEM_ID;
 import static pl.appnode.gtinfo.Constants.NO_ITEM;
 import static pl.appnode.gtinfo.GameServerItemListActivity.sServersList;
@@ -148,6 +149,7 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
                 Intent settingsIntent = new Intent(mContext, AddGameServerActivity.class);
                 settingsIntent.putExtra(EDIT_SERVER_ADDRESS, gameServer.mId);
                 settingsIntent.putExtra(EDIT_SERVER_NAME, gameServer.mName);
+                settingsIntent.putExtra(EDIT_SERVER_RATING, gameServer.mRating);
                 settingsIntent.putExtra(EDIT_SERVER_LIST_POSITION, position);
                 ((GameServerItemListActivity)mContext).startActivityForResult(settingsIntent, EDIT_SERVER_INTENT_REQUEST);
             }
