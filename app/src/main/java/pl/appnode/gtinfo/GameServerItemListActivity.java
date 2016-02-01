@@ -125,6 +125,8 @@ public class GameServerItemListActivity extends AppCompatActivity
             mActionBar.setIcon(R.mipmap.ic_launcher);
         }
         if (savedInstanceState == null) {
+            // Check if local dataset version is the same as app's data current schema, run migrations if necessary
+            runDatasetMigrationsToVersion(GameServerItem.DATASET_VERSION);
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             GameServerItemListFragment fragment = new GameServerItemListFragment();
             transaction.replace(R.id.placeholder_fragment, fragment);
@@ -418,7 +420,7 @@ public class GameServerItemListActivity extends AppCompatActivity
     }
 
     // Erases app's data set
-   private void clearServersList() {
+    private void clearServersList() {
        int range = sServersList.size();
        sServersList.clear();
        sServersAdapter.notifyItemRangeRemoved(0, range);
@@ -429,7 +431,40 @@ public class GameServerItemListActivity extends AppCompatActivity
        editor.clear();
        editor.apply();
        if (isTwoPaneMode() ) {restoreDetailPane(NO_ITEM);}
-   }
+    }
+
+    private void runDatasetMigrationsToVersion(int currentDatasetVersion) {
+        // i == pending migrations counter
+        for (int i = getLocalDatasetVersion(); i < currentDatasetVersion; i++) {
+            switch (i) {
+                case 0:
+                    Log.d(LOGTAG, "Migration 0 -> 1");
+                    break;
+                case 1:
+                    Log.d(LOGTAG, "Migration 1 -> 2");
+                    break;
+                case 2:
+                    Log.d(LOGTAG, "Migration 2 -> 3");
+                    break;
+                case 3:
+                    Log.d(LOGTAG, "Migration 3 -> 4");
+                    break;
+                case 4:
+                    Log.d(LOGTAG, "Migration 4 -> 5");
+                    break;
+                case 5:
+                    Log.d(LOGTAG, "Migration 5 -> 6");
+                    break;
+                default:
+                    Log.d(LOGTAG, "No migrations needed -- i=" + i);
+            }
+        }
+    }
+
+    // Mock method for getting version of local dataset
+    private int getLocalDatasetVersion() {
+        return 0;
+    }
 
     private void showConfirmationDialog() {
         DialogFragment dialog = ConfirmationDialogFragment.newInstance(sServersList.size());
