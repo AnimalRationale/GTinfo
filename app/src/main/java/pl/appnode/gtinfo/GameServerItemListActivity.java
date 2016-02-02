@@ -441,24 +441,31 @@ public class GameServerItemListActivity extends AppCompatActivity
     private void runDatasetMigrationsToVersion(int currentDatasetVersion) {
         // i == pending migrations counter
         for (int i = getLocalDatasetVersion(); i < currentDatasetVersion; i++) {
+            Log.d(LOGTAG, "Running migrations from version " + i +" to version " + currentDatasetVersion);
             switch (i) {
                 case 0:
                     Log.d(LOGTAG, "Migration 0 -> 1");
+                    setLocalDatasetVersion(i + 1);
                     break;
                 case 1:
                     Log.d(LOGTAG, "Migration 1 -> 2");
+                    setLocalDatasetVersion(i + 1);
                     break;
                 case 2:
                     Log.d(LOGTAG, "Migration 2 -> 3");
+                    setLocalDatasetVersion(i + 1);
                     break;
                 case 3:
                     Log.d(LOGTAG, "Migration 3 -> 4");
+                    setLocalDatasetVersion(i + 1);
                     break;
                 case 4:
                     Log.d(LOGTAG, "Migration 4 -> 5");
+                    setLocalDatasetVersion(i + 1);
                     break;
                 case 5:
                     Log.d(LOGTAG, "Migration 5 -> 6");
+                    setLocalDatasetVersion(i + 1);
                     break;
                 default:
                     Log.d(LOGTAG, "No migrations needed -- i=" + i);
@@ -484,6 +491,13 @@ public class GameServerItemListActivity extends AppCompatActivity
             Log.d(LOGTAG, "Key was created, local dataset version: " + localDatasetVersion);
         }
         return localDatasetVersion;
+    }
+
+    //Sets version of local dataset
+    private void setLocalDatasetVersion(int version) {
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
+        settings.edit().putInt("settings_dataset_version", version).apply();
+        Log.d(LOGTAG, "Local dataset version seto to: " + version);
     }
 
     private void showConfirmationDialog() {

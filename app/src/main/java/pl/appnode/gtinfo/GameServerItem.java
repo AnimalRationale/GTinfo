@@ -6,7 +6,7 @@ package pl.appnode.gtinfo;
 
 class GameServerItem {
 
-    static final int DATASET_VERSION = 3;
+    static final int DATASET_VERSION = 6;
 
     /** Game server IP address and port, should be in address:port format */
     String mId;
