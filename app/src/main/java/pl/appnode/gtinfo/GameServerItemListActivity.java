@@ -311,6 +311,10 @@ public class GameServerItemListActivity extends AppCompatActivity
             Intent settingsIntent = new Intent(this, PreferencesActivity.class);
             this.startActivity(settingsIntent);
         }
+        // Debug tool option for zeroing local dataset version
+        if (id == R.id.action_reset_dataset_version) {
+            setLocalDatasetVersion(0);
+        }
         if (id == R.id.action_populate) {
             populateServerList();
         }
@@ -439,37 +443,41 @@ public class GameServerItemListActivity extends AppCompatActivity
     }
 
     private void runDatasetMigrationsToVersion(int currentDatasetVersion) {
-        // i == pending migrations counter
-        for (int i = getLocalDatasetVersion(); i < currentDatasetVersion; i++) {
-            Log.d(LOGTAG, "Running migrations from version " + i +" to version " + currentDatasetVersion);
-            switch (i) {
-                case 0:
-                    Log.d(LOGTAG, "Migration 0 -> 1");
-                    setLocalDatasetVersion(i + 1);
-                    break;
-                case 1:
-                    Log.d(LOGTAG, "Migration 1 -> 2");
-                    setLocalDatasetVersion(i + 1);
-                    break;
-                case 2:
-                    Log.d(LOGTAG, "Migration 2 -> 3");
-                    setLocalDatasetVersion(i + 1);
-                    break;
-                case 3:
-                    Log.d(LOGTAG, "Migration 3 -> 4");
-                    setLocalDatasetVersion(i + 1);
-                    break;
-                case 4:
-                    Log.d(LOGTAG, "Migration 4 -> 5");
-                    setLocalDatasetVersion(i + 1);
-                    break;
-                case 5:
-                    Log.d(LOGTAG, "Migration 5 -> 6");
-                    setLocalDatasetVersion(i + 1);
-                    break;
-                default:
-                    Log.d(LOGTAG, "No migrations needed -- i=" + i);
+        int localDatasetVersion = getLocalDatasetVersion();
+        if (localDatasetVersion >= 0 && localDatasetVersion < currentDatasetVersion) {
+            Log.d(LOGTAG, "Running migrations from version " + localDatasetVersion +" to version " + currentDatasetVersion);
+            for (int i = localDatasetVersion; i < currentDatasetVersion; i++) {
+                switch (i) {
+                    case 0:
+                        Log.d(LOGTAG, "Migration 0 -> 1");
+                        setLocalDatasetVersion(i + 1);
+                        break;
+                    case 1:
+                        Log.d(LOGTAG, "Migration 1 -> 2");
+                        setLocalDatasetVersion(i + 1);
+                        break;
+                    case 2:
+                        Log.d(LOGTAG, "Migration 2 -> 3");
+                        setLocalDatasetVersion(i + 1);
+                        break;
+                    case 3:
+                        Log.d(LOGTAG, "Migration 3 -> 4");
+                        setLocalDatasetVersion(i + 1);
+                        break;
+                    case 4:
+                        Log.d(LOGTAG, "Migration 4 -> 5");
+                        setLocalDatasetVersion(i + 1);
+                        break;
+                    case 5:
+                        Log.d(LOGTAG, "Migration 5 -> 6");
+                        setLocalDatasetVersion(i + 1);
+                        break;
+                    default:
+                        Log.d(LOGTAG, "No migrations needed -- i=" + i);
+                }
             }
+        } else {
+            Log.d(LOGTAG, "No migration, local=" + localDatasetVersion + " current=" + currentDatasetVersion);
         }
     }
 
@@ -497,7 +505,7 @@ public class GameServerItemListActivity extends AppCompatActivity
     private void setLocalDatasetVersion(int version) {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
         settings.edit().putInt("settings_dataset_version", version).apply();
-        Log.d(LOGTAG, "Local dataset version seto to: " + version);
+        Log.d(LOGTAG, "Local dataset version set to: " + version);
     }
 
     private void showConfirmationDialog() {

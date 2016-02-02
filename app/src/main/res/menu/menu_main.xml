@@ -30,6 +30,11 @@
         android:orderInCategory="90"
         app:showAsAction="never" />
     <item
+        android:id="@+id/action_reset_dataset_version"
+        android:title="@string/menu_action_reset_dataset_version"
+        android:orderInCategory="100"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/action_populate"
         android:title="@string/menu_action_populate"
         android:orderInCategory="100"
