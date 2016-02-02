@@ -4,6 +4,7 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
+import android.preference.PreferenceManager;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
@@ -433,6 +434,10 @@ public class GameServerItemListActivity extends AppCompatActivity
        if (isTwoPaneMode() ) {restoreDetailPane(NO_ITEM);}
     }
 
+    private void checkDatasetVersio() {
+
+    }
+
     private void runDatasetMigrationsToVersion(int currentDatasetVersion) {
         // i == pending migrations counter
         for (int i = getLocalDatasetVersion(); i < currentDatasetVersion; i++) {
@@ -461,9 +466,24 @@ public class GameServerItemListActivity extends AppCompatActivity
         }
     }
 
-    // Mock method for getting version of local dataset
+    // Gets version of local dataset
     private int getLocalDatasetVersion() {
-        return 0;
+        int localDatasetVersion = -1;
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
+        if (settings.contains("settings_dataset_version")) {
+            localDatasetVersion = settings.getInt("settings_dataset_version", -1);
+            Log.d(LOGTAG, "Key exists, local dataset version: " + localDatasetVersion);
+            if (localDatasetVersion == -1) {
+                localDatasetVersion = 0;
+                settings.edit().putInt("settings_dataset_version", localDatasetVersion).apply();
+                Log.d(LOGTAG, "Key exists, but had improper value, set to: " + localDatasetVersion);
+            }
+        } else {
+            localDatasetVersion = 0;
+            settings.edit().putInt("settings_dataset_version", localDatasetVersion).apply();
+            Log.d(LOGTAG, "Key was created, local dataset version: " + localDatasetVersion);
+        }
+        return localDatasetVersion;
     }
 
     private void showConfirmationDialog() {
