@@ -4,6 +4,7 @@ package pl.appnode.gtinfo;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -14,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import static pl.appnode.gtinfo.Constants.CARD_STATE_DEFAULT;
@@ -25,6 +27,9 @@ import static pl.appnode.gtinfo.Constants.EDIT_SERVER_NAME;
 import static pl.appnode.gtinfo.Constants.EDIT_SERVER_RATING;
 import static pl.appnode.gtinfo.Constants.FRAGMENT_ARG_ITEM_ID;
 import static pl.appnode.gtinfo.Constants.NO_ITEM;
+import static pl.appnode.gtinfo.Constants.RATING_1_STAR;
+import static pl.appnode.gtinfo.Constants.RATING_2_STARS;
+import static pl.appnode.gtinfo.Constants.RATING_3_STARS;
 import static pl.appnode.gtinfo.GameServerItemListActivity.sServersList;
 import static pl.appnode.gtinfo.PreferencesSetupHelper.isDarkTheme;
 
@@ -47,7 +52,14 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
     private final static int CARD_DEFAULT_LIGHT_SINGLE_PANE_BACKGROUND = ContextCompat
             .getColor(AppContextHelper.getContext(), R.color.white);
     private final Context mContext;
-
+    private final static Drawable CARD_RATING_0_STARS_IMAGE = ContextCompat
+            .getDrawable(AppContextHelper.getContext(), R.drawable.ic_local_play_grey_48px);
+    private final static Drawable CARD_RATING_1_STAR_IMAGE = ContextCompat
+            .getDrawable(AppContextHelper.getContext(), R.drawable.ic_star_border_grey_48px);
+    private final static Drawable CARD_RATING_2_STARS_IMAGE = ContextCompat
+            .getDrawable(AppContextHelper.getContext(), R.drawable.ic_star_half_grey_48px);
+    private final static Drawable CARD_RATING_3_STARS_IMAGE = ContextCompat
+            .getDrawable(AppContextHelper.getContext(), R.drawable.ic_star_full_grey_48px);
 
     public GameServersAdapter(Context context) {
         mContext = context;
@@ -66,6 +78,7 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
         serverViewHolder.vAddress.setText(gameServer.mId);
         ((CardView)serverViewHolder.itemView)
                     .setCardBackgroundColor(setCardColor(position));
+        serverViewHolder.vImage.setImageDrawable(setCardImage(gameServer.mRating));
     }
 
     // Returns proper background color, depending on user theme settings
@@ -99,6 +112,19 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
             }
         }
         return ContextCompat.getColor(mContext, R.color.white);
+    }
+
+    private Drawable setCardImage(String rating) {
+        switch (rating) {
+            case RATING_1_STAR:
+                return CARD_RATING_1_STAR_IMAGE;
+            case RATING_2_STARS:
+                return CARD_RATING_2_STARS_IMAGE;
+            case RATING_3_STARS:
+                return CARD_RATING_3_STARS_IMAGE;
+            default:
+                return CARD_RATING_0_STARS_IMAGE;
+        }
     }
 
     @Override
@@ -165,6 +191,7 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
         int vPosition;
         TextView vName;
         TextView vAddress;
+        ImageView vImage;
 
         public ServerViewHolder(View itemCardView, IViewHolderOnClicks listener) {
             super(itemCardView);
@@ -172,6 +199,7 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
             mLongClickListener = listener;
             vName = (TextView) itemCardView.findViewById(R.id.server_name);
             vAddress = (TextView) itemCardView.findViewById(R.id.server_address);
+            vImage = (ImageView) itemCardView.findViewById(R.id.image_rating);
             itemCardView.setOnClickListener(this);
             itemCardView.setOnLongClickListener(this);
         }
