@@ -23,7 +23,7 @@
             android:layout_margin="4dp"
             android:padding="0dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_star_full_grey_48px"
+            android:src="@drawable/ic_local_play_grey_48px"
         />
         <TextView
             android:id="@+id/server_name"
