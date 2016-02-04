@@ -27,6 +27,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
@@ -573,6 +575,7 @@ public class GameServerItemListActivity extends AppCompatActivity
             gameServer.mName = name;
             gameServer.mRating = rating;
             sServersList.add(gameServer);
+            sortGameServersList();
             sServersAdapter.notifyDataSetChanged();
             Log.d(LOGTAG, "Saved server: " + address + " with name: " + name);
         } else {
@@ -586,6 +589,7 @@ public class GameServerItemListActivity extends AppCompatActivity
             }
             gameServer.mName = name;
             gameServer.mRating = rating;
+            sortGameServersList();
             sServersAdapter.notifyItemChanged(position);
             Log.d(LOGTAG, "Edited server: " + address + " with name: " + name);
         }
@@ -606,7 +610,17 @@ public class GameServerItemListActivity extends AppCompatActivity
                 sServersList.add(gameServer);
                 Log.d(LOGTAG, gameServer.mId + " " + gameServer.mName);
             }
+            sortGameServersList();
         }
+    }
+
+    private void sortGameServersList() {
+        Collections.sort(sServersList, new Comparator<GameServerItem>() {
+            @Override
+            public int compare(GameServerItem server1, GameServerItem server2) {
+                return server1.mName.compareToIgnoreCase(server2.mName);
+            }
+        });
     }
 
     @Override
