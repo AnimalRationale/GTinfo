@@ -10,10 +10,11 @@
     <color name="black_overlay">#66000000</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="dark_gray">#FF444444</color>
-    <color name="light_gray">#FFEFEFEF</color>
+    <color name="dark_grey">#FF444444</color>
+    <color name="light_grey">#FFEFEFEF</color>
     <color name="icon_orange">#FFFD9701</color>
     <color name="icon_orange_light">#FFFEC166</color>
+    <color name="icon_list_orange_light">#FFFFC107</color>
     <color name="green">#FF4CAF50</color>
     <color name="dark_green">#FF388E3C</color>
     <color name="light_green">#FF8BC34A</color>

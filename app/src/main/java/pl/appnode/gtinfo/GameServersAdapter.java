@@ -4,6 +4,8 @@ package pl.appnode.gtinfo;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -40,9 +42,9 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
 
     private static final String TAG = "GameServersAdapter";
     private final static int CARD_DEFAULT_DARK_TWO_PANE_BACKGROUND = ContextCompat
-            .getColor(AppContextHelper.getContext(), R.color.dark_gray);
+            .getColor(AppContextHelper.getContext(), R.color.dark_grey);
     private final static int CARD_DEFAULT_LIGHT_TWO_PANE_BACKGROUND = ContextCompat
-            .getColor(AppContextHelper.getContext(), R.color.light_gray);
+            .getColor(AppContextHelper.getContext(), R.color.light_grey);
     private final static int CARD_SELECTED_DARK_TWO_PANE_BACKGROUND = ContextCompat
             .getColor(AppContextHelper.getContext(), R.color.black);
     private final static int CARD_SELECTED_LIGHT_TWO_PANE_BACKGROUND = ContextCompat
@@ -115,16 +117,40 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
     }
 
     private Drawable setCardImage(String rating) {
+        int listRatingIconColor;
+        int listDefaultIconColor;
+        if (isDarkTheme(mContext)) {
+            listRatingIconColor = argbColor(ContextCompat
+                    .getColor(mContext, R.color.icon_list_orange_light));
+            listDefaultIconColor = argbColor(ContextCompat
+                    .getColor(mContext, R.color.white));
+        } else {
+            listDefaultIconColor = argbColor(ContextCompat
+                    .getColor(mContext, R.color.dark_grey));
+            listRatingIconColor = argbColor(ContextCompat
+                .getColor(mContext, R.color.icon_list_orange_light));}
         switch (rating) {
             case RATING_1_STAR:
+                CARD_RATING_1_STAR_IMAGE.setColorFilter(listRatingIconColor, PorterDuff.Mode.SRC_IN);
                 return CARD_RATING_1_STAR_IMAGE;
             case RATING_2_STARS:
+                CARD_RATING_2_STARS_IMAGE.setColorFilter(listRatingIconColor, PorterDuff.Mode.SRC_IN);
                 return CARD_RATING_2_STARS_IMAGE;
             case RATING_3_STARS:
+                CARD_RATING_3_STARS_IMAGE.setColorFilter(listRatingIconColor, PorterDuff.Mode.SRC_IN);
                 return CARD_RATING_3_STARS_IMAGE;
             default:
+                CARD_RATING_0_STARS_IMAGE.setColorFilter(listDefaultIconColor, PorterDuff.Mode.SRC_IN);
                 return CARD_RATING_0_STARS_IMAGE;
         }
+    }
+
+    private int argbColor(int colorResource) {
+        int color = Color.argb(Color.alpha(colorResource),
+                Color.red(colorResource),
+                Color.green(colorResource),
+                Color.blue(colorResource));
+        return color;
     }
 
     @Override
