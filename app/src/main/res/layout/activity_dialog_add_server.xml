@@ -1,100 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="match_parent">
-    <TextView
-        android:id="@+id/serverEditTitle"
-        android:visibility="gone"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:gravity="center"
-        android:text="@string/server_edit_title"
-        android:textColor="@color/green"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-    <TextView
-        android:id="@+id/serverAddressTitle"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:gravity="center"
-        android:text="@string/server_add_address_title"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-    <EditText
-        android:id="@+id/serverAddress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:inputType="textNoSuggestions|textVisiblePassword"
-        android:maxLength="21"
-        android:digits="0123456789.:"
-        android:hint="000.000.000.000:00000"
-        android:layout_marginLeft="34dp"
-        android:layout_marginRight="34dp"
-        android:textAppearance="?android:attr/textAppearanceLarge">
-    </EditText>
-    <TextView
-        android:id="@+id/serverNameTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:gravity="center"
-        android:text="@string/server_add_name_title"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-    <EditText
-        android:id="@+id/serverNameText"
-        android:layout_width="match_parent"
-        android:inputType="text|textNoSuggestions"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:maxLength="30"
-        android:hint="" >
-    </EditText>
-    <TextView
-        android:id="@+id/serverRatingTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="18dp"
-        android:gravity="center"
-        android:text="@string/server_add_rating_title"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-    <FrameLayout
-        android:layout_marginTop="4dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal">
-        <RatingBar
-            android:id="@+id/serverRatingBar"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/serverEditTitle"
+            android:visibility="gone"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:gravity="center"
+            android:text="@string/server_edit_title"
+            android:textColor="@color/green"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+        <TextView
+            android:id="@+id/serverAddressTitle"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:gravity="center"
+            android:text="@string/server_add_address_title"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+        <EditText
+            android:id="@+id/serverAddress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="0dp"
-            android:gravity="center_vertical"
-            android:numStars="3"
-            android:stepSize="1.0"
-            android:rating="0.0" />
-    </FrameLayout>
-    <FrameLayout
-        android:layout_marginTop="16dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal" >
-        <Button
-            android:id="@+id/cancelAddServer"
+            android:layout_gravity="center"
+            android:inputType="textNoSuggestions|textVisiblePassword"
+            android:maxLength="21"
+            android:digits="0123456789.:"
+            android:hint="000.000.000.000:00000"
+            android:layout_marginLeft="34dp"
+            android:layout_marginRight="34dp"
+            android:textAppearance="?android:attr/textAppearanceLarge">
+        </EditText>
+        <TextView
+            android:id="@+id/serverNameTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:gravity="center"
+            android:text="@string/server_add_name_title"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+        <EditText
+            android:id="@+id/serverNameText"
+            android:layout_width="match_parent"
+            android:inputType="text|textNoSuggestions"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:maxLength="30"
+            android:hint="" >
+        </EditText>
+        <TextView
+            android:id="@+id/serverRatingTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:gravity="center"
+            android:text="@string/server_add_rating_title"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+        <FrameLayout
+            android:layout_marginTop="4dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/server_add_cancel"
-            android:layout_gravity="left|top"
-            style="?android:attr/borderlessButtonStyle"
-            android:textSize="18sp" />
-        <Button
-            android:id="@+id/okAddServer"
-            android:layout_width="wrap_content"
+            android:layout_gravity="center_horizontal">
+            <RatingBar
+                android:id="@+id/serverRatingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:gravity="center_vertical"
+                android:numStars="3"
+                android:stepSize="1.0"
+                android:rating="0.0" />
+        </FrameLayout>
+        <FrameLayout
+            android:layout_marginTop="16dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/server_add_ok"
-            android:layout_gravity="right|top"
-            style="?android:attr/borderlessButtonStyle"
-            android:textSize="18sp" />
-    </FrameLayout>
-</LinearLayout>
+            android:layout_gravity="center_horizontal" >
+            <Button
+                android:id="@+id/cancelAddServer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/server_add_cancel"
+                android:layout_gravity="left|top"
+                style="?android:attr/borderlessButtonStyle"
+                android:textSize="18sp" />
+            <Button
+                android:id="@+id/okAddServer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/server_add_ok"
+                android:layout_gravity="right|top"
+                style="?android:attr/borderlessButtonStyle"
+                android:textSize="18sp" />
+        </FrameLayout>
+    </LinearLayout>
+</ScrollView>

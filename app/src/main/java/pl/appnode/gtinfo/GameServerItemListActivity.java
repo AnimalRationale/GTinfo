@@ -40,6 +40,7 @@ import static pl.appnode.gtinfo.Constants.EDIT_SERVER_LIST_POSITION;
 import static pl.appnode.gtinfo.Constants.EDIT_SERVER_NAME;
 import static pl.appnode.gtinfo.Constants.FRAGMENT_ARG_ITEM_ID;
 import static pl.appnode.gtinfo.Constants.NO_ITEM;
+import static pl.appnode.gtinfo.Constants.RATING_0_STARS;
 import static pl.appnode.gtinfo.Constants.SELECTED_ITEM_POSITION;
 import static pl.appnode.gtinfo.Constants.SERVERS_PREFS_FILE;
 import static pl.appnode.gtinfo.GameServerItemListFragment.sServersAdapter;
@@ -601,7 +602,7 @@ public class GameServerItemListActivity extends AppCompatActivity
                 GameServerItem gameServer = new GameServerItem();
                 gameServer.mId = entry.getKey();
                 gameServer.mName = entry.getValue().toString();
-                gameServer.mRating = "Z";
+                gameServer.mRating = RATING_0_STARS;
                 sServersList.add(gameServer);
                 Log.d(LOGTAG, gameServer.mId + " " + gameServer.mName);
             }
