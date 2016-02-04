@@ -54,8 +54,6 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
     private final static int CARD_DEFAULT_LIGHT_SINGLE_PANE_BACKGROUND = ContextCompat
             .getColor(AppContextHelper.getContext(), R.color.white);
     private final Context mContext;
-    private final static Drawable CARD_RATING_0_STARS_IMAGE = ContextCompat
-            .getDrawable(AppContextHelper.getContext(), R.drawable.ic_local_play_grey_48px);
     private final static Drawable CARD_RATING_1_STAR_IMAGE = ContextCompat
             .getDrawable(AppContextHelper.getContext(), R.drawable.ic_star_border_grey_48px);
     private final static Drawable CARD_RATING_2_STARS_IMAGE = ContextCompat
@@ -80,7 +78,7 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
         serverViewHolder.vAddress.setText(gameServer.mId);
         ((CardView)serverViewHolder.itemView)
                     .setCardBackgroundColor(setCardColor(position));
-        serverViewHolder.vImage.setImageDrawable(setCardImage(gameServer.mRating));
+        serverViewHolder.vImage.setImageDrawable(setCardImage(gameServer.mRating, gameServer.mId));
     }
 
     // Returns proper background color, depending on user theme settings
@@ -116,17 +114,13 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
         return ContextCompat.getColor(mContext, R.color.white);
     }
 
-    private Drawable setCardImage(String rating) {
+    private Drawable setCardImage(String rating, String address) {
         int listRatingIconColor;
-        int listDefaultIconColor;
+        int listDefaultIconColor = setColorFromServerAddress(address);
         if (isDarkTheme(mContext)) {
             listRatingIconColor = argbColor(ContextCompat
                     .getColor(mContext, R.color.icon_list_orange_light));
-            listDefaultIconColor = argbColor(ContextCompat
-                    .getColor(mContext, R.color.white));
         } else {
-            listDefaultIconColor = argbColor(ContextCompat
-                    .getColor(mContext, R.color.dark_grey));
             listRatingIconColor = argbColor(ContextCompat
                 .getColor(mContext, R.color.icon_list_orange_light));}
         switch (rating) {
@@ -140,8 +134,10 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
                 CARD_RATING_3_STARS_IMAGE.setColorFilter(listRatingIconColor, PorterDuff.Mode.SRC_IN);
                 return CARD_RATING_3_STARS_IMAGE;
             default:
-                CARD_RATING_0_STARS_IMAGE.setColorFilter(listDefaultIconColor, PorterDuff.Mode.SRC_IN);
-                return CARD_RATING_0_STARS_IMAGE;
+                Drawable defaultIcon = ContextCompat
+                        .getDrawable(AppContextHelper.getContext(), R.drawable.ic_local_play_grey_48px).mutate();
+                defaultIcon.setColorFilter(listDefaultIconColor, PorterDuff.Mode.SRC_IN);
+                return defaultIcon;
         }
     }
 
@@ -151,6 +147,14 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
                 Color.green(colorResource),
                 Color.blue(colorResource));
         return color;
+    }
+
+    private int setColorFromServerAddress(String address) {
+        String[] parts = address.split("\\.");
+        int r = Integer.parseInt(parts[0]);
+        int g = Integer.parseInt(parts[1]);
+        int b = Integer.parseInt(parts[0]);
+        return Color.rgb(r, g, b);
     }
 
     @Override
