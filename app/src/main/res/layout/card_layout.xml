@@ -21,9 +21,10 @@
             android:layout_height="42dp"
             android:layout_width="42dp"
             android:layout_margin="4dp"
-            android:padding="0dp"
-            android:scaleType="centerCrop"
-            android:background="@drawable/round_background"
+            android:paddingTop="1dp"
+            android:paddingBottom="4dp"
+            android:scaleType="centerInside"
+            android:background="@drawable/round_grey_background"
         />
         <TextView
             android:id="@+id/server_name"

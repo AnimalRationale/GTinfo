@@ -7,6 +7,7 @@ import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -78,7 +79,8 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
         serverViewHolder.vAddress.setText(gameServer.mId);
         ((CardView)serverViewHolder.itemView)
                     .setCardBackgroundColor(setCardColor(position));
-        serverViewHolder.vImage.setImageDrawable(setCardImage(gameServer.mRating, gameServer.mId));
+        serverViewHolder.vImage.setImageDrawable(setCardImage(serverViewHolder, gameServer.mRating, gameServer.mId));
+        final View image = serverViewHolder.vImage;
     }
 
     // Returns proper background color, depending on user theme settings
@@ -114,9 +116,12 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
         return ContextCompat.getColor(mContext, R.color.white);
     }
 
-    private Drawable setCardImage(String rating, String address) {
+    private Drawable setCardImage(ServerViewHolder serverViewHolder, String rating, String address) {
         int listRatingIconColor;
         int listDefaultIconColor = setColorFromServerAddress(address);
+        View image = serverViewHolder.vImage;
+        final GradientDrawable imageBackground = (GradientDrawable) image.getBackground();
+        if (imageBackground != null) imageBackground.setColor(listDefaultIconColor);
         if (isDarkTheme(mContext)) {
             listRatingIconColor = argbColor(ContextCompat
                     .getColor(mContext, R.color.icon_list_orange_light));
