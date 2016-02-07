@@ -30,6 +30,7 @@ import static pl.appnode.gtinfo.Constants.EDIT_SERVER_NAME;
 import static pl.appnode.gtinfo.Constants.EDIT_SERVER_RATING;
 import static pl.appnode.gtinfo.Constants.FRAGMENT_ARG_ITEM_ID;
 import static pl.appnode.gtinfo.Constants.NO_ITEM;
+import static pl.appnode.gtinfo.Constants.RATING_0_STARS;
 import static pl.appnode.gtinfo.Constants.RATING_1_STAR;
 import static pl.appnode.gtinfo.Constants.RATING_2_STARS;
 import static pl.appnode.gtinfo.Constants.RATING_3_STARS;
@@ -55,8 +56,6 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
     private final static int CARD_DEFAULT_LIGHT_SINGLE_PANE_BACKGROUND = ContextCompat
             .getColor(AppContextHelper.getContext(), R.color.white);
     private final Context mContext;
-    private final static Drawable CARD_RATING_0_STARS_IMAGE = ContextCompat
-            .getDrawable(AppContextHelper.getContext(), R.drawable.ic_local_play_grey_48px);
     private final static Drawable CARD_RATING_1_STAR_IMAGE = ContextCompat
             .getDrawable(AppContextHelper.getContext(), R.drawable.ic_star_border_grey_48px);
     private final static Drawable CARD_RATING_2_STARS_IMAGE = ContextCompat
@@ -81,7 +80,11 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
         serverViewHolder.vAddress.setText(gameServer.mId);
         ((CardView)serverViewHolder.itemView)
                     .setCardBackgroundColor(setCardColor(position));
-        serverViewHolder.vImage.setImageDrawable(setCardImage(serverViewHolder, gameServer.mRating, gameServer.mId));
+        serverViewHolder.vImage.setImageDrawable(setCardImage(serverViewHolder, gameServer.mRating,
+                gameServer.mId));
+        if (gameServer.mRating.equals(RATING_0_STARS)) {
+
+        }
     }
 
     // Returns proper background color, depending on user theme settings
@@ -140,7 +143,7 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
                 CARD_RATING_3_STARS_IMAGE.setColorFilter(listRatingIconColor, PorterDuff.Mode.SRC_IN);
                 return CARD_RATING_3_STARS_IMAGE;
             default:
-                return CARD_RATING_0_STARS_IMAGE;
+                return null;
         }
     }
 

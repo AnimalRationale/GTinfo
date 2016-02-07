@@ -16,22 +16,39 @@
         android:layout_width="fill_parent"
         android:layout_height="?android:attr/listPreferredItemHeight"
         android:padding="6dip">
-        <ImageView
-            android:id="@+id/image_rating"
-            android:layout_height="42dp"
-            android:layout_width="42dp"
-            android:layout_margin="4dp"
-            android:paddingTop="1dp"
-            android:paddingBottom="4dp"
-            android:scaleType="centerInside"
-            android:background="@drawable/round_grey_background"
-        />
+        <RelativeLayout
+            android:id="@+id/server_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/image_rating"
+                android:layout_height="42dp"
+                android:layout_width="42dp"
+                android:layout_margin="4dp"
+                android:paddingTop="1dp"
+                android:paddingBottom="4dp"
+                android:scaleType="centerInside"
+                android:background="@drawable/round_grey_background"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/image_rating"
+                android:layout_alignTop="@+id/image_rating"
+                android:layout_alignRight="@+id/image_rating"
+                android:layout_alignBottom="@+id/image_rating"
+                android:layout_margin="1dp"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="22sp"/>
+        </RelativeLayout>
         <TextView
             android:id="@+id/server_name"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@id/image_rating"
+            android:layout_toRightOf="@id/server_label"
             android:gravity="left"
             android:text="@string/card_server_name_default"
             android:textStyle="bold"
@@ -42,7 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginBottom="8dp"
-            android:layout_toRightOf="@id/image_rating"
+            android:layout_toRightOf="@id/server_label"
             android:layout_alignParentBottom="true"
             android:gravity="left"
             android:text="@string/card_server_address_default"
