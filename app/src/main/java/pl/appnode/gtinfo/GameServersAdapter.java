@@ -83,8 +83,8 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
         serverViewHolder.vImage.setImageDrawable(setCardImage(serverViewHolder, gameServer.mRating,
                 gameServer.mId));
         if (gameServer.mRating.equals(RATING_0_STARS)) {
-
-        }
+            serverViewHolder.vFirstLetter.setText(gameServer.mName.substring(0, 1));
+        } else serverViewHolder.vFirstLetter.setText("");
     }
 
     // Returns proper background color, depending on user theme settings
@@ -228,6 +228,7 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
         TextView vName;
         TextView vAddress;
         ImageView vImage;
+        TextView vFirstLetter;
 
         public ServerViewHolder(View itemCardView, IViewHolderOnClicks listener) {
             super(itemCardView);
@@ -236,6 +237,7 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
             vName = (TextView) itemCardView.findViewById(R.id.server_name);
             vAddress = (TextView) itemCardView.findViewById(R.id.server_address);
             vImage = (ImageView) itemCardView.findViewById(R.id.image_rating);
+            vFirstLetter = (TextView) itemCardView.findViewById(R.id.server_first_letter);
             itemCardView.setOnClickListener(this);
             itemCardView.setOnLongClickListener(this);
         }

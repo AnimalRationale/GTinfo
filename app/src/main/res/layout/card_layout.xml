@@ -30,6 +30,7 @@
                 android:scaleType="centerInside"
                 android:background="@drawable/round_grey_background"/>
             <TextView
+                android:id="@+id/server_first_letter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/image_rating"
