@@ -513,17 +513,17 @@ public class GameServerItemListActivity extends AppCompatActivity
                 .getSharedPreferences(SERVERS_PREFS_FILE, 0);
         Map<String, ?> keys = gameServersPrefs.getAll();
         if (!keys.isEmpty()) {
-            // SharedPreferences.Editor editor = gameServersPrefs.edit();
+            SharedPreferences.Editor editor = gameServersPrefs.edit();
             for (Map.Entry<String, ?> entry : keys.entrySet()) {
                 GameServerItem gameServer = new GameServerItem();
                 gameServer.mId = entry.getKey();
                 gameServer.mName = entry.getValue().toString();
                 gameServer.mRating = RATING_0_STARS;
-                String serverValue = gameServer.mRating + "_" + gameServer.mName;
-                // editor.putString(gameServer.mId, serverValue);
-                Log.d(LOGTAG, "Migrated: " + gameServer.mId + ":" + serverValue);
+                String serverValue = gameServer.mRating + " " + gameServer.mName;
+                editor.putString(gameServer.mId, serverValue);
+                Log.d(LOGTAG, "Migrated: " + gameServer.mId + " " + serverValue);
             }
-            // editor.commit();
+            editor.commit();
         }
     }
 
@@ -584,11 +584,11 @@ public class GameServerItemListActivity extends AppCompatActivity
     private void saveServerData(String address, String name, String rating, int position) {
         SharedPreferences serversPrefs = AppContextHelper.getContext().getSharedPreferences(SERVERS_PREFS_FILE, MODE_PRIVATE);
         SharedPreferences.Editor editor = serversPrefs.edit();
-        editor.putString(address, name);
+        editor.putString(address, rating + " " + name);
         if (position == NO_ITEM) {
             GameServerItem gameServer = new GameServerItem();
             gameServer.mId = address;
-            gameServer.mName = name;
+            gameServer.mName = rating + " " + name;
             gameServer.mRating = rating;
             sServersList.add(gameServer);
             sortGameServersList();
@@ -603,10 +603,10 @@ public class GameServerItemListActivity extends AppCompatActivity
                 }
                 gameServer.mId = address;
             }
-            gameServer.mName = name;
+            gameServer.mName = rating + " " + name;
             gameServer.mRating = rating;
             sortGameServersList();
-            sServersAdapter.notifyItemChanged(position);
+            sServersAdapter.notifyDataSetChanged();
             Log.d(LOGTAG, "Edited server: " + address + " with name: " + name);
         }
         editor.apply();
@@ -622,9 +622,9 @@ public class GameServerItemListActivity extends AppCompatActivity
                 GameServerItem gameServer = new GameServerItem();
                 gameServer.mId = entry.getKey();
                 gameServer.mName = entry.getValue().toString();
-                gameServer.mRating = RATING_0_STARS;
+                gameServer.mRating = entry.getValue().toString().substring(0, 2);
                 sServersList.add(gameServer);
-                Log.d(LOGTAG, gameServer.mId + " " + gameServer.mName);
+                Log.d(LOGTAG, "Initialising list: " + gameServer.mId + " " + gameServer.mName);
             }
             sortGameServersList();
         }
