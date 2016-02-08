@@ -441,10 +441,6 @@ public class GameServerItemListActivity extends AppCompatActivity
        if (isTwoPaneMode() ) {restoreDetailPane(NO_ITEM);}
     }
 
-    private void checkDatasetVersio() {
-
-    }
-
     private void runDatasetMigrationsToVersion(int currentDatasetVersion) {
         int localDatasetVersion = getLocalDatasetVersion();
         if (localDatasetVersion >= 0 && localDatasetVersion < currentDatasetVersion) {
@@ -453,27 +449,28 @@ public class GameServerItemListActivity extends AppCompatActivity
                 switch (i) {
                     case 0:
                         Log.d(LOGTAG, "Migration 0 -> 1");
-                        setLocalDatasetVersion(i + 1);
+                        migrateLocalDatasetToVersion1();
+                        setLocalDatasetVersion(1);
                         break;
                     case 1:
                         Log.d(LOGTAG, "Migration 1 -> 2");
-                        setLocalDatasetVersion(i + 1);
+                        setLocalDatasetVersion(2);
                         break;
                     case 2:
                         Log.d(LOGTAG, "Migration 2 -> 3");
-                        setLocalDatasetVersion(i + 1);
+                        setLocalDatasetVersion(3);
                         break;
                     case 3:
                         Log.d(LOGTAG, "Migration 3 -> 4");
-                        setLocalDatasetVersion(i + 1);
+                        setLocalDatasetVersion(4);
                         break;
                     case 4:
                         Log.d(LOGTAG, "Migration 4 -> 5");
-                        setLocalDatasetVersion(i + 1);
+                        setLocalDatasetVersion(5);
                         break;
                     case 5:
                         Log.d(LOGTAG, "Migration 5 -> 6");
-                        setLocalDatasetVersion(i + 1);
+                        setLocalDatasetVersion(6);
                         break;
                     default:
                         Log.d(LOGTAG, "No migrations needed -- i=" + i);
@@ -509,6 +506,25 @@ public class GameServerItemListActivity extends AppCompatActivity
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
         settings.edit().putInt("settings_dataset_version", version).apply();
         Log.d(LOGTAG, "Local dataset version set to: " + version);
+    }
+
+    private void migrateLocalDatasetToVersion1() {
+        SharedPreferences gameServersPrefs = AppContextHelper.getContext()
+                .getSharedPreferences(SERVERS_PREFS_FILE, 0);
+        Map<String, ?> keys = gameServersPrefs.getAll();
+        if (!keys.isEmpty()) {
+            // SharedPreferences.Editor editor = gameServersPrefs.edit();
+            for (Map.Entry<String, ?> entry : keys.entrySet()) {
+                GameServerItem gameServer = new GameServerItem();
+                gameServer.mId = entry.getKey();
+                gameServer.mName = entry.getValue().toString();
+                gameServer.mRating = RATING_0_STARS;
+                String serverValue = gameServer.mRating + "_" + gameServer.mName;
+                // editor.putString(gameServer.mId, serverValue);
+                Log.d(LOGTAG, "Migrated: " + gameServer.mId + ":" + serverValue);
+            }
+            // editor.commit();
+        }
     }
 
     private void showConfirmationDialog() {
