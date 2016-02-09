@@ -634,6 +634,10 @@ public class GameServerItemListActivity extends AppCompatActivity
         Collections.sort(sServersList, new Comparator<GameServerItem>() {
             @Override
             public int compare(GameServerItem server1, GameServerItem server2) {
+                int ratingSort = server2.mRating.compareTo(server1.mRating);
+                if (ratingSort != 0) {
+                    return ratingSort;
+                }
                 return server1.mName.compareToIgnoreCase(server2.mName);
             }
         });
