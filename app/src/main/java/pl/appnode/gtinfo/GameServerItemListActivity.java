@@ -588,7 +588,7 @@ public class GameServerItemListActivity extends AppCompatActivity
         if (position == NO_ITEM) {
             GameServerItem gameServer = new GameServerItem();
             gameServer.mId = address;
-            gameServer.mName = rating + " " + name;
+            gameServer.mName = name;
             gameServer.mRating = rating;
             sServersList.add(gameServer);
             sortGameServersList();
@@ -603,11 +603,11 @@ public class GameServerItemListActivity extends AppCompatActivity
                 }
                 gameServer.mId = address;
             }
-            gameServer.mName = rating + " " + name;
+            gameServer.mName = name;
             gameServer.mRating = rating;
             sortGameServersList();
             sServersAdapter.notifyDataSetChanged();
-            Log.d(LOGTAG, "Edited server: " + address + " with name: " + name);
+            Log.d(LOGTAG, "Edited server: " + address + " with name: " + name + " rated: " + rating);
         }
         editor.apply();
     }
@@ -621,7 +621,7 @@ public class GameServerItemListActivity extends AppCompatActivity
             for (Map.Entry<String, ?> entry : keys.entrySet()) {
                 GameServerItem gameServer = new GameServerItem();
                 gameServer.mId = entry.getKey();
-                gameServer.mName = entry.getValue().toString();
+                gameServer.mName = entry.getValue().toString().substring(3);
                 gameServer.mRating = entry.getValue().toString().substring(0, 2);
                 sServersList.add(gameServer);
                 Log.d(LOGTAG, "Initialising list: " + gameServer.mId + " " + gameServer.mName);

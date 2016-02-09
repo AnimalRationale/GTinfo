@@ -76,14 +76,14 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
     public void onBindViewHolder(final ServerViewHolder serverViewHolder, final int position) {
         final GameServerItem gameServer = sServersList.get(position);
         serverViewHolder.vPosition = position;
-        serverViewHolder.vName.setText(gameServer.mName.substring(3));
+        serverViewHolder.vName.setText(gameServer.mName);
         serverViewHolder.vAddress.setText(gameServer.mId);
         ((CardView)serverViewHolder.itemView)
                     .setCardBackgroundColor(setCardColor(position));
         serverViewHolder.vImage.setImageDrawable(setCardImage(serverViewHolder, gameServer.mRating,
                 gameServer.mId));
         if (gameServer.mRating.equals(RATING_0_STARS)) {
-            serverViewHolder.vFirstLetter.setText(gameServer.mName.substring(3, 4));
+            serverViewHolder.vFirstLetter.setText(gameServer.mName.substring(0, 1));
         } else serverViewHolder.vFirstLetter.setText("");
     }
 
@@ -210,7 +210,7 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
                 GameServerItem gameServer = sServersList.get(position);
                 Intent settingsIntent = new Intent(mContext, AddGameServerActivity.class);
                 settingsIntent.putExtra(EDIT_SERVER_ADDRESS, gameServer.mId);
-                settingsIntent.putExtra(EDIT_SERVER_NAME, gameServer.mName.substring(3));
+                settingsIntent.putExtra(EDIT_SERVER_NAME, gameServer.mName);
                 settingsIntent.putExtra(EDIT_SERVER_RATING, gameServer.mRating);
                 settingsIntent.putExtra(EDIT_SERVER_LIST_POSITION, position);
                 ((GameServerItemListActivity)mContext).startActivityForResult(settingsIntent, EDIT_SERVER_INTENT_REQUEST);
