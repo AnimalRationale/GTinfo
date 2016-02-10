@@ -36,6 +36,7 @@
                 android:layout_alignRight="@+id/image_rating"
                 android:layout_alignBottom="@+id/image_rating"
                 android:layout_margin="1dp"
+                android:paddingBottom="3dp"
                 android:gravity="center"
                 android:text=""
                 android:textColor="@color/white"

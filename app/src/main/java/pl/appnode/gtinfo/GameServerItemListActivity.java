@@ -400,18 +400,18 @@ public class GameServerItemListActivity extends AppCompatActivity
     private void populateServerList() {
         final Map<String, String> SERVERS_EXAMPLE = new ArrayMap<String, String>() {
             {
-                put("1.2.3.4:2000", "Test");
-                put ("185.49.14.11:27015", "Skillownia CS:GO PL");
-                put("5.39.72.122:2302", "ATD Exile");
-                put ("94.23.247.102:2502", "XG Exile Altis");
-                put("109.230.249.148:2302", "PvE NL/UK Exile Altis");
-                put("37.152.48.105:2302", "DMR PvE");
-                put("94.250.209.13:2302", "Z_PvE Der Rentner Exile Altis");
-                put("109.236.89.182:2402", "3_PvE Cranky Exile Altis");
-                put("31.186.251.213:2302", "2_Hostile Takeover EU#1");
-                put("100.200.300.400:5555","1_Test 2");
-                put("184.88.43.167:2302", "Alpha1Alpha PvE Exile Altis");
-                put("185.38.151.161:2442", "UK CiC PvE Exile Altis");
+                put("1.2.3.4:2000", "00 Test");
+                put ("185.49.14.11:27015", "00 Skillownia CS:GO PL");
+                put("5.39.72.122:2302", "00 ATD Exile");
+                put ("94.23.247.102:2502", "00 XG Exile Altis");
+                put("109.230.249.148:2302", "00 PvE NL/UK Exile Altis");
+                put("37.152.48.105:2302", "00 DMR PvE");
+                put("94.250.209.13:2302", "00 PvE Der Rentner Exile Altis");
+                put("109.236.89.182:2402", "00 PvE Cranky Exile Altis");
+                put("31.186.251.213:2302", "00 Hostile Takeover EU#1");
+                put("100.200.300.400:5555","00 Test 2");
+                put("184.88.43.167:2302", "00 Alpha1Alpha PvE Exile Altis");
+                put("185.38.151.161:2442", "00 UK CiC PvE Exile Altis");
             }
         };
         SharedPreferences serversPrefs = getSharedPreferences(SERVERS_PREFS_FILE, MODE_PRIVATE);
