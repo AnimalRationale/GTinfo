@@ -159,7 +159,7 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
         String[] parts = address.split("\\.");
         int r = Integer.parseInt(parts[0]);
         int g = Integer.parseInt(parts[1]);
-        int b = Integer.parseInt(parts[0]);
+        int b = Integer.parseInt(parts[2]);
         return Color.rgb(r, g, b);
     }
 

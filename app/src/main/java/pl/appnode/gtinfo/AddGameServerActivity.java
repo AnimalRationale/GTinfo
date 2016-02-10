@@ -2,7 +2,10 @@ package pl.appnode.gtinfo;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -64,6 +67,8 @@ public class AddGameServerActivity extends Activity implements View.OnClickListe
         mEditServerAddress = (EditText) findViewById(R.id.serverAddress);
         mEditServerName = (EditText) findViewById(R.id.serverNameText);
         mEditServerRating = (RatingBar) findViewById(R.id.serverRatingBar);
+        Drawable progress = mEditServerRating.getProgressDrawable();
+        DrawableCompat.setTint(progress, ContextCompat.getColor(this, R.color.icon_list_orange_light));
         getIntentData(getIntent());
     }
 
