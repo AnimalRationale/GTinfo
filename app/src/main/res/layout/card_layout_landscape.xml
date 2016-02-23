@@ -53,7 +53,7 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:layout_alignWithParentIfMissing="true"
-            android:gravity="center_vertical|center_horizontal"
+            android:gravity="center_vertical|left"
             android:text="@string/card_server_name_default"
             android:textStyle="bold"
             android:textSize="14sp" />
@@ -64,7 +64,7 @@
             android:layout_marginBottom="8dp"
             android:layout_toRightOf="@id/server_label"
             android:layout_alignParentBottom="true"
-            android:gravity="center_vertical|center_horizontal"
+            android:gravity="center_vertical|left"
             android:layout_alignWithParentIfMissing="true"
             android:text="@string/card_server_address_default"
             android:textSize="11sp" />
