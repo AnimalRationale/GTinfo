@@ -64,11 +64,6 @@ public class GameServerItemListFragment extends Fragment {
         mLinearLayoutManager = new LinearLayoutManager(getActivity());
         mLinearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerServersList.setLayoutManager(mLinearLayoutManager);
-        if (!GameServerItemListActivity.isTwoPaneMode()) {
-            RecyclerView.ItemDecoration itemDecoration =
-                    new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST);
-            recyclerServersList.addItemDecoration(itemDecoration);
-        }
         recyclerServersList.setItemAnimator(new DefaultItemAnimator());
         sServersAdapter = new GameServersAdapter(getActivity());
         recyclerServersList.setHasFixedSize(true);
