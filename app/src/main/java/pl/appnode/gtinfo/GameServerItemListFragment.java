@@ -144,7 +144,7 @@ public class GameServerItemListFragment extends Fragment {
                     .setAction(R.string.confirmation_server_removed_undo, new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                editor.putString(gameServer.mId, gameServer.mName);
+                                editor.putString(gameServer.mId, gameServer.mRating + " " + gameServer.mName);
                                 editor.apply();
                                 GameServerItemListActivity.setSelectedItem(selectedItem);
                                 sServersList.add(position, gameServer);
