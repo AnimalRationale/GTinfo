@@ -116,7 +116,7 @@ public class AddGameServerActivity extends Activity implements View.OnClickListe
             default:
                 rating = RATING_0_STARS;
         }
-        if (!address.equals("")) {
+        if (!address.equals("") && !name.equals("")) {
             if (validateServerAddress(address)) {
                 resultOk(address, name, rating);
             }

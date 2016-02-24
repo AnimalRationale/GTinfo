@@ -621,7 +621,9 @@ public class GameServerItemListActivity extends AppCompatActivity
             for (Map.Entry<String, ?> entry : keys.entrySet()) {
                 GameServerItem gameServer = new GameServerItem();
                 gameServer.mId = entry.getKey();
-                gameServer.mName = entry.getValue().toString().substring(3);
+                if (entry.getValue().toString().length() > 3) {
+                    gameServer.mName = entry.getValue().toString().substring(3);
+                } else gameServer.mName = " ";
                 gameServer.mRating = entry.getValue().toString().substring(0, 2);
                 sServersList.add(gameServer);
                 Log.d(LOGTAG, "Initialising list: " + gameServer.mId + " " + gameServer.mName);
