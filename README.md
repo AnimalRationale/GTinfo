@@ -3,6 +3,7 @@
 App for checking if your favourite multiplayer game server has free slots (or if your sworn enemy from accounting department is already there).
 
  * Multiword search, queries on previous search result lists
+ * Server rating (influencing server's list order)
  * Share action for sharing server's name and address
  * Swipe to dismiss, undo for list item delete
  * Light and dark theme
@@ -30,7 +31,7 @@ Basic search:
 ---
 Server data edit dialog in landscape/two pane mode:
 
-![GTinfo main list landscape dark theme](http://appnode.pl/screenshots/GTinfo/GTinfo-server_edit01.jpg)
+![GTinfo main list landscape dark theme](http://appnode.pl/screenshots/GTinfo/GTinfo-server_edit02.jpg)
 
 ---
 Landscape with light theme:
