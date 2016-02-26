@@ -11,7 +11,7 @@
             android:visibility="gone"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="6dp"
             android:gravity="center"
             android:text="@string/server_edit_title"
             android:textColor="@color/green"
@@ -20,7 +20,7 @@
             android:id="@+id/serverAddressTitle"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="16dp"
             android:gravity="center"
             android:text="@string/server_add_address_title"
             android:textAppearance="?android:attr/textAppearanceSmall" />
@@ -41,7 +41,7 @@
             android:id="@+id/serverNameTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
+            android:layout_marginTop="18dp"
             android:gravity="center"
             android:text="@string/server_add_name_title"
             android:textAppearance="?android:attr/textAppearanceSmall" />
@@ -79,7 +79,7 @@
                 android:rating="0.0" />
         </FrameLayout>
         <FrameLayout
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="2dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal" >
