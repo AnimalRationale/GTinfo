@@ -314,10 +314,6 @@ public class GameServerItemListActivity extends AppCompatActivity
             Intent settingsIntent = new Intent(this, PreferencesActivity.class);
             this.startActivity(settingsIntent);
         }
-        // Debug tool option for zeroing local dataset version
-        if (id == R.id.action_reset_dataset_version) {
-            setLocalDatasetVersion(0);
-        }
         if (id == R.id.action_populate) {
             populateServerList();
         }
