@@ -23,6 +23,7 @@ import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -108,6 +109,8 @@ public class GameServerItemDetailFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_gameserveritem_detail, container, false);
         TextView serverName = (TextView) rootView.findViewById(R.id.detail_server_name);
         ImageView serverRating = (ImageView) rootView.findViewById(R.id.image_rating_detail);
+        RelativeLayout serverRatinAndName = (RelativeLayout) rootView
+                .findViewById(R.id.detail_server_rating_and_name);
         mProgressBar = (ProgressBar) rootView.findViewById(R.id.webview_progress_bar);
         mRefreshButton = (FloatingActionButton) rootView.findViewById(R.id.fab_refresh_webview);
         mRefreshButton.setVisibility(View.GONE);
@@ -120,7 +123,7 @@ public class GameServerItemDetailFragment extends Fragment {
             serverName.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.icon_orange));
             serverRating.setImageDrawable(serverRatingImage(mItem.mRating));
         } else {
-            serverName.setVisibility(View.GONE);
+            serverRatinAndName.setVisibility(View.GONE);
         }
         if (isDarkTheme(getActivity())) {
             detailBackground.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.black));
