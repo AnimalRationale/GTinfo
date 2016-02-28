@@ -3,6 +3,8 @@ package pl.appnode.gtinfo;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -18,6 +20,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -31,6 +34,9 @@ import static pl.appnode.gtinfo.Constants.NO_ITEM;
 import static pl.appnode.gtinfo.Constants.PLAYERS_LIST_HEIGHT_FACTOR_WITH_MAP_IMAGE_BIG;
 import static pl.appnode.gtinfo.Constants.PLAYERS_LIST_HEIGHT_FACTOR_WITH_MAP_IMAGE_SMALL;
 import static pl.appnode.gtinfo.Constants.PLAYERS_LIST_HEIGHT_FACTOR_WITH_TOP_PLAYERS;
+import static pl.appnode.gtinfo.Constants.RATING_1_STAR;
+import static pl.appnode.gtinfo.Constants.RATING_2_STARS;
+import static pl.appnode.gtinfo.Constants.RATING_3_STARS;
 import static pl.appnode.gtinfo.Constants.SCALING_FACTOR_PHONE;
 import static pl.appnode.gtinfo.Constants.SCALING_FACTOR_PHONE_LANDSCAPE;
 import static pl.appnode.gtinfo.Constants.SCALING_FACTOR_TABLET;
@@ -51,6 +57,12 @@ import static pl.appnode.gtinfo.PreferencesSetupHelper.isShowTopPlayers;
 public class GameServerItemDetailFragment extends Fragment {
 
     public static final String LOGTAG = "GameServerDetail";
+    private final static Drawable CARD_RATING_1_STAR_IMAGE = ContextCompat
+            .getDrawable(AppContextHelper.getContext(), R.drawable.ic_star_border_grey_48px);
+    private final static Drawable CARD_RATING_2_STARS_IMAGE = ContextCompat
+            .getDrawable(AppContextHelper.getContext(), R.drawable.ic_star_half_grey_48px);
+    private final static Drawable CARD_RATING_3_STARS_IMAGE = ContextCompat
+            .getDrawable(AppContextHelper.getContext(), R.drawable.ic_star_full_grey_48px);
 
     private TextView mErrorInfoText;
     private ProgressBar mProgressBar;
@@ -95,6 +107,7 @@ public class GameServerItemDetailFragment extends Fragment {
         // Prepares structure for detail fragment view
         View rootView = inflater.inflate(R.layout.fragment_gameserveritem_detail, container, false);
         TextView serverName = (TextView) rootView.findViewById(R.id.detail_server_name);
+        ImageView serverRating = (ImageView) rootView.findViewById(R.id.image_rating_detail);
         mProgressBar = (ProgressBar) rootView.findViewById(R.id.webview_progress_bar);
         mRefreshButton = (FloatingActionButton) rootView.findViewById(R.id.fab_refresh_webview);
         mRefreshButton.setVisibility(View.GONE);
@@ -105,6 +118,7 @@ public class GameServerItemDetailFragment extends Fragment {
         if (!GameServerItemListActivity.isTwoPaneMode()) {
             serverName.setText(mItem.mName);
             serverName.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.icon_orange));
+            serverRating.setImageDrawable(serverRatingImage(mItem.mRating));
         } else {
             serverName.setVisibility(View.GONE);
         }
@@ -118,6 +132,37 @@ public class GameServerItemDetailFragment extends Fragment {
         mGameServerWebView = (WebView) rootView.findViewById(R.id.gameServerInfoWebview);
         showServerInfo();
         return rootView;
+    }
+
+    private Drawable serverRatingImage(String rating) {
+        int listRatingIconColor;
+        if (isDarkTheme(getActivity())) {
+            listRatingIconColor = argbColor(ContextCompat
+                    .getColor(getActivity(), R.color.white));
+        } else {
+            listRatingIconColor = argbColor(ContextCompat
+                    .getColor(getActivity(), R.color.black));}
+        switch (rating) {
+            case RATING_1_STAR:
+                CARD_RATING_1_STAR_IMAGE.setColorFilter(listRatingIconColor, PorterDuff.Mode.SRC_IN);
+                return CARD_RATING_1_STAR_IMAGE;
+            case RATING_2_STARS:
+                CARD_RATING_2_STARS_IMAGE.setColorFilter(listRatingIconColor, PorterDuff.Mode.SRC_IN);
+                return CARD_RATING_2_STARS_IMAGE;
+            case RATING_3_STARS:
+                CARD_RATING_3_STARS_IMAGE.setColorFilter(listRatingIconColor, PorterDuff.Mode.SRC_IN);
+                return CARD_RATING_3_STARS_IMAGE;
+            default:
+                return null;
+        }
+    }
+
+    private int argbColor(int colorResource) {
+        int color = Color.argb(Color.alpha(colorResource),
+                Color.red(colorResource),
+                Color.green(colorResource),
+                Color.blue(colorResource));
+        return color;
     }
 
     /**
