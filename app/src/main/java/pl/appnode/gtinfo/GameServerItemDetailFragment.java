@@ -3,7 +3,6 @@ package pl.appnode.gtinfo;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -29,6 +28,9 @@ import android.widget.Toast;
 
 import static pl.appnode.gtinfo.Constants.BLANK_ITEM_ID;
 import static pl.appnode.gtinfo.Constants.BLANK_ITEM_NAME;
+import static pl.appnode.gtinfo.Constants.CARD_RATING_1_STAR_IMAGE;
+import static pl.appnode.gtinfo.Constants.CARD_RATING_2_STARS_IMAGE;
+import static pl.appnode.gtinfo.Constants.CARD_RATING_3_STARS_IMAGE;
 import static pl.appnode.gtinfo.Constants.FRAGMENT_ARG_ITEM_ID;
 import static pl.appnode.gtinfo.Constants.GT_ORIGINAL_PLAYERS_LIST_HEIGHT;
 import static pl.appnode.gtinfo.Constants.NO_ITEM;
@@ -58,12 +60,6 @@ import static pl.appnode.gtinfo.PreferencesSetupHelper.isShowTopPlayers;
 public class GameServerItemDetailFragment extends Fragment {
 
     public static final String LOGTAG = "GameServerDetail";
-    private final static Drawable CARD_RATING_1_STAR_IMAGE = ContextCompat
-            .getDrawable(AppContextHelper.getContext(), R.drawable.ic_star_border_grey_48px);
-    private final static Drawable CARD_RATING_2_STARS_IMAGE = ContextCompat
-            .getDrawable(AppContextHelper.getContext(), R.drawable.ic_star_half_grey_48px);
-    private final static Drawable CARD_RATING_3_STARS_IMAGE = ContextCompat
-            .getDrawable(AppContextHelper.getContext(), R.drawable.ic_star_full_grey_48px);
 
     private TextView mErrorInfoText;
     private ProgressBar mProgressBar;

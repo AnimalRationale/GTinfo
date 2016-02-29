@@ -1,5 +1,7 @@
 package pl.appnode.gtinfo;
 
+import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.util.ArrayMap;
 
 import java.util.Map;
@@ -33,6 +35,14 @@ final class Constants {
     public static final String RATING_1_STAR = "01";
     public static final String RATING_2_STARS = "02";
     public static final String RATING_3_STARS = "03";
+
+    /** Drawables representing server rating status */
+    public final static Drawable CARD_RATING_1_STAR_IMAGE = ContextCompat
+            .getDrawable(AppContextHelper.getContext(), R.drawable.ic_star_border_grey_48px);
+    public final static Drawable CARD_RATING_2_STARS_IMAGE = ContextCompat
+            .getDrawable(AppContextHelper.getContext(), R.drawable.ic_star_half_grey_48px);
+    public final static Drawable CARD_RATING_3_STARS_IMAGE = ContextCompat
+            .getDrawable(AppContextHelper.getContext(), R.drawable.ic_star_full_grey_48px);
 
     /** SharedPreferences file for storing serves IP and custom name */
     public static final String SERVERS_PREFS_FILE = "ServersPrefsFile";
