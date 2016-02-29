@@ -138,34 +138,16 @@ public class GameServerItemDetailFragment extends Fragment {
     }
 
     private Drawable serverRatingImage(String rating) {
-        int listRatingIconColor;
-        if (isDarkTheme(getActivity())) {
-            listRatingIconColor = argbColor(ContextCompat
-                    .getColor(getActivity(), R.color.white));
-        } else {
-            listRatingIconColor = argbColor(ContextCompat
-                    .getColor(getActivity(), R.color.black));}
         switch (rating) {
             case RATING_1_STAR:
-                CARD_RATING_1_STAR_IMAGE.setColorFilter(listRatingIconColor, PorterDuff.Mode.SRC_IN);
                 return CARD_RATING_1_STAR_IMAGE;
             case RATING_2_STARS:
-                CARD_RATING_2_STARS_IMAGE.setColorFilter(listRatingIconColor, PorterDuff.Mode.SRC_IN);
                 return CARD_RATING_2_STARS_IMAGE;
             case RATING_3_STARS:
-                CARD_RATING_3_STARS_IMAGE.setColorFilter(listRatingIconColor, PorterDuff.Mode.SRC_IN);
                 return CARD_RATING_3_STARS_IMAGE;
             default:
                 return null;
         }
-    }
-
-    private int argbColor(int colorResource) {
-        int color = Color.argb(Color.alpha(colorResource),
-                Color.red(colorResource),
-                Color.green(colorResource),
-                Color.blue(colorResource));
-        return color;
     }
 
     /**

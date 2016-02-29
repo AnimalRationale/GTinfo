@@ -25,9 +25,10 @@
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="4dp"
                 android:layout_marginRight="2dp"
-                android:paddingTop="0dp"
-                android:paddingBottom="0dp"
-                android:scaleType="centerInside"/>
+                android:paddingTop="1dp"
+                android:paddingBottom="2dp"
+                android:scaleType="centerInside"
+                android:background="@drawable/round_grey_background"/>
             <TextView
                 android:id="@+id/detail_server_name"
                 android:layout_width="fill_parent"
