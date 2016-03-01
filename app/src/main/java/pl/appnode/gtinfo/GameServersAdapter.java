@@ -59,12 +59,6 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
     private final static int CARD_DEFAULT_LIGHT_SINGLE_PANE_BACKGROUND = ContextCompat
             .getColor(AppContextHelper.getContext(), R.color.white);
     private final Context mContext;
-//    private final static Drawable CARD_RATING_1_STAR_IMAGE = ContextCompat
-//            .getDrawable(AppContextHelper.getContext(), R.drawable.ic_star_border_grey_48px);
-//    private final static Drawable CARD_RATING_2_STARS_IMAGE = ContextCompat
-//            .getDrawable(AppContextHelper.getContext(), R.drawable.ic_star_half_grey_48px);
-//    private final static Drawable CARD_RATING_3_STARS_IMAGE = ContextCompat
-//            .getDrawable(AppContextHelper.getContext(), R.drawable.ic_star_full_grey_48px);
 
     public GameServersAdapter(Context context) {
         mContext = context;
