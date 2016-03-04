@@ -12,6 +12,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="dark_grey">#FF444444</color>
     <color name="light_grey">#FFEFEFEF</color>
+    <color name="grey">#FF949494</color>
     <color name="icon_orange">#FFFD9701</color>
     <color name="icon_orange_light">#FFFEC166</color>
     <color name="icon_list_orange_light">#FFFFC107</color>

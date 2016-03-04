@@ -32,6 +32,7 @@ import static pl.appnode.gtinfo.Constants.RATING_0_STARS;
 import static pl.appnode.gtinfo.Constants.RATING_1_STAR;
 import static pl.appnode.gtinfo.Constants.RATING_2_STARS;
 import static pl.appnode.gtinfo.Constants.RATING_3_STARS;
+import static pl.appnode.gtinfo.PreferencesSetupHelper.isDarkTheme;
 import static pl.appnode.gtinfo.PreferencesSetupHelper.themeSetup;
 
 /**
@@ -55,6 +56,9 @@ public class AddGameServerActivity extends Activity implements View.OnClickListe
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_dialog_add_server);
         getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        if (isDarkTheme(this)) {
+            getWindow().getDecorView().setBackgroundColor(ContextCompat.getColor(this, R.color.dark_grey));
+        }
         WindowManager.LayoutParams layoutParams = getWindow().getAttributes();
         layoutParams.dimAmount = 0.7f;
         getWindow().setAttributes(layoutParams);
