@@ -1,11 +1,12 @@
 package pl.appnode.gtinfo;
 
-import android.app.ActionBar;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatDelegate;
 import android.view.MenuItem;
 
 import static pl.appnode.gtinfo.Constants.KEY_SETTINGS_THEME;
@@ -19,13 +20,16 @@ public class PreferencesActivity extends PreferenceActivity
         implements SharedPreferences.OnSharedPreferenceChangeListener {
 
     private static final String LOGTAG = "Preferences";
+    private AppCompatDelegate mAppCompatDelegate;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         themeSetup(this);
+        getDelegate().installViewFactory();
+        getDelegate().onCreate(savedInstanceState);
         super.onCreate(savedInstanceState);
         PreferenceManager.getDefaultSharedPreferences(this).registerOnSharedPreferenceChangeListener(this);
-        ActionBar actionBar = getActionBar();
+        ActionBar actionBar = getDelegate().getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayShowHomeEnabled(true);
             actionBar.setDisplayHomeAsUpEnabled(true);
@@ -67,5 +71,18 @@ public class PreferencesActivity extends PreferenceActivity
     public void onResume() {
         super.onResume();
         orientationSetup(this);
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        getDelegate().onPostResume();
+    }
+
+    private AppCompatDelegate getDelegate() {
+        if (mAppCompatDelegate == null) {
+            mAppCompatDelegate = AppCompatDelegate.create(this, null);
+        }
+        return mAppCompatDelegate;
     }
 }

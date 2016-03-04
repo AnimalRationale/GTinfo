@@ -1,10 +1,11 @@
 package pl.appnode.gtinfo;
 
 import android.app.Activity;
-import android.app.AlertDialog;
+
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
