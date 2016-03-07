@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -105,7 +106,7 @@ public class GameServerItemDetailFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_gameserveritem_detail, container, false);
         TextView serverName = (TextView) rootView.findViewById(R.id.detail_server_name);
         ImageView serverRating = (ImageView) rootView.findViewById(R.id.image_rating_detail);
-        RelativeLayout serverRatinAndName = (RelativeLayout) rootView
+        RelativeLayout serverRatingAndName = (RelativeLayout) rootView
                 .findViewById(R.id.detail_server_rating_and_name);
         mProgressBar = (ProgressBar) rootView.findViewById(R.id.webview_progress_bar);
         mRefreshButton = (FloatingActionButton) rootView.findViewById(R.id.fab_refresh_webview);
@@ -118,8 +119,11 @@ public class GameServerItemDetailFragment extends Fragment {
             serverName.setText(mItem.mName);
             serverName.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.icon_orange));
             serverRating.setImageDrawable(serverRatingImage(mItem.mRating));
+            int backgroundRatingIconColor = setColorFromServerAddress(mItem.mId);
+            final GradientDrawable imageBackground = (GradientDrawable) serverRating.getBackground();
+            imageBackground.setColor(backgroundRatingIconColor);
         } else {
-            serverRatinAndName.setVisibility(View.GONE);
+            serverRatingAndName.setVisibility(View.GONE);
         }
         if (isDarkTheme(getActivity())) {
             detailBackground.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.black));
@@ -144,6 +148,14 @@ public class GameServerItemDetailFragment extends Fragment {
             default:
                 return null;
         }
+    }
+
+    private int setColorFromServerAddress(String address) {
+        String[] parts = address.split("\\.");
+        int r = Integer.parseInt(parts[0]);
+        int g = Integer.parseInt(parts[1]);
+        int b = Integer.parseInt(parts[2]);
+        return Color.rgb(r, g, b);
     }
 
     /**
