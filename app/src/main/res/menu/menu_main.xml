@@ -29,11 +29,11 @@
         android:title="@string/menu_action_settings"
         android:orderInCategory="90"
         app:showAsAction="never" />
-    <item
-        android:id="@+id/action_populate"
-        android:title="@string/menu_action_populate"
-        android:orderInCategory="100"
-        app:showAsAction="never" />
+    <!--<item-->
+        <!--android:id="@+id/action_populate"-->
+        <!--android:title="@string/menu_action_populate"-->
+        <!--android:orderInCategory="100"-->
+        <!--app:showAsAction="never" />-->
     <item
         android:id="@+id/action_clear_list"
         android:title="@string/menu_action_clear_list"

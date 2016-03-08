@@ -79,8 +79,8 @@ public class GameServerItemDetailActivity extends AppCompatActivity {
             menuAddServer.setVisible(false);
             MenuItem menuClearList = menu.findItem(R.id.action_clear_list);
             menuClearList.setVisible(false);
-            MenuItem menuAddServers = menu.findItem(R.id.action_populate);
-            menuAddServers.setVisible(false);
+//            MenuItem menuAddServers = menu.findItem(R.id.action_populate);
+//            menuAddServers.setVisible(false);
         }
         return true;
     }

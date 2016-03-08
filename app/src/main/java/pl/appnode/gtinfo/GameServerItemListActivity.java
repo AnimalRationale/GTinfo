@@ -314,9 +314,9 @@ public class GameServerItemListActivity extends AppCompatActivity
             Intent settingsIntent = new Intent(this, PreferencesActivity.class);
             this.startActivity(settingsIntent);
         }
-        if (id == R.id.action_populate) {
-            populateServerList();
-        }
+//        if (id == R.id.action_populate) {
+//            populateServerList();
+//        }
         if (id == R.id.action_add_server) {
             showAddServerDialog();
         }
