@@ -10,7 +10,7 @@
     <item
         android:id="@+id/action_add_server"
         android:title="@string/menu_action_add_server"
-        android:icon="@drawable/ic_action_av_playlist_add"
+        android:icon="@drawable/ic_playlist_add_white_48dp"
         android:orderInCategory="85"
         app:showAsAction="always" />
     <item
