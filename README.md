@@ -11,37 +11,42 @@ App for checking if your favourite multiplayer game server has free slots (or if
  
 
 ## Screenshots
-Portrait mode, servers list and server detail view:
+Portrait mode, servers list (light theme) and server detail view (dark theme):
 
-![GTinfo main list light theme](http://appnode.pl/screenshots/GTinfo/GTinfo-servers_list02.jpg)
-![GTinfo server details dark theme](http://appnode.pl/screenshots/GTinfo/GTinfo-server_details01b.jpg)
+![GTinfo main list light theme](http://appnode.pl/screenshots/GTinfo/GTinfo-servers_list03.jpg)
+![GTinfo server details dark theme](http://appnode.pl/screenshots/GTinfo/GTinfo-server_details03.jpg)
 
 ---
 Delete undo and settings:
 
-![GTinfo delete undo light theme](http://appnode.pl/screenshots/GTinfo/GTinfo-delete_undo02.jpg)
-![GTinfo delete undo light theme](http://appnode.pl/screenshots/GTinfo/GTinfo-settings01.jpg)
+![GTinfo delete undo light theme](http://appnode.pl/screenshots/GTinfo/GTinfo-delete_undo03.jpg)
+![GTinfo delete undo light theme](http://appnode.pl/screenshots/GTinfo/GTinfo-settings03.jpg)
 
 ---
 Basic search:
 
-![GTinfo action bar search widget](http://appnode.pl/screenshots/GTinfo/GTinfo-search_empty01.jpg)
-![GTinfo search filter active](http://appnode.pl/screenshots/GTinfo/GTinfo-search_active02b.jpg)
+![GTinfo action bar search widget](http://appnode.pl/screenshots/GTinfo/GTinfo-search_empty03.jpg)
+![GTinfo search filter active](http://appnode.pl/screenshots/GTinfo/GTinfo-search_active03.jpg)
 
 ---
 Server data edit dialog in landscape/two pane mode:
 
-![GTinfo main list landscape dark theme](http://appnode.pl/screenshots/GTinfo/GTinfo-server_edit02.jpg)
+![GTinfo main list landscape dark theme](http://appnode.pl/screenshots/GTinfo/GTinfo-server_edit03.jpg)
 
 ---
 Landscape with light theme:
 
-![GTinfo main list landscape light theme](http://appnode.pl/screenshots/GTinfo/GTinfo-servers_list_landscape02b.jpg)
+![GTinfo main list landscape light theme](http://appnode.pl/screenshots/GTinfo/GTinfo-servers_list_landscape03.jpg)
 
 ---
 Swipe to dismiss:
 
-![GTinfo swipe to dismiss light theme theme](http://appnode.pl/screenshots/GTinfo/GTinfo-swipe_dismiss02c.jpg)
+![GTinfo swipe to dismiss light theme theme](http://appnode.pl/screenshots/GTinfo/GTinfo-swipe_dismiss03.jpg)
+
+---
+Dialog with app's icon and version:
+
+![GTinfo swipe to dismiss light theme theme](http://appnode.pl/screenshots/GTinfo/GTinfo-about_dialog03.jpg)
 
 
 
