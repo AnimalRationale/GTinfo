@@ -43,7 +43,6 @@ public class GameServerItemDetailActivity extends AppCompatActivity {
         if (actionBar != null) {
             actionBar.setDisplayShowHomeEnabled(true);
             actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setIcon(R.mipmap.ic_launcher);
         }
         // savedInstanceState is non-null when there is fragment state
         // saved from previous configurations of this activity

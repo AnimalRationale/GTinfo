@@ -36,7 +36,6 @@ public class PreferencesActivity extends PreferenceActivity
         if (actionBar != null) {
             actionBar.setDisplayShowHomeEnabled(true);
             actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setIcon(R.mipmap.ic_launcher);
         }
         getFragmentManager().beginTransaction()
                 .replace(android.R.id.content, new GTinfoPreferenceFragment()).commit();

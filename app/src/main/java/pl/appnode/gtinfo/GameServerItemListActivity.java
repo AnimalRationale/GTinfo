@@ -126,7 +126,6 @@ public class GameServerItemListActivity extends AppCompatActivity
         mActionBar = getSupportActionBar();
         if (mActionBar != null) {
             mActionBar.setDisplayShowHomeEnabled(true);
-            mActionBar.setIcon(R.mipmap.ic_launcher);
         }
         if (savedInstanceState == null) {
             // Check if local dataset version is the same as app's data current schema, run migrations if necessary
