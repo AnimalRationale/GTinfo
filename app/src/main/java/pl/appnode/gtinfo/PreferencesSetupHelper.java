@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.os.Build;
 
 import static pl.appnode.gtinfo.Constants.KEY_SETTINGS_GT_SHOW_MAP;
 import static pl.appnode.gtinfo.Constants.KEY_SETTINGS_GT_SHOW_TOP_PLAYERS;

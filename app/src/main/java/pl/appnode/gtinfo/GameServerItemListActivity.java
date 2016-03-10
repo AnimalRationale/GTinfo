@@ -478,7 +478,7 @@ public class GameServerItemListActivity extends AppCompatActivity
 
     // Gets version of local dataset
     private int getLocalDatasetVersion() {
-        int localDatasetVersion = -1;
+        int localDatasetVersion;
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
         if (settings.contains("settings_dataset_version")) {
             localDatasetVersion = settings.getInt("settings_dataset_version", -1);
