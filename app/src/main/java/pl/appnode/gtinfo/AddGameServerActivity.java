@@ -1,6 +1,8 @@
 package pl.appnode.gtinfo;
 
 import android.app.Activity;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -82,13 +84,17 @@ public class AddGameServerActivity extends Activity implements View.OnClickListe
             mEditServerAddress.setText(intent.getStringExtra(EDIT_SERVER_ADDRESS));
             mEditServerAddress.setOnLongClickListener(new View.OnLongClickListener() {
                 public boolean onLongClick(View v) {
+                    ClipboardManager clipboard = (ClipboardManager)
+                            getSystemService(AppContextHelper.getContext().CLIPBOARD_SERVICE);
+                    ClipData clip = ClipData.newPlainText("Server IP:port", mEditServerAddress.getText().toString());
+                    clipboard.setPrimaryClip(clip);
                     return true;
                 }
             });
             mEditServerName.setText(intent.getStringExtra(EDIT_SERVER_NAME));
             mEditServerName.setOnLongClickListener(new View.OnLongClickListener() {
                 public boolean onLongClick(View v) {
-                    return false;
+                    return true;
                 }
             });
             switch(intent.getStringExtra(EDIT_SERVER_RATING)) {
