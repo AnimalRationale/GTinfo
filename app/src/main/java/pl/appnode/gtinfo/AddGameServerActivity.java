@@ -80,7 +80,17 @@ public class AddGameServerActivity extends Activity implements View.OnClickListe
     private void getIntentData(Intent intent) {
         if (intent.getExtras() != null && intent.hasExtra(EDIT_SERVER_ADDRESS)) {
             mEditServerAddress.setText(intent.getStringExtra(EDIT_SERVER_ADDRESS));
+            mEditServerAddress.setOnLongClickListener(new View.OnLongClickListener() {
+                public boolean onLongClick(View v) {
+                    return true;
+                }
+            });
             mEditServerName.setText(intent.getStringExtra(EDIT_SERVER_NAME));
+            mEditServerName.setOnLongClickListener(new View.OnLongClickListener() {
+                public boolean onLongClick(View v) {
+                    return false;
+                }
+            });
             switch(intent.getStringExtra(EDIT_SERVER_RATING)) {
                 case RATING_3_STARS:
                     mEditServerRating.setRating(3.0f);
