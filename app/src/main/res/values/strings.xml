@@ -48,6 +48,7 @@
     <string name="server_add_invalid_port">Invalid server port</string>
 
     <string name="server_edit_title">Edit server data</string>
+    <string name="server_edit_copy_address">Server address copied to clipboard</string>
 
     <string name="error_default_info">Problem with accessing game server data, check your Internet connection.</string>
     <string name="error_network_access">Check Internet connection</string>

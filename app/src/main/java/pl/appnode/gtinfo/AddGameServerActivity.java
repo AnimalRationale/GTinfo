@@ -82,16 +82,20 @@ public class AddGameServerActivity extends Activity implements View.OnClickListe
     private void getIntentData(Intent intent) {
         if (intent.getExtras() != null && intent.hasExtra(EDIT_SERVER_ADDRESS)) {
             mEditServerAddress.setText(intent.getStringExtra(EDIT_SERVER_ADDRESS));
+            mEditServerName.setText(intent.getStringExtra(EDIT_SERVER_NAME));
+            // Sets long click listeners to avoid ActionBarContextView IllegalStateException
+            // Long click copies EditText content (address) to clipboard
             mEditServerAddress.setOnLongClickListener(new View.OnLongClickListener() {
                 public boolean onLongClick(View v) {
                     ClipboardManager clipboard = (ClipboardManager)
                             getSystemService(AppContextHelper.getContext().CLIPBOARD_SERVICE);
                     ClipData clip = ClipData.newPlainText("Server IP:port", mEditServerAddress.getText().toString());
                     clipboard.setPrimaryClip(clip);
+                    String info = getResources().getString(R.string.server_edit_copy_address);
+                    Toast.makeText(AppContextHelper.getContext(), info, Toast.LENGTH_SHORT).show();
                     return true;
                 }
             });
-            mEditServerName.setText(intent.getStringExtra(EDIT_SERVER_NAME));
             mEditServerName.setOnLongClickListener(new View.OnLongClickListener() {
                 public boolean onLongClick(View v) {
                     return true;
