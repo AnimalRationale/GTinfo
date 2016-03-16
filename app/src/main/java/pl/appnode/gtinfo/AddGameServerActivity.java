@@ -88,16 +88,22 @@ public class AddGameServerActivity extends Activity implements View.OnClickListe
             mEditServerAddress.setOnLongClickListener(new View.OnLongClickListener() {
                 public boolean onLongClick(View v) {
                     ClipboardManager clipboard = (ClipboardManager)
-                            getSystemService(AppContextHelper.getContext().CLIPBOARD_SERVICE);
+                            getSystemService(AddGameServerActivity.this.CLIPBOARD_SERVICE);
                     ClipData clip = ClipData.newPlainText("Server IP:port", mEditServerAddress.getText().toString());
                     clipboard.setPrimaryClip(clip);
                     String info = getResources().getString(R.string.server_edit_copy_address);
-                    Toast.makeText(AppContextHelper.getContext(), info, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddGameServerActivity.this, info, Toast.LENGTH_SHORT).show();
                     return true;
                 }
             });
             mEditServerName.setOnLongClickListener(new View.OnLongClickListener() {
                 public boolean onLongClick(View v) {
+                    ClipboardManager clipboard = (ClipboardManager)
+                            getSystemService(AddGameServerActivity.this.CLIPBOARD_SERVICE);
+                    ClipData clip = ClipData.newPlainText("Server name", mEditServerName.getText().toString());
+                    clipboard.setPrimaryClip(clip);
+                    String info = getResources().getString(R.string.server_edit_copy_name);
+                    Toast.makeText(AddGameServerActivity.this, info, Toast.LENGTH_SHORT).show();
                     return true;
                 }
             });
