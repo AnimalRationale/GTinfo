@@ -36,6 +36,10 @@ final class Constants {
     public static final String RATING_2_STARS = "02";
     public static final String RATING_3_STARS = "03";
 
+    /** IDs for EditText widgets in add/edit server dialog activity, used to identify copy action **/
+    public static final int EDIT_SERVER_ADDRESS_EDITTEXT_ID = 0;
+    public static final int EDIT_SERVER_NAME_EDITTEXT_ID = 1;
+
     /** Drawables representing server rating status */
     public final static Drawable CARD_RATING_1_STAR_IMAGE = ContextCompat
             .getDrawable(AppContextHelper.getContext(), R.drawable.ic_star_border_grey_48px);

@@ -25,8 +25,10 @@ import static pl.appnode.gtinfo.Constants.ADDED_SERVER_ADDRESS;
 import static pl.appnode.gtinfo.Constants.ADDED_SERVER_NAME;
 import static pl.appnode.gtinfo.Constants.ADDED_SERVER_RATING;
 import static pl.appnode.gtinfo.Constants.EDIT_SERVER_ADDRESS;
+import static pl.appnode.gtinfo.Constants.EDIT_SERVER_ADDRESS_EDITTEXT_ID;
 import static pl.appnode.gtinfo.Constants.EDIT_SERVER_LIST_POSITION;
 import static pl.appnode.gtinfo.Constants.EDIT_SERVER_NAME;
+import static pl.appnode.gtinfo.Constants.EDIT_SERVER_NAME_EDITTEXT_ID;
 import static pl.appnode.gtinfo.Constants.EDIT_SERVER_RATING;
 import static pl.appnode.gtinfo.Constants.IP_ADDRESS_PORT_PATTERN;
 import static pl.appnode.gtinfo.Constants.NO_ITEM;
@@ -88,7 +90,8 @@ public class AddGameServerActivity extends Activity implements View.OnClickListe
             mEditServerAddress.setOnLongClickListener(new View.OnLongClickListener() {
                 public boolean onLongClick(View v) {
                     if (!mEditServerAddress.getText().toString().equals("")) {
-                        longClickCopyToClipboard(mEditServerAddress.getText().toString(), 0);
+                        longClickCopyToClipboard(mEditServerAddress.getText().toString(),
+                                EDIT_SERVER_ADDRESS_EDITTEXT_ID);
                     }
                     return true;
                 }
@@ -96,7 +99,8 @@ public class AddGameServerActivity extends Activity implements View.OnClickListe
             mEditServerName.setOnLongClickListener(new View.OnLongClickListener() {
                 public boolean onLongClick(View v) {
                     if (!mEditServerName.getText().toString().equals("")) {
-                        longClickCopyToClipboard(mEditServerName.getText().toString(), 1);
+                        longClickCopyToClipboard(mEditServerName.getText().toString(),
+                                EDIT_SERVER_NAME_EDITTEXT_ID);
                     }
                     return true;
                 }
@@ -121,12 +125,12 @@ public class AddGameServerActivity extends Activity implements View.OnClickListe
         }
     }
 
-    private void longClickCopyToClipboard(String text, int view) {
+    private void longClickCopyToClipboard(String text, int editText) {
         ClipboardManager clipboard = (ClipboardManager)
                 getSystemService(AddGameServerActivity.this.CLIPBOARD_SERVICE);
         String description;
         String info;
-        if (view == 0) {
+        if (editText == EDIT_SERVER_ADDRESS_EDITTEXT_ID) {
             description = "Server IP:port";
             info = getResources().getString(R.string.server_edit_copy_address);
         } else {
