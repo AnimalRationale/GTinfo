@@ -205,7 +205,7 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
             }
             public void onCardLongClick(View caller, int position) {
                 GameServerItem gameServer = sServersList.get(position);
-                Intent settingsIntent = new Intent(mContext, AddGameServerActivity.class);
+                Intent settingsIntent = new Intent(mContext, AddGameServerDialogActivity.class);
                 settingsIntent.putExtra(EDIT_SERVER_ADDRESS, gameServer.mId);
                 settingsIntent.putExtra(EDIT_SERVER_NAME, gameServer.mName);
                 settingsIntent.putExtra(EDIT_SERVER_RATING, gameServer.mRating);

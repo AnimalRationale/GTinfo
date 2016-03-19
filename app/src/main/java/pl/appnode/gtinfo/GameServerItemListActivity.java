@@ -362,7 +362,7 @@ public class GameServerItemListActivity extends AppCompatActivity
     }
 
     private void showAddServerDialog() {
-        Intent settingsIntent = new Intent(this, AddGameServerActivity.class);
+        Intent settingsIntent = new Intent(this, AddGameServerDialogActivity.class);
         this.startActivityForResult(settingsIntent, ADD_SERVER_INTENT_REQUEST);
     }
 
@@ -553,7 +553,7 @@ public class GameServerItemListActivity extends AppCompatActivity
     }
 
     /**
-     * Handles results from AddGameServerActivity - initiates adding server to data set
+     * Handles results from AddGameServerDialogActivity - initiates adding server to data set
      * or editing current data.
      */
     @Override

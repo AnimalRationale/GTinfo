@@ -106,7 +106,7 @@ public class GameServerItemDetailActivity extends AppCompatActivity {
             this.startActivity(settingsIntent);
         }
         if (id == R.id.action_add_server) {
-            Intent settingsIntent = new Intent(this, AddGameServerActivity.class);
+            Intent settingsIntent = new Intent(this, AddGameServerDialogActivity.class);
             this.startActivityForResult(settingsIntent, ADD_SERVER_INTENT_REQUEST);
         }
         if (id == R.id.action_share_server) {
