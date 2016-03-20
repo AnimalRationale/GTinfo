@@ -5,6 +5,7 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
@@ -74,6 +75,10 @@ public class AddGameServerDialogActivity extends Activity implements View.OnClic
         buttonCancel.setOnClickListener(this);
         mEditServerAddress = (EditText) findViewById(R.id.serverAddress);
         mEditServerName = (EditText) findViewById(R.id.serverNameText);
+        if (isDarkTheme(this)) {
+            mEditServerAddress.setTextColor(ContextCompat.getColor(this, R.color.white));
+            mEditServerName.setTextColor(ContextCompat.getColor(this, R.color.white));
+        }
         mEditServerRating = (RatingBar) findViewById(R.id.serverRatingBar);
         Drawable progress = mEditServerRating.getProgressDrawable();
         DrawableCompat.setTint(progress, ContextCompat.getColor(this, R.color.icon_list_orange_light));
@@ -85,26 +90,29 @@ public class AddGameServerDialogActivity extends Activity implements View.OnClic
         if (intent.getExtras() != null && intent.hasExtra(EDIT_SERVER_ADDRESS)) {
             mEditServerAddress.setText(intent.getStringExtra(EDIT_SERVER_ADDRESS));
             mEditServerName.setText(intent.getStringExtra(EDIT_SERVER_NAME));
-            // Sets long click listeners to avoid ActionBarContextView IllegalStateException
-            // Long click copies EditText content (address) to clipboard
-            mEditServerAddress.setOnLongClickListener(new View.OnLongClickListener() {
-                public boolean onLongClick(View v) {
-                    if (!mEditServerAddress.getText().toString().equals("")) {
-                        longClickCopyToClipboard(mEditServerAddress.getText().toString(),
-                                EDIT_SERVER_ADDRESS_EDITTEXT_ID);
+            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
+                // Sets long click listeners to avoid ActionBarContextView IllegalStateException
+                // on devices with Android version prior to M,
+                // long click copies EditText content (address) to clipboard
+                mEditServerAddress.setOnLongClickListener(new View.OnLongClickListener() {
+                    public boolean onLongClick(View v) {
+                        if (!mEditServerAddress.getText().toString().equals("")) {
+                            longClickCopyToClipboard(mEditServerAddress.getText().toString(),
+                                    EDIT_SERVER_ADDRESS_EDITTEXT_ID);
+                        }
+                        return true;
                     }
-                    return true;
-                }
-            });
-            mEditServerName.setOnLongClickListener(new View.OnLongClickListener() {
-                public boolean onLongClick(View v) {
-                    if (!mEditServerName.getText().toString().equals("")) {
-                        longClickCopyToClipboard(mEditServerName.getText().toString(),
-                                EDIT_SERVER_NAME_EDITTEXT_ID);
+                });
+                mEditServerName.setOnLongClickListener(new View.OnLongClickListener() {
+                    public boolean onLongClick(View v) {
+                        if (!mEditServerName.getText().toString().equals("")) {
+                            longClickCopyToClipboard(mEditServerName.getText().toString(),
+                                    EDIT_SERVER_NAME_EDITTEXT_ID);
+                        }
+                        return true;
                     }
-                    return true;
-                }
-            });
+                });
+            }
             switch(intent.getStringExtra(EDIT_SERVER_RATING)) {
                 case RATING_3_STARS:
                     mEditServerRating.setRating(3.0f);
