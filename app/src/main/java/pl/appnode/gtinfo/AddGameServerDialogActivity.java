@@ -90,7 +90,7 @@ public class AddGameServerDialogActivity extends Activity implements View.OnClic
         if (intent.getExtras() != null && intent.hasExtra(EDIT_SERVER_ADDRESS)) {
             mEditServerAddress.setText(intent.getStringExtra(EDIT_SERVER_ADDRESS));
             mEditServerName.setText(intent.getStringExtra(EDIT_SERVER_NAME));
-            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
                 // Sets long click listeners to avoid ActionBarContextView IllegalStateException
                 // on devices with Android version prior to M,
                 // long click copies EditText content (address) to clipboard
