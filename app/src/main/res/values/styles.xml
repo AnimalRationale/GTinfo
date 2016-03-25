@@ -21,4 +21,9 @@
         <item name="android:background">@color/dark_grey</item>
     </style>
 
+    <style name="customRatingBar" parent="Widget.AppCompat.RatingBar">
+        <item name="android:progressTint">@color/icon_list_orange_light</item>
+        <item name="android:secondaryProgressTint">@color/light_grey</item>
+    </style>
+
 </resources>

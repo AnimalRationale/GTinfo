@@ -72,6 +72,7 @@
                 android:id="@+id/serverRatingBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                style="@style/customRatingBar"
                 android:layout_marginTop="0dp"
                 android:gravity="center_vertical"
                 android:numStars="3"

@@ -5,6 +5,7 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -80,8 +81,13 @@ public class AddGameServerDialogActivity extends Activity implements View.OnClic
             mEditServerName.setTextColor(ContextCompat.getColor(this, R.color.white));
         }
         mEditServerRating = (RatingBar) findViewById(R.id.serverRatingBar);
-        Drawable progress = mEditServerRating.getProgressDrawable();
-        DrawableCompat.setTint(progress, ContextCompat.getColor(this, R.color.icon_list_orange_light));
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            LayerDrawable ratingStar = (LayerDrawable) mEditServerRating.getProgressDrawable();
+            DrawableCompat.setTint(DrawableCompat.wrap(ratingStar.getDrawable(0)),
+                    ContextCompat.getColor(this, R.color.light_grey));  // Empty star
+            DrawableCompat.setTint(DrawableCompat.wrap(ratingStar.getDrawable(2)),
+                    ContextCompat.getColor(this, R.color.icon_list_orange_light));  // Full star
+        }
         getIntentData(getIntent());
     }
 
