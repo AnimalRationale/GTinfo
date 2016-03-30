@@ -91,9 +91,7 @@ public class GameServerItemListFragment extends Fragment {
     public void onResume() {
         super.onResume();
         //Scrolls list to last clicked card if available
-        if (GameServerItemListActivity.getScrollTo() != NO_ITEM) {
-            mLinearLayoutManager.scrollToPositionWithOffset(GameServerItemListActivity.getScrollTo(), 0);
-        }
+        setListPosition(GameServerItemListActivity.getScrollTo());
         if (sServersList.isEmpty()) showEmptyListHint();
     }
 
@@ -171,6 +169,17 @@ public class GameServerItemListFragment extends Fragment {
                 .add(R.id.gameserveritem_detail_container, fragment)
                 .commit();
     }
+
+    private void setListPosition(int selectedItem) {
+        int scrollTo;
+        if (selectedItem != NO_ITEM) {
+            scrollTo = selectedItem - 2;
+            if (scrollTo > 0) {
+                mLinearLayoutManager.scrollToPosition(scrollTo);
+            } else mLinearLayoutManager.scrollToPosition(0);
+        }
+    }
+
 
     // Shows snack bar with hint for adding server to list if list is empty
     private void showEmptyListHint() {
