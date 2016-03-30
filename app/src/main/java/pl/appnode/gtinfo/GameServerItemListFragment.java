@@ -170,6 +170,7 @@ public class GameServerItemListFragment extends Fragment {
                 .commit();
     }
 
+    // Scrolls list to last clicked position plus offset, or to 1st position if offset is not valid
     private void setListPosition(int selectedItem) {
         int scrollTo;
         if (selectedItem != NO_ITEM) {

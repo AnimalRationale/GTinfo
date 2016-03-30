@@ -19,7 +19,7 @@
     <string name="dialog_confirmation_cancel">Cancel</string>
 
     <string name="hint_add_servers_fab">Use orange button to add game server to your list</string>
-    <string name="hint_add_servers_menu">Use orange + on action bar to add game server to your list</string>
+    <string name="hint_add_servers_menu">Use + on action bar to add game server to your list</string>
     <string name="hint_add_servers_action">OK</string>
 
     <string name="menu_action_search">Search</string>
