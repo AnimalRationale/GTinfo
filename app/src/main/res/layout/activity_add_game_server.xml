@@ -38,7 +38,7 @@
             android:inputType="textNoSuggestions|textVisiblePassword"
             android:maxLength="21"
             android:digits="0123456789.:"
-            android:hint="000.000.000.000:00000"
+            android:hint="@string/server_add_address_hint"
             android:layout_marginLeft="34dp"
             android:layout_marginRight="34dp"
             android:textAppearance="?android:attr/textAppearanceLarge">

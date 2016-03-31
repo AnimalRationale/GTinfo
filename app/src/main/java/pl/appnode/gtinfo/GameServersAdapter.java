@@ -145,11 +145,10 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
     }
 
     private int argbColor(int colorResource) {
-        int color = Color.argb(Color.alpha(colorResource),
+        return Color.argb(Color.alpha(colorResource),
                 Color.red(colorResource),
                 Color.green(colorResource),
                 Color.blue(colorResource));
-        return color;
     }
 
     private int setColorFromServerAddress(String address) {
