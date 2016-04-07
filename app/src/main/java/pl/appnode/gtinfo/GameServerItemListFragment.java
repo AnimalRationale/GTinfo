@@ -95,6 +95,14 @@ public class GameServerItemListFragment extends Fragment {
         if (sServersList.isEmpty()) showEmptyListHint();
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        int lastFirstVisiblePosition = ((LinearLayoutManager) recyclerServersList.getLayoutManager())
+                .findFirstCompletelyVisibleItemPosition();
+        GameServerItemListActivity.setScrollTo(lastFirstVisiblePosition);
+    }
+
     // Removes position from list and persistent storage, handles undo action
     private void removeGameServer(final int position) {
         final boolean isFragmentUndo;
@@ -174,7 +182,7 @@ public class GameServerItemListFragment extends Fragment {
     private void setListPosition(int selectedItem) {
         int scrollTo;
         if (selectedItem != NO_ITEM) {
-            scrollTo = selectedItem - 2;
+            scrollTo = selectedItem;
             if (scrollTo > 0) {
                 mLinearLayoutManager.scrollToPosition(scrollTo);
             } else mLinearLayoutManager.scrollToPosition(0);
