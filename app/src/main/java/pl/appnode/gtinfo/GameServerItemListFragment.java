@@ -99,7 +99,8 @@ public class GameServerItemListFragment extends Fragment {
     public void onPause() {
         super.onPause();
         int lastFirstVisiblePosition = ((LinearLayoutManager) recyclerServersList.getLayoutManager())
-                .findFirstCompletelyVisibleItemPosition();
+                .findFirstVisibleItemPosition();
+        // Stores last visible servers list item position
         GameServerItemListActivity.setScrollTo(lastFirstVisiblePosition);
     }
 
@@ -178,15 +179,9 @@ public class GameServerItemListFragment extends Fragment {
                 .commit();
     }
 
-    // Scrolls list to last clicked position plus offset, or to 1st position if offset is not valid
-    private void setListPosition(int selectedItem) {
-        int scrollTo;
-        if (selectedItem != NO_ITEM) {
-            scrollTo = selectedItem;
-            if (scrollTo > 0) {
-                mLinearLayoutManager.scrollToPosition(scrollTo);
-            } else mLinearLayoutManager.scrollToPosition(0);
-        }
+    // Scrolls list to previous first visible position
+    private void setListPosition(int scrollTo) {
+        mLinearLayoutManager.scrollToPosition(scrollTo);
     }
 
 

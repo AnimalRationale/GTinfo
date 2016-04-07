@@ -179,7 +179,6 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
                 Log.d(TAG, "Clicked: " + gameServer.mName + " position: " + position);
                 int oldSelected = GameServerItemListActivity.getSelectedItem();
                 GameServerItemListActivity.setSelectedItem(position);
-                GameServerItemListActivity.setScrollTo(position);
                 if (oldSelected != NO_ITEM) {
                     notifyItemChanged(oldSelected);
                 }
