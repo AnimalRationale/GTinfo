@@ -3,7 +3,7 @@
     android:id="@+id/aboutDialog"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -13,14 +13,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
+            android:layout_alignParentLeft="true"
             android:text="@string/dialog_about_version"
             android:textAppearance="?android:attr/textAppearanceMedium"/>
         <TextView
             android:id="@+id/aboutDialogInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_toRightOf="@id/aboutDialogTextVersion"
             android:text="0.0"
             android:textAppearance="?android:attr/textAppearanceLarge"/>
-    </LinearLayout>
+        <TextView
+            android:id="@+id/aboutDialogServersList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_below="@id/aboutDialogTextVersion"
+            android:text="@string/menu_action_clear_list_empty_info"
+            android:textAppearance="?android:attr/textAppearanceMedium"/>
+    </RelativeLayout>
 </ScrollView>
