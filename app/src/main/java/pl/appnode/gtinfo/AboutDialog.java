@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
+import static pl.appnode.gtinfo.GameServerItemListActivity.sServersList;
+
 /**
  * Shows information dialog with application's icon, name, version and code version
  */
@@ -38,6 +40,11 @@ class AboutDialog {
         View aboutDialog = layoutInflater.inflate(R.layout.dialog_about, null) ;
         TextView textAbout = (TextView) aboutDialog.findViewById(R.id.aboutDialogInfo);
         textAbout.setText(aboutVersion);
+        if (!GameServerItemListActivity.sServersList.isEmpty()) {
+            String serversOnList = "Servers on list: " + GameServerItemListActivity.sServersList.size();
+            TextView textServersList = (TextView) aboutDialog.findViewById(R.id.aboutDialogServersList);
+            textServersList.setText(serversOnList);
+        }
         new AlertDialog.Builder(callingActivity)
                 .setTitle(callingActivity.getResources().getString(R.string.dialog_about_title)
                         + callingActivity.getString(R.string.app_name))
