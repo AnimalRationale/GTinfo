@@ -10,6 +10,7 @@
     <string name="dialog_about_ok">OK</string>
     <string name="dialog_about_version_name_error">\?</string>
     <string name="dialog_about_version_code_error">\?</string>
+    <string name="dialog_about_servers_on_list">Servers: \u0020</string>
 
     <string name="dialog_confirmation_title_01">You have\u0020</string>
     <string name="dialog_confirmation_title_02a">\u0020servers on this list</string>

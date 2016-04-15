@@ -41,7 +41,9 @@ class AboutDialog {
         TextView textAbout = (TextView) aboutDialog.findViewById(R.id.aboutDialogInfo);
         textAbout.setText(aboutVersion);
         if (!GameServerItemListActivity.sServersList.isEmpty()) {
-            String serversOnList = "Servers on list: " + GameServerItemListActivity.sServersList.size();
+            String serversOnList = callingActivity.getResources()
+                    .getString(R.string.dialog_about_servers_on_list)
+                    + GameServerItemListActivity.sServersList.size();
             TextView textServersList = (TextView) aboutDialog.findViewById(R.id.aboutDialogServersList);
             textServersList.setText(serversOnList);
         }

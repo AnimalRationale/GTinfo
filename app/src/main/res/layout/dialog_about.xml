@@ -30,6 +30,6 @@
             android:layout_marginTop="4dp"
             android:layout_below="@id/aboutDialogTextVersion"
             android:text="@string/menu_action_clear_list_empty_info"
-            android:textAppearance="?android:attr/textAppearanceMedium"/>
+            android:textAppearance="?android:attr/textAppearanceSmall"/>
     </RelativeLayout>
 </ScrollView>
