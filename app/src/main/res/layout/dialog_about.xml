@@ -36,6 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/aboutDialogServersList"
             android:gravity="center"
+            android:visibility="gone"
             >
             <RelativeLayout
                 android:id="@+id/aboutDialogRating3"
