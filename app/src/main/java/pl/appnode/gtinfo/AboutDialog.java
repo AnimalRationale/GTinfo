@@ -33,6 +33,14 @@ class AboutDialog {
         }
     }
 
+    private static void showServersListInformation(Context context, View aboutDialog) {
+        String serversOnList = context.getResources()
+                .getString(R.string.dialog_about_servers_on_list)
+                + sServersList.size();
+        TextView textServersList = (TextView) aboutDialog.findViewById(R.id.aboutDialogServersList);
+        textServersList.setText(serversOnList);        
+    }
+
     public static void showDialog(Activity callingActivity) {
         versionInfo(callingActivity);
         String aboutVersion = sVersionName + "." + sVersionCode;
@@ -40,12 +48,8 @@ class AboutDialog {
         View aboutDialog = layoutInflater.inflate(R.layout.dialog_about, null) ;
         TextView textAbout = (TextView) aboutDialog.findViewById(R.id.aboutDialogInfo);
         textAbout.setText(aboutVersion);
-        if (!GameServerItemListActivity.sServersList.isEmpty()) {
-            String serversOnList = callingActivity.getResources()
-                    .getString(R.string.dialog_about_servers_on_list)
-                    + GameServerItemListActivity.sServersList.size();
-            TextView textServersList = (TextView) aboutDialog.findViewById(R.id.aboutDialogServersList);
-            textServersList.setText(serversOnList);
+        if (!sServersList.isEmpty()) {
+            showServersListInformation(callingActivity, aboutDialog);
         }
         new AlertDialog.Builder(callingActivity)
                 .setTitle(callingActivity.getResources().getString(R.string.dialog_about_title)
