@@ -62,12 +62,18 @@ class AboutDialog {
         if (rating1 + rating2 + rating3 > 0) {
             View ratings = aboutDialog.findViewById(R.id.aboutDialogRatings);
             ratings.setVisibility(View.VISIBLE);
-            TextView rating1Text = (TextView) aboutDialog.findViewById(R.id.aboutDialogRating1Text);
-            rating1Text.setText("" + rating1);
-            TextView rating2Text = (TextView) aboutDialog.findViewById(R.id.aboutDialogRating2Text);
-            rating2Text.setText("" + rating2);
-            TextView rating3Text = (TextView) aboutDialog.findViewById(R.id.aboutDialogRating3Text);
-            rating3Text.setText("" + rating3);
+            if (rating1 > 0) {
+                TextView rating1Text = (TextView) aboutDialog.findViewById(R.id.aboutDialogRating1Text);
+                rating1Text.setText("" + rating1);
+            }
+            if (rating2 > 0) {
+                TextView rating2Text = (TextView) aboutDialog.findViewById(R.id.aboutDialogRating2Text);
+                rating2Text.setText("" + rating2);
+            }
+            if (rating3 > 0) {
+                TextView rating3Text = (TextView) aboutDialog.findViewById(R.id.aboutDialogRating3Text);
+                rating3Text.setText("" + rating3);
+            }
         }
     }
 
