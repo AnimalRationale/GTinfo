@@ -10,6 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
+import static pl.appnode.gtinfo.Constants.RATING_1_STAR;
+import static pl.appnode.gtinfo.Constants.RATING_2_STARS;
+import static pl.appnode.gtinfo.Constants.RATING_3_STARS;
 import static pl.appnode.gtinfo.GameServerItemListActivity.sServersList;
 
 /**
@@ -38,7 +41,34 @@ class AboutDialog {
                 .getString(R.string.dialog_about_servers_on_list)
                 + sServersList.size();
         TextView textServersList = (TextView) aboutDialog.findViewById(R.id.aboutDialogServersList);
-        textServersList.setText(serversOnList);        
+        textServersList.setText(serversOnList);
+        int rating1 = 0, rating2 = 0, rating3 = 0;
+        for (int i = 0; i < sServersList.size(); i++ ) {
+            GameServerItem server = sServersList.get(i);
+            switch (server.mRating) {
+                case RATING_3_STARS:
+                    rating3++;
+                    break;
+                case RATING_2_STARS:
+                    rating2++;
+                    break;
+                case RATING_1_STAR:
+                    rating1++;
+                    break;
+                default:
+                    break;
+            }
+        }
+        if (rating1 + rating2 + rating3 > 0) {
+            View ratings = aboutDialog.findViewById(R.id.aboutDialogRatings);
+            ratings.setVisibility(View.VISIBLE);
+            TextView rating1Text = (TextView) aboutDialog.findViewById(R.id.aboutDialogRating1Text);
+            rating1Text.setText("" + rating1);
+            TextView rating2Text = (TextView) aboutDialog.findViewById(R.id.aboutDialogRating2Text);
+            rating2Text.setText("" + rating2);
+            TextView rating3Text = (TextView) aboutDialog.findViewById(R.id.aboutDialogRating3Text);
+            rating3Text.setText("" + rating3);
+        }
     }
 
     public static void showDialog(Activity callingActivity) {

@@ -32,6 +32,7 @@
             android:text="@string/menu_action_clear_list_empty_info"
             android:textAppearance="?android:attr/textAppearanceSmall"/>
         <RelativeLayout
+            android:id="@+id/aboutDialogRatings"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/aboutDialogServersList"
@@ -52,7 +53,7 @@
                     android:background="@drawable/ic_star_full_grey_48px"
                     />
                 <TextView
-                    android:id="@+id/aboutDialogRating3text"
+                    android:id="@+id/aboutDialogRating3Text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignLeft="@+id/aboutDialogRating3Image"
@@ -61,7 +62,7 @@
                     android:layout_alignBottom="@+id/aboutDialogRating3Image"
                     android:gravity="center"
                     android:paddingTop="2dp"
-                    android:text="3"
+                    android:text="0"
                     android:textAppearance="?android:attr/textAppearanceSmall"/>
             </RelativeLayout>
             <RelativeLayout
@@ -80,7 +81,7 @@
                     android:background="@drawable/ic_star_half_grey_48px"
                     />
                 <TextView
-                    android:id="@+id/aboutDialogRating2text"
+                    android:id="@+id/aboutDialogRating2Text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignLeft="@+id/aboutDialogRating2Image"
@@ -89,7 +90,7 @@
                     android:layout_alignBottom="@+id/aboutDialogRating2Image"
                     android:gravity="center"
                     android:paddingTop="2dp"
-                    android:text="2"
+                    android:text="0"
                     android:textAppearance="?android:attr/textAppearanceSmall"/>
             </RelativeLayout>
             <RelativeLayout
@@ -108,7 +109,7 @@
                     android:background="@drawable/ic_star_border_grey_48px"
                     />
                 <TextView
-                    android:id="@+id/aboutDialogRating1text"
+                    android:id="@+id/aboutDialogRating1Text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignLeft="@+id/aboutDialogRating1Image"
@@ -117,7 +118,7 @@
                     android:layout_alignBottom="@+id/aboutDialogRating1Image"
                     android:gravity="center"
                     android:paddingTop="2dp"
-                    android:text="1"
+                    android:text="0"
                     android:textAppearance="?android:attr/textAppearanceSmall"/>
             </RelativeLayout>
         </RelativeLayout>
