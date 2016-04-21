@@ -52,6 +52,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:paddingBottom="6dp"
+            android:paddingTop="2dp"
             android:layout_toRightOf="@id/server_label"
             android:gravity="left"
             android:text="@string/card_server_name_default"
@@ -65,6 +66,7 @@
             android:layout_marginBottom="0dp"
             android:layout_toRightOf="@id/server_label"
             android:layout_alignParentBottom="true"
+            android:paddingBottom="8dp"
             android:gravity="left"
             android:text="@string/card_server_address_default"
             android:textSize="12sp" />
