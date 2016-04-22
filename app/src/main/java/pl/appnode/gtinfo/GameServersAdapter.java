@@ -167,7 +167,9 @@ public class GameServersAdapter extends RecyclerView.Adapter<GameServersAdapter.
         if (GameServerItemListActivity.isPhone()
                 && configuration.orientation == Configuration.ORIENTATION_LANDSCAPE ) {
             cardLayout = R.layout.card_layout_landscape;
-        } else cardLayout = R.layout.card_layout;
+        } else if (GameServerItemListActivity.isPhone()) {
+            cardLayout = R.layout.card_layout;
+        } else cardLayout = R.layout.card_layout_tablet;
         final View itemView = LayoutInflater.
                 from(viewGroup.getContext()).
                 inflate(cardLayout, viewGroup, false);
