@@ -111,8 +111,12 @@ public class GameServerItemListActivity extends AppCompatActivity
         }
         themeSetup(this);
         sThemeChangeFlag = isDarkTheme(this);
-        // Check for handset in landscape
+        // Check for handset
         Configuration configuration = getResources().getConfiguration();
+        if (configuration.smallestScreenWidthDp < 600) {
+            sPhone = true;
+        }
+        // Check for handset in landscape
         if (configuration.smallestScreenWidthDp < 600
                 && configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
             setContentView(R.layout.activity_gameserveritem_list_landscape);
