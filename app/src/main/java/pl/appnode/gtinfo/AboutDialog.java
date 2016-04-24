@@ -67,30 +67,30 @@ class AboutDialog {
         if (rating1 + rating2 + rating3 > 0) {
             View ratings = aboutDialog.findViewById(R.id.aboutDialogRatings);
             ratings.setVisibility(View.VISIBLE);
-            int ratingIconColor = argbColor(ContextCompat
-                    .getColor(context, R.color.icon_list_orange_light));
             if (rating1 > 0) {
                 TextView rating1Text = (TextView) aboutDialog.findViewById(R.id.aboutDialogRating1Text);
                 rating1Text.setText("" + rating1);
-                ImageView image = (ImageView) aboutDialog.findViewById(R.id.aboutDialogRating1Image);
-                final Drawable imageBackground = image.getBackground();
-                imageBackground.setColorFilter(ratingIconColor, PorterDuff.Mode.SRC_IN);
+                ratingImageColor(R.id.aboutDialogRating1Image, aboutDialog, context);
             }
             if (rating2 > 0) {
                 TextView rating2Text = (TextView) aboutDialog.findViewById(R.id.aboutDialogRating2Text);
                 rating2Text.setText("" + rating2);
-                ImageView image = (ImageView) aboutDialog.findViewById(R.id.aboutDialogRating2Image);
-                final Drawable imageBackground = image.getBackground();
-                imageBackground.setColorFilter(ratingIconColor, PorterDuff.Mode.SRC_IN);
+                ratingImageColor(R.id.aboutDialogRating2Image, aboutDialog, context);
             }
             if (rating3 > 0) {
                 TextView rating3Text = (TextView) aboutDialog.findViewById(R.id.aboutDialogRating3Text);
                 rating3Text.setText("" + rating3);
-                ImageView image = (ImageView) aboutDialog.findViewById(R.id.aboutDialogRating3Image);
-                final Drawable imageBackground = image.getBackground();
-                imageBackground.setColorFilter(ratingIconColor, PorterDuff.Mode.SRC_IN);
+                ratingImageColor(R.id.aboutDialogRating3Image, aboutDialog, context);
             }
         }
+    }
+
+    private static void ratingImageColor(int imageResource, View aboutDialog, Context context) {
+        int ratingIconColor = argbColor(ContextCompat
+                .getColor(context, R.color.icon_list_orange_light));
+        ImageView image = (ImageView) aboutDialog.findViewById(imageResource);
+        final Drawable imageBackground = image.getBackground();
+        imageBackground.setColorFilter(ratingIconColor, PorterDuff.Mode.SRC_IN);
     }
 
     private static int argbColor(int colorResource) {
