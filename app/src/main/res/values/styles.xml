@@ -5,6 +5,7 @@
         <item name="android:windowActionBar">false</item>
         <item name="android:windowBackground">@color/white</item>
         <item name="android:itemBackground">@color/light_grey</item>
+        <item name="android:textColor">@color/dark_grey</item>
     </style>
 
     <style name="AppThemeDark" parent="Theme.AppCompat.DayNight.DarkActionBar">

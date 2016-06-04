@@ -17,7 +17,7 @@
             android:id="@+id/detail_server_rating_and_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/icon_orange">
+            android:background="@color/dark_grey">
             <ImageView
                 android:id="@+id/image_rating_detail"
                 android:layout_height="18dp"

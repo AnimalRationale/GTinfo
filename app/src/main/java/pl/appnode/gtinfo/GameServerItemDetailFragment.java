@@ -117,7 +117,7 @@ public class GameServerItemDetailFragment extends Fragment {
         // Prepares data for detail view, depending on device configuration and user settings
         if (!GameServerItemListActivity.isTwoPaneMode()) {
             serverName.setText(mItem.mName);
-            serverName.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.icon_orange));
+            serverName.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.dark_grey));
             serverRating.setImageDrawable(serverRatingImage(mItem.mRating));
             int backgroundRatingIconColor = setColorFromServerAddress(mItem.mId);
             final GradientDrawable imageBackground = (GradientDrawable) serverRating.getBackground();
@@ -129,8 +129,9 @@ public class GameServerItemDetailFragment extends Fragment {
             detailBackground.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.black));
             mKeyPrefix = "dark-";
         } else {
-            mKeyPrefix = "light-";
             detailBackground.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.white));
+            serverName.setTextColor(ContextCompat.getColor(getActivity(), R.color.light_grey));
+            mKeyPrefix = "light-";
         }
         mGameServerWebView = (WebView) rootView.findViewById(R.id.gameServerInfoWebview);
         showServerInfo();
