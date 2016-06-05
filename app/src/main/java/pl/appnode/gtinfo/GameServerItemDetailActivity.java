@@ -112,6 +112,8 @@ public class GameServerItemDetailActivity extends AppCompatActivity {
         if (id == R.id.action_share_server) {
             shareServer();
         }
+        if (id == R.id.action_edit_server) {
+        }
         return super.onOptionsItemSelected(item);
     }
 

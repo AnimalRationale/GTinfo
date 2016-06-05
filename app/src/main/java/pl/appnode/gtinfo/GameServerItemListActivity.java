@@ -228,6 +228,9 @@ public class GameServerItemListActivity extends AppCompatActivity
             menuAddServer.setVisible(false);
             // Hiding action button for sharing server in one pane mode
             menuShareServer.setVisible(false);
+            // Hiding action button for edit server description in one pane mode
+            MenuItem menuEditServer = menu.findItem(R.id.action_edit_server);
+            menuEditServer.setVisible(false);
         }
         return true;
     }

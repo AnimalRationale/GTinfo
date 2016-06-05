@@ -117,7 +117,7 @@ public class GameServerItemDetailFragment extends Fragment {
         // Prepares data for detail view, depending on device configuration and user settings
         if (!GameServerItemListActivity.isTwoPaneMode()) {
             serverName.setText(mItem.mName);
-            serverName.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.dark_grey));
+            serverName.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.dark_action_bar));
             serverRating.setImageDrawable(serverRatingImage(mItem.mRating));
             int backgroundRatingIconColor = setColorFromServerAddress(mItem.mId);
             final GradientDrawable imageBackground = (GradientDrawable) serverRating.getBackground();
