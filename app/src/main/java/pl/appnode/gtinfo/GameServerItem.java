@@ -16,4 +16,8 @@ class GameServerItem {
 
     /** Server rating */
     String mRating;
+
+    public String getServerAddress() {
+        return mId;
+    }
 }

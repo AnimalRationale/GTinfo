@@ -11,9 +11,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import static pl.appnode.gtinfo.Constants.ADDED_SERVER_RATING;
 import static pl.appnode.gtinfo.Constants.ADD_SERVER_INTENT_REQUEST;
+import static pl.appnode.gtinfo.Constants.EDIT_SERVER_ADDRESS;
+import static pl.appnode.gtinfo.Constants.EDIT_SERVER_INTENT_REQUEST;
+import static pl.appnode.gtinfo.Constants.EDIT_SERVER_LIST_POSITION;
+import static pl.appnode.gtinfo.Constants.EDIT_SERVER_NAME;
+import static pl.appnode.gtinfo.Constants.EDIT_SERVER_RATING;
 import static pl.appnode.gtinfo.Constants.FRAGMENT_ARG_ITEM_ID;
 import static pl.appnode.gtinfo.Constants.NO_ITEM;
+import static pl.appnode.gtinfo.GameServerItemListActivity.sServersList;
 import static pl.appnode.gtinfo.PreferencesSetupHelper.isDarkTheme;
 import static pl.appnode.gtinfo.PreferencesSetupHelper.orientationSetup;
 import static pl.appnode.gtinfo.PreferencesSetupHelper.themeSetup;
@@ -113,6 +120,7 @@ public class GameServerItemDetailActivity extends AppCompatActivity {
             shareServer();
         }
         if (id == R.id.action_edit_server) {
+            editServerData();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -146,6 +154,43 @@ public class GameServerItemDetailActivity extends AppCompatActivity {
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
+        }
+    }
+
+    void editServerData() {
+        int position = getIntent().getIntExtra(FRAGMENT_ARG_ITEM_ID, NO_ITEM);
+        if (position != NO_ITEM) {
+            GameServerItem gameServer = sServersList.get(position);
+            Intent settingsIntent = new Intent(this, AddGameServerDialogActivity.class);
+            settingsIntent.putExtra(EDIT_SERVER_ADDRESS, gameServer.mId);
+            settingsIntent.putExtra(EDIT_SERVER_NAME, gameServer.mName);
+            settingsIntent.putExtra(EDIT_SERVER_RATING, gameServer.mRating);
+            settingsIntent.putExtra(EDIT_SERVER_LIST_POSITION, position);
+            startActivityForResult(settingsIntent, EDIT_SERVER_INTENT_REQUEST);
+        }
+    }
+
+    /**
+     * Handles results from AddGameServerDialogActivity after server data edit.
+     *
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent resultIntent) {
+        if (requestCode == EDIT_SERVER_INTENT_REQUEST && resultCode == RESULT_OK
+                && resultIntent.getExtras() != null) {
+            String serverAddress = resultIntent.getStringExtra(EDIT_SERVER_ADDRESS);
+            String serverName = resultIntent.getStringExtra(EDIT_SERVER_NAME);
+            String serverRating = resultIntent.getStringExtra(ADDED_SERVER_RATING);
+            int position = resultIntent.getIntExtra(EDIT_SERVER_LIST_POSITION, NO_ITEM);
+            // Save edited server data
+            if (position != NO_ITEM) {GameServerItemListActivity.saveServerData(serverAddress, serverName, serverRating, position);}
+            // Search for current item new position on servers list after list sort in saveServerData
+            for (int i = 0; i < sServersList.size(); i++) {
+                if (sServersList.get(i).getServerAddress().contains(serverAddress)) {
+                    GameServerItemListActivity.setSelectedItem(i);
+                    i = sServersList.size();
+                }
+            }
         }
     }
 

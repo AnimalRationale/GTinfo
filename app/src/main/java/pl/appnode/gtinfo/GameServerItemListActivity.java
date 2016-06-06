@@ -583,7 +583,7 @@ public class GameServerItemListActivity extends AppCompatActivity
 
     // Saves new item in data set or modifies existing data (if server address is edited
     // then removes old item and saves new one; server IP:PORT address is ID key for data set)
-    private void saveServerData(String address, String name, String rating, int position) {
+    static void saveServerData(String address, String name, String rating, int position) {
         SharedPreferences serversPrefs = AppContextHelper.getContext().getSharedPreferences(SERVERS_PREFS_FILE, MODE_PRIVATE);
         SharedPreferences.Editor editor = serversPrefs.edit();
         editor.putString(address, rating + " " + name);
@@ -634,7 +634,7 @@ public class GameServerItemListActivity extends AppCompatActivity
         }
     }
 
-    private void sortGameServersList() {
+    private static void sortGameServersList() {
         Collections.sort(sServersList, new Comparator<GameServerItem>() {
             @Override
             public int compare(GameServerItem server1, GameServerItem server2) {
