@@ -158,7 +158,7 @@ public class GameServerItemDetailActivity extends AppCompatActivity {
     }
 
     void editServerData() {
-        int position = getIntent().getIntExtra(FRAGMENT_ARG_ITEM_ID, NO_ITEM);
+        int position = GameServerItemListActivity.getSelectedItem();
         if (position != NO_ITEM) {
             GameServerItem gameServer = sServersList.get(position);
             Intent settingsIntent = new Intent(this, AddGameServerDialogActivity.class);
