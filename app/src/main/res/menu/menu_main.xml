@@ -28,7 +28,8 @@
         android:id="@+id/action_edit_server"
         android:title="@string/menu_action_edit_server"
         android:orderInCategory="90"
-        app:showAsAction="never" />
+        android:icon="@drawable/ic_mode_edit_white_24dp"
+        app:showAsAction="always" />
     <item
         android:id="@+id/action_settings"
         android:title="@string/menu_action_settings"

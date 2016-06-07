@@ -38,7 +38,7 @@
                 android:layout_marginLeft="0dip"
                 android:gravity="center_vertical|center_horizontal"
                 android:text="@string/card_server_name_default"
-                android:textStyle="bold"
+
                 android:textSize="20sp"
                 />
         </RelativeLayout>
